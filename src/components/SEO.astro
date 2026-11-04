@@ -1,0 +1,44 @@
+---
+import { settings } from '../lib/settings';
+import { pick, locales, defaultLocale, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description?: string | undefined;
+  /** Adresse de la même page dans chaque langue. Absent : pas de hreflang (ex. 404). */
+  alternates?: Record<Locale, string> | undefined;
+  image?: string | undefined;
+  noindex?: boolean | undefined;
+}
+
+const { lang, title, description, alternates, image, noindex = false } = Astro.props;
+const site = Astro.site ?? new URL(Astro.url.origin);
+const siteName = settings.sigle;
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+const desc = description && description.trim() !== '' ? description : pick(settings.descriptionSeo, lang);
+const canonical = new URL(alternates ? alternates[lang] : Astro.url.pathname, site).href;
+const ogImageSrc = image ?? settings.imageOg?.src;
+const ogImage = ogImageSrc ? new URL(ogImageSrc, site).href : undefined;
+const ogImageAlt = !image && settings.imageOg ? pick(settings.imageOg.alt, lang) : undefined;
+const ogLocale = lang === 'fr' ? 'fr_CD' : 'en_US';
+---
+<title>{fullTitle}</title>
+<meta name="description" content={desc} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+{alternates && locales.map((l) => (
+  <link rel="alternate" hreflang={l} href={new URL(alternates[l], site).href} />
+))}
+{alternates && <link rel="alternate" hreflang="x-default" href={new URL(alternates[defaultLocale], site).href} />}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={desc} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={ogLocale} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+{ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+{settings.favicon && <link rel="icon" href={settings.favicon} />}

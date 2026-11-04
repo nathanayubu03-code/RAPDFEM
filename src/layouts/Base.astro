@@ -1,0 +1,39 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, type Locale, type PageKey } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description?: string | undefined;
+  pageKey: PageKey | null;
+  alternates?: Record<Locale, string> | undefined;
+  image?: string | undefined;
+  noindex?: boolean | undefined;
+  /** Vrai si la page anglaise affiche du contenu français. */
+  fallback?: boolean | undefined;
+}
+const { lang, title, description, pageKey, alternates, image, noindex, fallback = false } = Astro.props;
+---
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <SEO lang={lang} title={title} description={description} alternates={alternates} image={image} noindex={noindex} />
+  </head>
+  <body>
+    <Header lang={lang} pageKey={pageKey} alternates={alternates} />
+    {fallback && (
+      <div class="notice"><p class="wrap">{t(lang, 'site.notInEnglish')}</p></div>
+    )}
+    <main id="main" tabindex="-1" lang={fallback ? 'fr' : undefined}>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, pagePath, type PageKey } from '../i18n';
+import type { UIKey } from '../i18n/fr';
+
+const lang = 'fr' as const;
+const useful: { key: PageKey; label: UIKey }[] = [
+  { key: 'projects', label: 'notFound.projects' },
+  { key: 'news', label: 'nav.news' },
+  { key: 'reports', label: 'footer.reportsLong' },
+  { key: 'contact', label: 'nav.contact' },
+];
+---
+<Base lang={lang} title={t(lang, 'notFound.title')} pageKey={null} noindex>
+  <section class="sec page404">
+    <div class="wrap"><div class="stack-l narrow">
+      <div class="stack">
+        <p class="kicker">{t(lang, 'notFound.kicker')}</p>
+        <h1>{t(lang, 'notFound.title')}</h1>
+        <p class="lead">{t(lang, 'notFound.text')}</p>
+      </div>
+      <div class="row">
+        <a class="btn btn-p btn-full-m" href={pagePath(lang, 'home')}>{t(lang, 'notFound.back')}</a>
+        <a class="btn btn-s btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'notFound.report')}</a>
+      </div>
+      <div class="stack-s">
+        <h2 class="useful-t">{t(lang, 'notFound.useful')}</h2>
+        <ul class="plain useful">
+          {useful.map((u) => <li><a class="lnk" href={pagePath(lang, u.key)}>{t(lang, u.label)}</a></li>)}
+        </ul>
+      </div>
+      <p class="small muted" lang="en">
+        {t('en', 'notFound.title')}. <a href={pagePath('en', 'home')} hreflang="en">{t('en', 'notFound.back')}</a>
+      </p>
+    </div></div>
+  </section>
+</Base>
+<style>
+  .page404 { padding-top: 56px; padding-bottom: 56px; }
+  .useful-t { font-size: 18px; }
+  .useful { display: flex; flex-wrap: wrap; gap: 0 24px; }
+  .useful a { display: inline-flex; align-items: center; min-height: 44px; }
+  @media (min-width: 1024px) {
+    .page404 { padding-top: 96px; padding-bottom: 96px; }
+    .useful-t { font-size: 20px; }
+  }
+</style>

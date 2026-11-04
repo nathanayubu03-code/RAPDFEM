@@ -1,0 +1,19 @@
+---
+import { settings } from '../lib/settings';
+import { pick, type Locale } from '../i18n';
+
+interface Props { lang: Locale; dark?: boolean; }
+const { lang, dark = false } = Astro.props;
+const img = dark ? (settings.logoFondSombre ?? settings.logo) : settings.logo;
+---
+{img
+  ? <img class="logo-img" src={img.src} alt={pick(img.alt, lang)} width="140" height="56" />
+  : <span class="logo-txt">{settings.sigle}</span>}
+<style>
+  .logo-img { width: auto; height: 40px; }
+  .logo-txt { font-size: 22px; font-weight: 700; letter-spacing: .02em; line-height: 1; }
+  @media (min-width: 1024px) {
+    .logo-img { height: 56px; }
+    .logo-txt { font-size: 26px; }
+  }
+</style>

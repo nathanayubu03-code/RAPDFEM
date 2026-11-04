@@ -1,0 +1,75 @@
+---
+import Logo from './Logo.astro';
+import { settings, telHref } from '../lib/settings';
+import { t, pick, pagePath, footerNav, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const hasContact = settings.courriels.length > 0 || settings.telephones.length > 0;
+---
+<footer class="ft">
+  <div class="ft-in">
+    <div class="ft-col">
+      <div class="ft-logo"><Logo lang={lang} dark /></div>
+      {pick(settings.presentationCourte, lang) && <p>{pick(settings.presentationCourte, lang)}</p>}
+    </div>
+    {hasContact && (
+      <div class="ft-col">
+        <h2>{t(lang, 'footer.contact')}</h2>
+        <ul class="plain">
+          {settings.courriels.map((m) => <li><a href={`mailto:${m}`}>{m}</a></li>)}
+          {settings.telephones.map((p) => <li><a href={telHref(p)}>{p}</a></li>)}
+        </ul>
+      </div>
+    )}
+    {settings.bureaux.length > 0 && (
+      <div class="ft-col">
+        <h2>{t(lang, 'footer.offices')}</h2>
+        {settings.bureaux.map((b) => <p><b>{pick(b.nom, lang)} :</b> {pick(b.adresse, lang)}</p>)}
+      </div>
+    )}
+    <nav class="ft-col" aria-label={t(lang, 'site.footerNav')}>
+      <h2>{t(lang, 'footer.links')}</h2>
+      <ul class="plain ft-links">
+        {footerNav.map((l) => <li><a href={pagePath(lang, l.key)}>{t(lang, l.label)}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="ft-bot">
+    <p>© {year} {settings.sigle}</p>
+    {settings.reseauxSociaux.length > 0 && (
+      <ul class="plain row" aria-label={t(lang, 'footer.social')}>
+        {settings.reseauxSociaux.map((s) => <li><a href={s.url} rel="noopener">{s.reseau}</a></li>)}
+      </ul>
+    )}
+  </div>
+</footer>
+
+<style>
+  .ft { background: var(--c-footer); color: #FFFFFF; font-size: 14px; line-height: 1.6; }
+  .ft a { color: #FFFFFF; }
+  .ft a:hover { color: #FFFFFF; text-decoration-thickness: 2px; }
+  .ft-in {
+    display: grid; gap: 24px;
+    max-width: calc(var(--content-max) + 2 * var(--gutter)); margin: 0 auto;
+    padding: 40px var(--gutter);
+  }
+  .ft h2 { margin-bottom: 8px; font-size: 16px; color: #FFFFFF; }
+  .ft-logo { margin-bottom: 12px; }
+  .ft-col p + p { margin-top: 8px; }
+  .ft-links a { display: inline-block; padding: 10px 0; }
+  .ft-bot {
+    display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+    max-width: calc(var(--content-max) + 2 * var(--gutter)); margin: 0 auto;
+    padding: 16px var(--gutter); border-top: 1px solid var(--c-footer-line);
+  }
+  .ft-bot .row { gap: 8px 16px; }
+  @media (min-width: 768px) {
+    .ft-in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .ft-in { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, .8fr); gap: 32px; padding: 56px var(--gutter); }
+    .ft-links a { padding: 4px 0; }
+  }
+</style>

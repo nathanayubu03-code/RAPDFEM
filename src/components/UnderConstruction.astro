@@ -1,0 +1,12 @@
+---
+import { t, type Locale } from '../i18n';
+interface Props { lang: Locale; title: string; }
+const { lang, title } = Astro.props;
+---
+<section class="sec">
+  <div class="wrap"><div class="stack narrow">
+    <span class="badge">{t(lang, 'site.underConstruction')}</span>
+    <h1>{title}</h1>
+    <p class="lead">{t(lang, 'site.underConstructionText')}</p>
+  </div></div>
+</section>

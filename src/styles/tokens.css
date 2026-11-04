@@ -1,0 +1,35 @@
+/* Jetons repris tels quels de la planche de référence Claude Design (maquette v1). */
+:root {
+  --c-text: #1F2328;
+  --c-text-2: #4B5563;
+  --c-bg: #FFFFFF;
+  --c-surface: #F5F6F7;
+  --c-border: #D1D5DB;
+  --c-border-strong: #6B7280;
+  --c-accent: #1D4ED8;
+  --c-accent-hover: #1E3A8A;
+  --c-on-accent: #FFFFFF;
+  --c-footer: #1F2328;
+  --c-footer-line: #4B5563;
+  --c-error: #B42318;
+
+  --font: 'Noto Sans', Arial, Helvetica, sans-serif;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+
+  --radius: 4px;
+  --radius-chip: 22px;
+  --tap: 44px;
+  --content-max: 1120px;
+
+  /* Marges latérales et sections : mobile par défaut. */
+  --gutter: 16px;
+  --section-y: 40px;
+}
+@media (min-width: 768px) {
+  :root { --gutter: 24px; --section-y: 56px; }
+}
+@media (min-width: 1024px) {
+  :root { --gutter: 80px; --section-y: 64px; }
+}
