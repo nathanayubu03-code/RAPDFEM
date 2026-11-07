@@ -71,58 +71,64 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
 <style>
   .skip {
     position: absolute; left: 16px; top: -100px; z-index: 10;
-    padding: 12px 16px; background: var(--c-text); color: #FFFFFF;
+    padding: 12px 16px; background: var(--c-gold); color: var(--c-header);
     font-weight: 700; border-radius: var(--radius);
   }
-  .skip:focus { top: 8px; color: #FFFFFF; }
+  .skip:focus { top: 8px; color: var(--c-header); }
 
-  .hd { border-top: 4px solid var(--c-gold); border-bottom: 1px solid var(--c-border); background: var(--c-bg); }
+  /* En-tête bleu profond, lueur d'or : filet en haut, page active et focus en or. */
+  .hd { border-top: 4px solid var(--c-gold); background: var(--c-header); color: #FFFFFF; }
+  .hd :focus-visible { outline-color: var(--c-gold); }
   .hd-in {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
     min-height: 64px; max-width: calc(var(--content-max) + 2 * var(--gutter));
     margin: 0 auto; padding: 8px var(--gutter);
   }
-  .logo { display: flex; align-items: center; flex: none; min-height: var(--tap); color: var(--c-text); text-decoration: none; }
-  .logo:hover { color: var(--c-accent); }
+  .logo { display: flex; align-items: center; flex: none; min-height: var(--tap); color: #FFFFFF; text-decoration: none; }
+  .logo:hover { color: var(--c-gold); }
   /* Petits téléphones : le logo seul, pour laisser la place à la langue et au menu. */
   @media (max-width: 419px) { .logo :global(.logo-txt) { display: none; } }
   .hd-r { display: flex; align-items: center; gap: 8px; }
 
-  .lang { display: inline-flex; flex: none; border: 1px solid var(--c-border-strong); border-radius: var(--radius); overflow: hidden; }
+  .lang { display: inline-flex; flex: none; border: 1px solid var(--c-header-soft); border-radius: var(--radius); overflow: hidden; }
   .lang a {
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 44px; min-height: 42px; font-size: 14px; font-weight: 700;
-    color: var(--c-text); text-decoration: none;
+    color: #FFFFFF; text-decoration: none;
   }
-  .lang a[aria-current] { background: var(--c-text); color: #FFFFFF; }
+  .lang a:hover { color: var(--c-gold); }
+  .lang a[aria-current] { background: var(--c-gold); color: var(--c-header); }
 
   /* Sans JavaScript, le menu mobile reste visible et le bouton est masqué. */
   .burger {
     display: none; align-items: center; gap: 6px; min-height: var(--tap); padding: 0 12px;
-    border: 1px solid var(--c-border-strong); border-radius: var(--radius);
-    background: var(--c-bg); color: var(--c-text); font: 700 14px/1 var(--font); cursor: pointer;
+    border: 1px solid var(--c-header-soft); border-radius: var(--radius);
+    background: transparent; color: #FFFFFF; font: 700 14px/1 var(--font); cursor: pointer;
   }
+  .burger:hover { border-color: var(--c-gold); color: var(--c-gold); }
   :global(.js) .burger { display: inline-flex; }
   :global(.js) .mnav:not(.open) { display: none; }
 
+  .mnav { background: var(--c-header); }
   .mnav a {
     display: flex; align-items: center; min-height: 48px; padding: 0 var(--gutter);
-    border-top: 1px solid var(--c-border); color: var(--c-text); font-weight: 700; text-decoration: none;
+    border-top: 1px solid rgba(255, 255, 255, .15); color: #FFFFFF; font-weight: 700; text-decoration: none;
   }
-  .mnav a[aria-current] { color: var(--c-accent); box-shadow: inset 4px 0 0 var(--c-accent); }
+  .mnav a:hover { color: var(--c-gold); }
+  .mnav a[aria-current] { color: var(--c-gold); box-shadow: inset 4px 0 0 var(--c-gold); }
 
   .nav { display: none; }
 
-  /* Menu horizontal : à partir de 1200 px, les 7 entrées tiennent sur une ligne. */
-  @media (min-width: 1200px) {
-    .hd-in { min-height: 80px; padding: 12px var(--gutter); gap: 24px; }
+  /* Menu horizontal : à partir de 1280 px, les 8 entrées tiennent sur une ligne. */
+  @media (min-width: 1280px) {
+    .hd-in { min-height: 80px; padding: 12px var(--gutter); gap: 20px; }
     .nav { display: flex; align-items: center; flex: 1; justify-content: flex-end; }
     .nav a {
-      display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 12px;
-      color: var(--c-text); font-size: 15px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 10px;
+      color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none; white-space: nowrap;
     }
-    .nav a:hover { color: var(--c-accent); }
-    .nav a[aria-current] { color: var(--c-accent); box-shadow: inset 0 -3px 0 var(--c-accent); }
+    .nav a:hover { color: var(--c-gold); }
+    .nav a[aria-current] { color: var(--c-gold); box-shadow: inset 0 -3px 0 var(--c-gold); }
     .burger, :global(.js) .burger { display: none; }
     .mnav, :global(.js) .mnav.open { display: none; }
   }

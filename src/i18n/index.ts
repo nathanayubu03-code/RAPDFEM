@@ -70,10 +70,10 @@ export function keyFromSlug(lang: Locale, slug: string): SectionKey | undefined 
   return entry ? (entry[0] as SectionKey) : undefined;
 }
 
-/* Menu mobile : toutes les pages. Menu ordinateur : 7 entrées.
+/* Menu mobile : toutes les pages. Menu ordinateur : 8 entrées, Accueil en premier.
    Événements et Galerie sont rattachés à Actualités, Partenaires et FAQ à À propos. */
 export const mobileNav: readonly PageKey[] = pageKeys.filter((k) => k !== 'activities');
-export const desktopNav: readonly PageKey[] = ['about', 'projects', 'zones', 'news', 'reports', 'offers', 'contact'];
+export const desktopNav: readonly PageKey[] = ['home', 'about', 'projects', 'zones', 'news', 'reports', 'offers', 'contact'];
 export const navGroup: Partial<Record<PageKey, PageKey>> = {
   events: 'news', gallery: 'news', partners: 'about', faq: 'about', activities: 'projects',
 };
