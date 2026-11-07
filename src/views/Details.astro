@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import Fiche from '../components/Fiche.astro';
+import { estCloturee, titreDe } from '../lib/contenu';
+import { t, pick, detailPath, formatDate, type Locale } from '../i18n';
+
+// Pages de détail des actualités, événements, activités et offres.
+type Props =
+  | { lang: Locale; kind: 'news'; entry: CollectionEntry<'actualites'> }
+  | { lang: Locale; kind: 'events'; entry: CollectionEntry<'evenements'> }
+  | { lang: Locale; kind: 'activities'; entry: CollectionEntry<'activites'> }
+  | { lang: Locale; kind: 'offers'; entry: CollectionEntry<'offres'> };
+const props = Astro.props;
+const { lang } = props;
+
+const imgDe = (x: { image: CollectionEntry<'projets'>['data']['imagePrincipale']['image']; alt: { fr: string; en: string } }) =>
+  x.image ? { src: x.image, alt: pick(x.alt, lang) } : null;
+const photosDe = (xs: CollectionEntry<'projets'>['data']['photos']) =>
+  xs.filter((p) => p.image).map((p) => ({ src: p.image!, alt: pick(p.alt, lang) }));
+
+async function lienProjet(ref: { id: string } | null) {
+  if (!ref) return [];
+  const p = await getEntry('projets', ref.id);
+  return p && p.data.publie
+    ? [{ label: t(lang, 'projects.linked'), value: titreDe(p.data, lang), href: detailPath(lang, 'projects', p.id) }]
+    : [];
+}
+---
+{props.kind === 'news' && (
+  <Fiche lang={lang} section="news" collection="actualites" slug={props.entry.id}
+    title={titreDe(props.entry.data, lang)} titreTraduit={props.entry.data.titreEn !== ''}
+    description={pick(props.entry.data.resume, lang) || undefined}
+    image={imgDe(props.entry.data.imagePrincipale)}
+    meta={[{ label: t(lang, 'events.date'), value: formatDate(props.entry.data.date, lang) }, ...(await lienProjet(props.entry.data.projetLie))]}
+  />
+)}
+{props.kind === 'events' && (
+  <Fiche lang={lang} section="events" collection="evenements" slug={props.entry.id}
+    title={titreDe(props.entry.data, lang)} titreTraduit={props.entry.data.titreEn !== ''}
+    image={imgDe(props.entry.data.image)}
+    meta={[
+      { label: t(lang, 'events.date'), value: formatDate(props.entry.data.date, lang) },
+      ...(pick(props.entry.data.lieu, lang) ? [{ label: t(lang, 'events.place'), value: pick(props.entry.data.lieu, lang) }] : []),
+    ]}
+  />
+)}
+{props.kind === 'activities' && (
+  <Fiche lang={lang} section="activities" collection="activites" slug={props.entry.id}
+    title={titreDe(props.entry.data, lang)} titreTraduit={props.entry.data.titreEn !== ''}
+    photos={photosDe(props.entry.data.photos)}
+    meta={[
+      ...(props.entry.data.date ? [{ label: t(lang, 'events.date'), value: formatDate(props.entry.data.date, lang) }] : []),
+      ...(pick(props.entry.data.domaine, lang) ? [{ label: t(lang, 'activities.domain'), value: pick(props.entry.data.domaine, lang) }] : []),
+      ...(await lienProjet(props.entry.data.projetLie)),
+    ]}
+    pdf={await (async () => {
+      const r = props.entry.data.rapportLie ? await getEntry('rapports', props.entry.data.rapportLie.id) : undefined;
+      return r && r.data.publie && r.data.fichierPdf ? { href: r.data.fichierPdf, title: `${t(lang, 'projects.report')} : ${titreDe(r.data, lang)}` } : null;
+    })()}
+  />
+)}
+{props.kind === 'offers' && (
+  <Fiche lang={lang} section="offers" collection="offres" slug={props.entry.id}
+    title={titreDe(props.entry.data, lang)} titreTraduit={props.entry.data.titreEn !== ''}
+    photos={photosDe(props.entry.data.photos)}
+    badge={estCloturee(props.entry.data.dateLimite) ? t(lang, 'offers.closedBadge') : null}
+    meta={props.entry.data.dateLimite ? [{ label: t(lang, 'offers.deadline'), value: formatDate(props.entry.data.dateLimite, lang) }] : []}
+    pdf={props.entry.data.fichierPdf ? { href: props.entry.data.fichierPdf, title: t(lang, 'offers.document') } : null}
+  />
+)}

@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PdfLink from '../components/PdfLink.astro';
+import { getPresentation } from '../lib/presentation';
+import { publies, titreDe } from '../lib/contenu';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const title = t(lang, 'reports.title');
+const alternates = { fr: pagePath('fr', 'reports'), en: pagePath('en', 'reports') };
+const p = await getPresentation();
+const rapports = (await publies('rapports'))
+  .filter((r) => r.data.fichierPdf)
+  .sort((a, b) => b.data.annee - a.data.annee || a.data.titre.localeCompare(b.data.titre, 'fr'));
+const annees = [...new Set(rapports.map((r) => r.data.annee))];
+const politiques = p.politiques.filter((x) => x.fichierPdf);
+---
+<Base lang={lang} title={title} pageKey="reports" alternates={alternates}>
+  <PageHeader lang={lang} title={title} />
+
+  {rapports.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'reports.reports')}</h2>
+        {annees.map((a) => (
+          <div class="stack">
+            <h3>{a}</h3>
+            <div class="g2">
+              {rapports.filter((r) => r.data.annee === a).map((r) => (
+                <PdfLink lang={lang} href={r.data.fichierPdf!} title={titreDe(r.data, lang)}
+                  detail={[pick(r.data.type, lang), pick(r.data.resume, lang)].filter(Boolean).join(' · ') || undefined} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {p.documentsLegaux.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack narrow">
+        <h2>{t(lang, 'reports.legal')}</h2>
+        <ul class="bullets">{p.documentsLegaux.map((d) => <li>{pick(d, lang)}</li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  {politiques.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'reports.policies')}</h2>
+        <div class="g2">{politiques.map((x) => <PdfLink lang={lang} href={x.fichierPdf!} title={pick(x.titre, lang)} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

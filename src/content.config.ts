@@ -75,6 +75,27 @@ const reglages = defineCollection({
     }),
 });
 
+const presentation = defineCollection({
+  loader: glob({ pattern: 'site.json', base: './src/content/presentation' }),
+  schema: (ctx) =>
+    z.object({
+      surtitre: bilingueFacultatif,
+      accroche: bilingueFacultatif,
+      imageAccueil: imageAvecAlt(ctx, "Photo de l'accueil"),
+      chiffres: z.array(z.object({ valeur: z.string().min(1), libelle: bilingue })).default([]),
+      statut: bilingueFacultatif,
+      mission: bilingueFacultatif,
+      vision: bilingueFacultatif,
+      objectif: bilingueFacultatif,
+      axes: z
+        .array(z.object({ titre: bilingue, texte: bilingueFacultatif, points: z.array(bilingue).default([]) }))
+        .default([]),
+      approches: z.array(bilingue).default([]),
+      documentsLegaux: z.array(bilingue).default([]),
+      politiques: z.array(z.object({ titre: bilingue, fichierPdf: fichier })).default([]),
+    }),
+});
+
 const projets = defineCollection({
   loader: dossier('projets'),
   schema: (ctx) =>
@@ -237,6 +258,6 @@ const contenus = defineCollection({
 });
 
 export const collections = {
-  reglages, projets, actualites, activites, evenements, galerie,
+  reglages, presentation, projets, actualites, activites, evenements, galerie,
   offres, rapports, partenaires, equipe, zones, faq, contenus,
 };

@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Img from '../components/Img.astro';
+import { getPresentation } from '../lib/presentation';
+import { publies, parOrdre } from '../lib/contenu';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const p = await getPresentation();
+const equipe = parOrdre(await publies('equipe'), (e) => e.data.nom);
+const partenaires = await publies('partenaires');
+const title = t(lang, 'nav.about');
+const alternates = { fr: pagePath('fr', 'about'), en: pagePath('en', 'about') };
+const blocs = [
+  { titre: t(lang, 'about.mission'), texte: pick(p.mission, lang) },
+  { titre: t(lang, 'about.objective'), texte: pick(p.objectif, lang) },
+].filter((b) => b.texte);
+---
+<Base lang={lang} title={title} pageKey="about" alternates={alternates} description={pick(p.mission, lang) || undefined}>
+  <PageHeader lang={lang} title={title} lead={pick(p.statut, lang) || undefined} />
+
+  {(blocs.length > 0 || pick(p.vision, lang)) && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        {pick(p.vision, lang) && (
+          <div class="stack-s narrow"><h2>{t(lang, 'about.vision')}</h2><p class="quote">« {pick(p.vision, lang)} »</p></div>
+        )}
+        {blocs.length > 0 && (
+          <div class="g2">
+            {blocs.map((b) => <div class="card"><h2>{b.titre}</h2><p>{b.texte}</p></div>)}
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {p.axes.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'about.axes')}</h2>
+        <div class="g3">
+          {p.axes.map((a) => (
+            <article class="card">
+              <h3>{pick(a.titre, lang)}</h3>
+              {pick(a.texte, lang) && <p>{pick(a.texte, lang)}</p>}
+              {a.points.length > 0 && <ul class="bullets">{a.points.map((x) => <li>{pick(x, lang)}</li>)}</ul>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {p.approches.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack narrow">
+        <h2>{t(lang, 'about.approaches')}</h2>
+        <ol class="bullets">{p.approches.map((x) => <li>{pick(x, lang)}</li>)}</ol>
+      </div>
+    </section>
+  )}
+
+  {equipe.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'about.team')}</h2>
+        <ul class="plain g4">
+          {equipe.map((e) => (
+            <li class="card">
+              {e.data.photo.image && <div class="portrait"><Img src={e.data.photo.image} alt={pick(e.data.photo.alt, lang)} sizes="(min-width: 1024px) 25vw, 50vw" /></div>}
+              <h3>{e.data.nom}</h3>
+              <p class="muted">{pick(e.data.fonction, lang)}</p>
+              {pick(e.data.bio, lang) && <p class="small pre-line">{pick(e.data.bio, lang)}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {partenaires.length > 0 && (
+    <section class="sec">
+      <div class="wrap row between">
+        <h2>{t(lang, 'about.partners')}</h2>
+        <a class="btn btn-s btn-full-m" href={pagePath(lang, 'partners')}>{t(lang, 'home.partners.all')}</a>
+      </div>
+    </section>
+  )}
+</Base>

@@ -3,7 +3,7 @@
 Site du Réseau d'Associations pour la Promotion des Droits de la Femme (Goma, RDC).
 Astro 7, TypeScript strict, français par défaut (`/fr/`) et anglais (`/en/`).
 Administration Keystatic sur `/keystatic` (mode GitHub en ligne, fichiers locaux en développement).
-Hébergement : Cloudflare Workers. Mise en ligne : voir `DEPLOIEMENT.md`.
+Hébergement : Cloudflare Workers. Mise en ligne : voir `DEPLOIEMENT.md`. Guide des administrateurs : `ADMIN.md`.
 
 ## Démarrer
 
@@ -28,6 +28,9 @@ npx astro check
 - `keystatic.config.ts` : ce que l'administration permet de modifier.
 - `src/content.config.ts` : schémas Zod des contenus (lus par Astro).
 - `src/content/reglages/site.json` : réglages du site, édités dans Keystatic (Réglages du site).
+- `src/content/presentation/site.json` : textes de l'accueil, de « À propos » et de la transparence.
+- `src/content/<collection>/<slug>/` : un dossier par élément (index.yaml + contenuFr.mdoc / contenuEn.mdoc).
+- `src/views/` : les pages ; `src/pages/[lang]/` les route en français et en anglais.
 - `src/assets/` : images téléversées, optimisées par Astro (WebP).
 - `src/integrations/limites-fichiers.ts` : bloque le build si une image dépasse 3 Mo ou un PDF 10 Mo.
 - `src/styles/tokens.css` : couleurs, police, espacements repris de la maquette Claude Design.

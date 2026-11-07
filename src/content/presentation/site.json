@@ -1,0 +1,172 @@
+{
+  "surtitre": {
+    "fr": "ASBL · Goma, RDC"
+  },
+  "accroche": {
+    "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme."
+  },
+  "imageAccueil": {
+    "alt": {}
+  },
+  "chiffres": [
+    {
+      "valeur": "2015",
+      "libelle": {
+        "fr": "Créé à Goma le 20 février"
+      }
+    },
+    {
+      "valeur": "20",
+      "libelle": {
+        "fr": "organisations membres"
+      }
+    },
+    {
+      "valeur": "6",
+      "libelle": {
+        "fr": "provinces d'intervention"
+      }
+    }
+  ],
+  "statut": {
+    "fr": "Association sans but lucratif (ASBL), créée à Goma (RDC) le 20 février 2015 par des représentants d'organisations membres des Alliances travaillant dans la protection de la femme. Le réseau compte 20 organisations membres."
+  },
+  "mission": {
+    "fr": "Œuvrer pour le renforcement de la promotion des droits et l'autonomisation de la femme."
+  },
+  "vision": {
+    "fr": "Bâtir un monde où les hommes, les femmes, les garçons et les filles vivent équitablement la réalisation des droits dans la dignité et sécurité."
+  },
+  "objectif": {
+    "fr": "Contribuer à l'amélioration des conditions de vie des femmes et filles par la promotion de leurs droits et leur autonomisation."
+  },
+  "axes": [
+    {
+      "titre": {
+        "fr": "Promotion et protection des droits de la femme et de la fille"
+      },
+      "texte": {},
+      "points": [
+        {
+          "fr": "Accès des femmes à la justice"
+        },
+        {
+          "fr": "Analyses, études, enquêtes et recherches sur la situation des droits des femmes"
+        },
+        {
+          "fr": "Sensibilisation des communautés et vulgarisation des lois et instruments juridiques"
+        },
+        {
+          "fr": "Publication de rapports de recherche, études, analyses et enquêtes"
+        },
+        {
+          "fr": "Plaidoyer en synergie pour améliorer l'exécution des politiques, lois, stratégies, plans et projets"
+        },
+        {
+          "fr": "Suivi des politiques publiques protégeant les droits des femmes et filles"
+        }
+      ]
+    },
+    {
+      "titre": {
+        "fr": "Autonomisation des femmes et filles"
+      },
+      "texte": {},
+      "points": [
+        {
+          "fr": "Formations : droits des femmes, instruments juridiques, Activités Génératrices de Revenus (AGR), entrepreneuriat féminin, leadership féminin, genre, participation politique, gestion et inclusion financière"
+        },
+        {
+          "fr": "Alphabétisation fonctionnelle"
+        },
+        {
+          "fr": "Prévention des violences basées sur le genre (VBG)"
+        },
+        {
+          "fr": "Éducation à la santé sexuelle et reproductive (SSR)"
+        },
+        {
+          "fr": "Appui aux AGR, AVEC/VSLA, entrepreneuriat féminin, négociation sociale"
+        },
+        {
+          "fr": "Intégration des femmes et filles dans les chaînes de valeur et filières porteuses"
+        }
+      ]
+    },
+    {
+      "titre": {
+        "fr": "Gouvernance locale et inclusive"
+      },
+      "texte": {
+        "fr": "Amplifier la voix des femmes dans les instances de décision, influencer les détenteurs de pouvoir pour des décisions inclusives, améliorer les espaces citoyens."
+      },
+      "points": []
+    }
+  ],
+  "approches": [
+    {
+      "fr": "Approche basée sur les droits"
+    },
+    {
+      "fr": "Gouvernance et bonne gouvernance"
+    },
+    {
+      "fr": "Développement négocié"
+    },
+    {
+      "fr": "Gouvernance et développement"
+    },
+    {
+      "fr": "Focalisation accrue sur les filles et femmes"
+    }
+  ],
+  "documentsLegaux": [
+    {
+      "fr": "Régulièrement notarié"
+    },
+    {
+      "fr": "Autorisation Division de la justice : n° JUST.112/574/NK/2021"
+    },
+    {
+      "fr": "Autorisation Division du plan : n° 840/DPP/NK/2021"
+    },
+    {
+      "fr": "Arrêté provincial : n° 01/139/CAB/GP/2021"
+    },
+    {
+      "fr": "Autorisation du ministère national de la justice : n° JUST/SG/20/26.046/2021 (accusé de réception F.92/45.875)"
+    }
+  ],
+  "politiques": [
+    {
+      "titre": {
+        "fr": "Égalité de genre"
+      }
+    },
+    {
+      "titre": {
+        "fr": "PSEA (prévention de l'exploitation et des abus sexuels)"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Protection de l'environnement"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Business for Peace (B4P)"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Gouvernance inclusive"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Anti-fraude et déclaration de conflit d'intérêts"
+      }
+    }
+  ]
+}

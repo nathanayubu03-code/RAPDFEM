@@ -64,3 +64,8 @@ export async function offresParEtat() {
     cloturees: parDateDesc(cloturees, (o) => o.data.dateLimite),
   };
 }
+
+/** Titre dans la langue demandée (repli sur le français). */
+export function titreDe(data: { titre: string; titreEn: string }, lang: Locale): string {
+  return lang === 'en' && data.titreEn.trim() !== '' ? data.titreEn : data.titre;
+}

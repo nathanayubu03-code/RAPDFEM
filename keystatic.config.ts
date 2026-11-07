@@ -135,7 +135,7 @@ export default config({
       'Le réseau': ['projets', 'activites', 'zones', 'equipe', 'partenaires'],
       'Actualité': ['actualites', 'evenements', 'galerie'],
       'Documents et offres': ['offres', 'rapports', 'faq'],
-      'Site': ['reglages'],
+      'Site': ['presentation', 'reglages'],
     },
   },
   locale: 'fr-FR',
@@ -328,6 +328,57 @@ export default config({
   },
 
   singletons: {
+    presentation: singleton({
+      label: 'Présentation du réseau (accueil et à propos)',
+      path: 'src/content/presentation/site',
+      format: { data: 'json' },
+      schema: {
+        surtitre: bilingue("Surtitre de l'accueil (petite ligne au-dessus du nom)", { requis: false }),
+        accroche: bilingue("Phrase d'accroche de l'accueil", { multiline: true, requis: false }),
+        imageAccueil: imageAvecAlt("Photo de l'accueil (facultatif)", 'presentation', 2),
+        chiffres: fields.array(
+          fields.object({
+            valeur: fields.text({ label: 'Chiffre (ex. 20)', validation: { isRequired: true } }),
+            libelle: bilingue('Texte sous le chiffre'),
+          }),
+          { label: 'Chiffres clés', itemLabel: (p) => `${p.fields.valeur.value} ${p.fields.libelle.fields.fr.value}` },
+        ),
+        statut: bilingue('Qui sommes-nous (statut, création)', { multiline: true, requis: false }),
+        mission: bilingue('Mission', { multiline: true, requis: false }),
+        vision: bilingue('Vision', { multiline: true, requis: false }),
+        objectif: bilingue('Objectif général', { multiline: true, requis: false }),
+        axes: fields.array(
+          fields.object({
+            titre: bilingue("Titre de l'axe"),
+            texte: bilingue('Texte (facultatif)', { multiline: true, requis: false }),
+            points: fields.array(bilingue('Point'), {
+              label: 'Points de la liste',
+              itemLabel: (p) => p.fields.fr.value || 'Point',
+            }),
+          }),
+          { label: "Axes d'intervention", itemLabel: (p) => p.fields.titre.fields.fr.value || 'Axe' },
+        ),
+        approches: fields.array(bilingue('Approche'), {
+          label: 'Approches',
+          itemLabel: (p) => p.fields.fr.value || 'Approche',
+        }),
+        documentsLegaux: fields.array(bilingue('Document ou autorisation'), {
+          label: 'Documents légaux (page Publications et transparence)',
+          itemLabel: (p) => p.fields.fr.value || 'Document',
+        }),
+        politiques: fields.array(
+          fields.object({
+            titre: bilingue('Titre de la politique'),
+            fichierPdf: pdf('politiques', 'Fichier PDF'),
+          }),
+          {
+            label: 'Politiques internes (affichées seulement quand le PDF est ajouté)',
+            itemLabel: (p) => p.fields.titre.fields.fr.value || 'Politique',
+          },
+        ),
+      },
+    }),
+
     reglages: singleton({
       label: 'Réglages du site',
       path: 'src/content/reglages/site',

@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import { getSettings } from '../lib/settings';
+import { getPresentation } from '../lib/presentation';
+import { publies, parOrdre, parDateDesc, offresParEtat, titreDe } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, formatDate, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const settings = await getSettings();
+const p = await getPresentation();
+
+const projets = parOrdre(await publies('projets'), (e) => e.data.titre).slice(0, 3);
+const actus = parDateDesc(await publies('actualites'), (e) => e.data.date).slice(0, 3);
+const offres = (await offresParEtat()).enCours.slice(0, 3);
+const partenaires = parOrdre(await publies('partenaires'), (e) => e.data.nom);
+const alternates = { fr: pagePath('fr', 'home'), en: pagePath('en', 'home') };
+const accroche = pick(p.accroche, lang);
+---
+<Base lang={lang} title={settings.sigle} pageKey="home" alternates={alternates} description={accroche || undefined}>
+  <section class="sec">
+    <div class="wrap hero">
+      <div class="stack-l">
+        {pick(p.surtitre, lang) && <p class="kicker">{pick(p.surtitre, lang)}</p>}
+        <h1>{pick(settings.nom, lang)}</h1>
+        {accroche && <p class="lead">{accroche}</p>}
+        <div class="row">
+          <a class="btn btn-p btn-full-m" href={pagePath(lang, 'projects')}>{t(lang, 'home.cta.projects')}</a>
+          <a class="btn btn-s btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.cta.contact')}</a>
+        </div>
+      </div>
+      {p.imageAccueil.image && (
+        <figure class="fig"><Img src={p.imageAccueil.image} alt={pick(p.imageAccueil.alt, lang)} sizes="(min-width: 1024px) 50vw, 100vw" eager /></figure>
+      )}
+    </div>
+  </section>
+
+  {p.chiffres.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'home.facts')}</h2>
+        <ul class="plain g3 facts">
+          {p.chiffres.map((c) => <li class="card fact"><b>{c.valeur}</b>{pick(c.libelle, lang)}</li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {p.axes.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        <div class="sec-head"><h2>{t(lang, 'home.axes')}</h2><a class="lnk" href={pagePath(lang, 'about')}>{t(lang, 'home.axes.more')}</a></div>
+        <div class="g3">
+          {p.axes.map((a) => (
+            <article class="card">
+              <h3>{pick(a.titre, lang)}</h3>
+              {pick(a.texte, lang) && <p>{pick(a.texte, lang)}</p>}
+              {!pick(a.texte, lang) && a.points.length > 0 && <p>{a.points.slice(0, 3).map((x) => pick(x, lang)).join(' ; ')}.</p>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {projets.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <div class="sec-head"><h2>{t(lang, 'home.projects')}</h2><a class="lnk" href={pagePath(lang, 'projects')}>{t(lang, 'home.projects.all')}</a></div>
+        <div class="g3">
+          {projets.map((e) => (
+            <article class="card">
+              {e.data.imagePrincipale.image && <div class="card-img"><Img src={e.data.imagePrincipale.image} alt={pick(e.data.imagePrincipale.alt, lang)} /></div>}
+              <h3><a class="t" href={detailPath(lang, 'projects', e.id)}>{titreDe(e.data, lang)}</a></h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {actus.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        <div class="sec-head"><h2>{t(lang, 'home.news')}</h2><a class="lnk" href={pagePath(lang, 'news')}>{t(lang, 'home.news.all')}</a></div>
+        <div class="g3">
+          {actus.map((e) => (
+            <article class="card">
+              {e.data.imagePrincipale.image && <div class="card-img"><Img src={e.data.imagePrincipale.image} alt={pick(e.data.imagePrincipale.alt, lang)} /></div>}
+              <p class="date"><time datetime={e.data.date.toISOString().slice(0, 10)}>{formatDate(e.data.date, lang)}</time></p>
+              <h3><a class="t" href={detailPath(lang, 'news', e.id)}>{titreDe(e.data, lang)}</a></h3>
+              {pick(e.data.resume, lang) && <p>{pick(e.data.resume, lang)}</p>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {offres.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <div class="sec-head"><h2>{t(lang, 'home.offers')}</h2><a class="lnk" href={pagePath(lang, 'offers')}>{t(lang, 'home.offers.all')}</a></div>
+        <div class="g3">
+          {offres.map((e) => (
+            <article class="card">
+              <h3><a class="t" href={detailPath(lang, 'offers', e.id)}>{titreDe(e.data, lang)}</a></h3>
+              {e.data.dateLimite && <p class="date">{t(lang, 'offers.deadline')} : {formatDate(e.data.dateLimite, lang)}</p>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {partenaires.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        <div class="sec-head"><h2>{t(lang, 'home.partners')}</h2><a class="lnk" href={pagePath(lang, 'partners')}>{t(lang, 'home.partners.all')}</a></div>
+        <ul class="plain g4 gm2">
+          {partenaires.map((e) => (
+            <li class="stack-s">
+              {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang)} sizes="200px" /></div>}
+              <span class="small">{e.data.nom}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="sec alt">
+    <div class="wrap row between">
+      <div class="stack-s"><h2>{t(lang, 'home.work')}</h2><p>{t(lang, 'home.work.text')}</p></div>
+      <a class="btn btn-p btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.work.cta')}</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,23 @@
+---
+import Img from './Img.astro';
+import type { ImageMetadata } from 'astro';
+
+// Carte générique pour les listes (projets, actualités, événements, offres, activités).
+interface Props {
+  href: string;
+  titre: string;
+  image?: { src: ImageMetadata; alt: string } | null;
+  surtitre?: string | null;
+  texte?: string | null;
+  badge?: string | null;
+}
+const { href, titre, image, surtitre, texte, badge } = Astro.props;
+---
+<article class="card">
+  {image && <div class="card-img"><Img src={image.src} alt={image.alt} /></div>}
+  {badge && <span class="badge">{badge}</span>}
+  {surtitre && <p class="date">{surtitre}</p>}
+  <h3><a class="t" href={href}>{titre}</a></h3>
+  {texte && <p>{texte}</p>}
+  <slot />
+</article>

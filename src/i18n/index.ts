@@ -33,7 +33,7 @@ export function isFallback(field: Localized | null | undefined, lang: Locale): b
 
 /* Pages du site et leurs adresses par langue. */
 export const pageKeys = [
-  'home', 'about', 'projects', 'zones', 'news', 'events', 'gallery',
+  'home', 'about', 'projects', 'activities', 'zones', 'news', 'events', 'gallery',
   'reports', 'offers', 'partners', 'faq', 'contact',
 ] as const;
 export type PageKey = (typeof pageKeys)[number];
@@ -41,19 +41,19 @@ export type SectionKey = Exclude<PageKey, 'home'>;
 
 export const slugs: Record<Locale, Record<SectionKey, string>> = {
   fr: {
-    about: 'a-propos', projects: 'projets', zones: 'zones-intervention', news: 'actualites',
+    about: 'a-propos', projects: 'projets', activities: 'activites', zones: 'zones-intervention', news: 'actualites',
     events: 'evenements', gallery: 'galerie', reports: 'publications', offers: 'offres',
     partners: 'partenaires', faq: 'faq', contact: 'contact',
   },
   en: {
-    about: 'about', projects: 'projects', zones: 'areas', news: 'news',
+    about: 'about', projects: 'projects', activities: 'activities', zones: 'areas', news: 'news',
     events: 'events', gallery: 'gallery', reports: 'publications', offers: 'opportunities',
     partners: 'partners', faq: 'faq', contact: 'contact',
   },
 };
 
 export const navLabel: Record<PageKey, UIKey> = {
-  home: 'nav.home', about: 'nav.about', projects: 'nav.projects', zones: 'nav.zones',
+  home: 'nav.home', about: 'nav.about', projects: 'nav.projects', activities: 'nav.activities', zones: 'nav.zones',
   news: 'nav.news', events: 'nav.events', gallery: 'nav.gallery', reports: 'nav.reports',
   offers: 'nav.offers', partners: 'nav.partners', faq: 'nav.faq', contact: 'nav.contact',
 };
@@ -72,10 +72,10 @@ export function keyFromSlug(lang: Locale, slug: string): SectionKey | undefined 
 
 /* Menu mobile : toutes les pages. Menu ordinateur : 7 entrées.
    Événements et Galerie sont rattachés à Actualités, Partenaires et FAQ à À propos. */
-export const mobileNav: readonly PageKey[] = pageKeys;
+export const mobileNav: readonly PageKey[] = pageKeys.filter((k) => k !== 'activities');
 export const desktopNav: readonly PageKey[] = ['about', 'projects', 'zones', 'news', 'reports', 'offers', 'contact'];
 export const navGroup: Partial<Record<PageKey, PageKey>> = {
-  events: 'news', gallery: 'news', partners: 'about', faq: 'about',
+  events: 'news', gallery: 'news', partners: 'about', faq: 'about', activities: 'projects',
 };
 export const footerNav: readonly { key: PageKey; label: UIKey }[] = [
   { key: 'reports', label: 'footer.reportsLong' },
@@ -84,3 +84,15 @@ export const footerNav: readonly { key: PageKey; label: UIKey }[] = [
   { key: 'faq', label: 'nav.faq' },
   { key: 'contact', label: 'nav.contact' },
 ];
+
+/** Adresse d'une page de détail. */
+export function detailPath(lang: Locale, key: SectionKey, slug: string): string {
+  return `/${lang}/${slugs[lang][key]}/${slug}/`;
+}
+
+/** Date lisible dans la langue de la page. */
+export function formatDate(d: Date, lang: Locale): string {
+  return new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+  }).format(d);
+}

@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Img from '../components/Img.astro';
+import { publies, parOrdre } from '../lib/contenu';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const title = t(lang, 'nav.partners');
+const alternates = { fr: pagePath('fr', 'partners'), en: pagePath('en', 'partners') };
+const partenaires = parOrdre(await publies('partenaires'), (e) => e.data.nom);
+---
+<Base lang={lang} title={title} pageKey="partners" alternates={alternates}>
+  <PageHeader lang={lang} title={title} trail={[{ label: t(lang, 'nav.about'), href: pagePath(lang, 'about') }]} />
+  <section class="sec">
+    <div class="wrap">
+      {partenaires.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : (
+        <ul class="plain g3">
+          {partenaires.map((e) => (
+            <li class="card">
+              {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang)} sizes="320px" /></div>}
+              <h2 class="h3">{e.data.nom}</h2>
+              {pick(e.data.categorie, lang) && <p class="small muted">{pick(e.data.categorie, lang)}</p>}
+              {e.data.siteWeb && <a class="lnk" href={e.data.siteWeb} rel="noopener">{t(lang, 'partners.website')}</a>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</Base>
+<style>.h3 { font-size: 18px; line-height: 1.4; } @media (min-width: 1024px) { .h3 { font-size: 20px; } }</style>

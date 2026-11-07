@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getSettings, telHref } from '../lib/settings';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const s = await getSettings();
+const title = t(lang, 'contact.title');
+const alternates = { fr: pagePath('fr', 'contact'), en: pagePath('en', 'contact') };
+---
+<Base lang={lang} title={title} pageKey="contact" alternates={alternates}>
+  <PageHeader lang={lang} title={title} lead={t(lang, 'contact.intro')} />
+  <section class="sec">
+    <div class="wrap g2">
+      <div class="stack-l">
+        {s.courriels.length > 0 && (
+          <div class="stack-s"><h2>{t(lang, 'contact.email')}</h2>
+            <ul class="plain stack-s">{s.courriels.map((m) => <li><a class="lnk" href={`mailto:${m}`}>{m}</a></li>)}</ul></div>
+        )}
+        {s.telephones.length > 0 && (
+          <div class="stack-s"><h2>{t(lang, 'contact.phone')}</h2>
+            <ul class="plain stack-s">{s.telephones.map((p) => <li><a class="lnk" href={telHref(p)}>{p}</a></li>)}</ul></div>
+        )}
+        {s.reseauxSociaux.length > 0 && (
+          <div class="stack-s"><h2>{t(lang, 'contact.social')}</h2>
+            <ul class="plain stack-s">{s.reseauxSociaux.map((r) => <li><a class="lnk" href={r.url} rel="noopener">{r.reseau}</a></li>)}</ul></div>
+        )}
+      </div>
+      {s.bureaux.length > 0 && (
+        <div class="stack-s">
+          <h2>{t(lang, 'contact.offices')}</h2>
+          {s.bureaux.map((b) => <div class="card"><h3>{pick(b.nom, lang)}</h3><p class="pre-line">{pick(b.adresse, lang)}</p></div>)}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

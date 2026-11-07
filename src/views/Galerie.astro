@@ -1,0 +1,51 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Img from '../components/Img.astro';
+import { publies, parDateDesc, titreDe } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, formatDate, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const title = t(lang, 'nav.gallery');
+const alternates = { fr: pagePath('fr', 'gallery'), en: pagePath('en', 'gallery') };
+const photos = await Promise.all(
+  parDateDesc((await publies('galerie')).filter((g) => g.data.image.image), (g) => g.data.date).map(async (g) => {
+    const p = g.data.projetLie ? await getEntry('projets', g.data.projetLie.id) : undefined;
+    const ev = g.data.evenementLie ? await getEntry('evenements', g.data.evenementLie.id) : undefined;
+    return {
+      g,
+      lien: p?.data.publie
+        ? { href: detailPath(lang, 'projects', p.id), label: titreDe(p.data, lang) }
+        : ev?.data.publie
+          ? { href: detailPath(lang, 'events', ev.id), label: titreDe(ev.data, lang) }
+          : null,
+    };
+  }),
+);
+---
+<Base lang={lang} title={title} pageKey="gallery" alternates={alternates}>
+  <PageHeader lang={lang} title={title} />
+  <section class="sec">
+    <div class="wrap">
+      {photos.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : (
+        <ul class="plain g3">
+          {photos.map(({ g, lien }) => (
+            <li>
+              <figure class="fig">
+                <Img src={g.data.image.image!} alt={pick(g.data.image.alt, lang)} />
+                <figcaption class="stack-s">
+                  <b>{titreDe(g.data, lang)}</b>
+                  {pick(g.data.legende, lang) && <span class="pre-line">{pick(g.data.legende, lang)}</span>}
+                  {g.data.date && <span>{formatDate(g.data.date, lang)}</span>}
+                  {lien && <a href={lien.href}>{lien.label}</a>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</Base>
