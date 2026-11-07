@@ -27,7 +27,7 @@ npx astro check
 - `src/i18n/index.ts` : langues, adresses des pages, menus.
 - `keystatic.config.ts` : ce que l'administration permet de modifier.
 - `src/content.config.ts` : schémas Zod des contenus (lus par Astro).
-- `src/content/reglages/site.json` : réglages du site, édités dans Keystatic (Réglages du site).
+- `src/content/reglages/site.json` : réglages du site, édités dans Keystatic (Identité, Logo et coordonnées).
 - `src/content/presentation/site.json` : textes de l'accueil, de « À propos » et de la transparence.
 - `src/content/<collection>/<slug>/` : un dossier par élément (index.yaml + contenuFr.mdoc / contenuEn.mdoc).
 - `src/views/` : les pages ; `src/pages/[lang]/` les route en français et en anglais.

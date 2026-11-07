@@ -10,7 +10,11 @@
     "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme."
   },
   "logo": {
-    "alt": {}
+    "image": "../../assets/reglages/logo/image.png",
+    "alt": {
+      "fr": "Logo du RAPDFEM, Réseau d'Associations pour la Promotion des Droits de la Femme",
+      "en": "RAPDFEM logo"
+    }
   },
   "logoFondSombre": {
     "alt": {}
@@ -52,5 +56,6 @@
     "rapdfem.rdc@gmail.com",
     "coordination@rapdfem.org"
   ],
-  "reseauxSociaux": []
+  "reseauxSociaux": [],
+  "favicon": "/images/reglages/favicon.png"
 }

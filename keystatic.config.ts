@@ -132,10 +132,11 @@ export default config({
   ui: {
     brand: { name: 'RAPDFEM' },
     navigation: {
+      'Identité': ['reglages'],
       'Le réseau': ['projets', 'activites', 'zones', 'equipe', 'partenaires'],
       'Actualité': ['actualites', 'evenements', 'galerie'],
       'Documents et offres': ['offres', 'rapports', 'faq'],
-      'Site': ['presentation', 'reglages'],
+      'Textes du site': ['presentation'],
     },
   },
   locale: 'fr-FR',
@@ -380,15 +381,11 @@ export default config({
     }),
 
     reglages: singleton({
-      label: 'Réglages du site',
+      label: 'Logo et coordonnées',
       path: 'src/content/reglages/site',
       format: { data: 'json' },
       schema: {
-        sigle: fields.text({ label: 'Sigle', validation: { isRequired: true } }),
-        nom: bilingue("Nom complet de l'ONG"),
-        presentationCourte: bilingue('Présentation courte (pied de page)', { multiline: true, requis: false }),
-        descriptionSeo: bilingue('Description pour les moteurs de recherche', { multiline: true, requis: false }),
-        logo: imageAvecAlt('Logo principal', 'reglages', 2),
+        logo: imageAvecAlt("Logo de l'ONG (en-tête du site)", 'reglages', 2, 'PNG avec fond transparent conseillé, carré, au moins 400 × 400 pixels. 3 Mo maximum.'),
         logoFondSombre: imageAvecAlt('Logo pour fond sombre (pied de page)', 'reglages', 2),
         favicon: fields.image({
           label: 'Favicon (icône de l’onglet)',
@@ -402,6 +399,10 @@ export default config({
           2,
           'Format paysage conseillé (1200 × 630). 3 Mo maximum.',
         ),
+        sigle: fields.text({ label: 'Sigle', validation: { isRequired: true } }),
+        nom: bilingue("Nom complet de l'ONG"),
+        presentationCourte: bilingue('Présentation courte (pied de page)', { multiline: true, requis: false }),
+        descriptionSeo: bilingue('Description pour les moteurs de recherche', { multiline: true, requis: false }),
         bureaux: fields.array(
           fields.object({
             nom: bilingue('Nom du bureau'),

@@ -55,6 +55,7 @@ a:hover { color: var(--c-accent-hover); }
 .lead { font-size: 18px; line-height: 1.6; color: var(--c-text-2); }
 .muted { color: var(--c-text-2); }
 .small { font-size: 14px; line-height: 1.5; }
+.kicker::before { content: ""; display: inline-block; width: 24px; height: 3px; margin-right: 10px; vertical-align: middle; background: var(--c-gold); }
 .kicker { font-size: 14px; line-height: 1.4; font-weight: 700; color: var(--c-text-2); text-transform: uppercase; letter-spacing: .06em; }
 @media (min-width: 1024px) { .lead { font-size: 20px; } }
 

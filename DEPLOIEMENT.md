@@ -55,7 +55,7 @@ Relancer un déploiement pour que la variable de build soit prise en compte.
 ## 5. Vérifier
 
 1. Ouvrir `https://ADRESSE-DU-SITE/keystatic`, cliquer « Log in with GitHub », autoriser.
-2. Ouvrir Réglages du site, modifier un téléphone, cliquer « Save ».
+2. Ouvrir Identité, puis Logo et coordonnées, modifier un téléphone, cliquer « Sauvegarder ».
 3. Sur GitHub, un nouveau commit apparaît dans la branche de production.
 4. Sur Cloudflare, un nouveau build démarre. Quand il est terminé, le téléphone modifié apparaît dans le pied de page.
 5. Remettre le téléphone d'origine.

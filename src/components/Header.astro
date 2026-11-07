@@ -76,7 +76,7 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   }
   .skip:focus { top: 8px; color: #FFFFFF; }
 
-  .hd { border-bottom: 1px solid var(--c-border); background: var(--c-bg); }
+  .hd { border-top: 4px solid var(--c-gold); border-bottom: 1px solid var(--c-border); background: var(--c-bg); }
   .hd-in {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
     min-height: 64px; max-width: calc(var(--content-max) + 2 * var(--gutter));
@@ -84,6 +84,8 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   }
   .logo { display: flex; align-items: center; flex: none; min-height: var(--tap); color: var(--c-text); text-decoration: none; }
   .logo:hover { color: var(--c-accent); }
+  /* Petits téléphones : le logo seul, pour laisser la place à la langue et au menu. */
+  @media (max-width: 419px) { .logo :global(.logo-txt) { display: none; } }
   .hd-r { display: flex; align-items: center; gap: 8px; }
 
   .lang { display: inline-flex; flex: none; border: 1px solid var(--c-border-strong); border-radius: var(--radius); overflow: hidden; }

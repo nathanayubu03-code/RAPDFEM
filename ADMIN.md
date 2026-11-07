@@ -41,7 +41,8 @@ Pour retirer l'accès à quelqu'un : même endroit, bouton « Remove » à côt�
 - **Le réseau** : Projets, Activités, Zones d'intervention, Équipe, Partenaires.
 - **Actualité** : Actualités, Événements, Galerie photos.
 - **Documents et offres** : Offres, Rapports et publications, Questions fréquentes.
-- **Site** : Présentation du réseau (textes de l'accueil et de la page À propos), Réglages du site (logo, adresses, téléphones).
+- **Identité** : Logo et coordonnées (logo de l'ONG, favicon, adresses, téléphones, courriels, réseaux sociaux).
+- **Textes du site** : Présentation du réseau (textes de l'accueil et de la page À propos).
 
 Quelques boutons restent en anglais, parce que l'outil n'est pas entièrement traduit :
 
@@ -113,9 +114,9 @@ Les politiques internes (égalité de genre, PSEA…) se trouvent dans **Présen
 
 ## 10. Changer le logo ou les coordonnées
 
-Menu **Réglages du site** :
+Menu **Identité**, puis **Logo et coordonnées**. Le logo est le premier champ en haut de la page :
 
-- **Logo principal** : celui de l'en-tête. Format PNG ou SVG conseillé.
+- **Logo de l'ONG** : celui de l'en-tête. Format PNG avec fond transparent, carré, au moins 400 × 400 pixels. Pour le remplacer, cliquez sur le petit bouton de suppression de l'image actuelle, puis sur « Choose file ».
 - **Logo pour fond sombre** : celui du pied de page, sur fond noir. S'il est vide, le logo principal est utilisé.
 - **Favicon** : la petite icône de l'onglet du navigateur.
 - **Image de partage** : l'image qui s'affiche quand on partage le site sur WhatsApp ou Facebook.

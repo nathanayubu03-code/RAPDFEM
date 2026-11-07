@@ -30,8 +30,11 @@ const accroche = pick(p.accroche, lang);
           <a class="btn btn-s btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.cta.contact')}</a>
         </div>
       </div>
-      {p.imageAccueil.image && (
+      {p.imageAccueil.image ? (
         <figure class="fig"><Img src={p.imageAccueil.image} alt={pick(p.imageAccueil.alt, lang)} sizes="(min-width: 1024px) 50vw, 100vw" eager /></figure>
+      ) : settings.logo.image && (
+        // Sans photo d'accueil, le logo occupe la place (décoratif : déjà annoncé dans l'en-tête).
+        <div class="hero-logo" aria-hidden="true"><Img src={settings.logo.image} alt="" sizes="320px" /></div>
       )}
     </div>
   </section>
@@ -137,3 +140,10 @@ const accroche = pick(p.accroche, lang);
     </div>
   </section>
 </Base>
+<style>
+  .hero-logo { display: none; }
+  @media (min-width: 1024px) {
+    .hero-logo { display: flex; justify-content: center; }
+    .hero-logo :global(img) { width: 320px; height: auto; }
+  }
+</style>
