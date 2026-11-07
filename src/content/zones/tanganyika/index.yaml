@@ -1,7 +1,9 @@
-nom: "Tanganyika"
+nom: Tanganyika
 publie: true
-province: "Tanganyika"
+province: Tanganyika
 territoire:
-  fr: "Kalemie"
+  fr: Kalemie
+  en: Kalemie
 antennes: []
 ordre: 4
+nomEn: Tanganyika

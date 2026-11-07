@@ -1,7 +1,9 @@
-nom: "Haut-Katanga"
+nom: Haut-Katanga
 publie: true
-province: "Haut-Katanga"
+province: Haut-Katanga
 territoire:
-  fr: "Lubumbashi"
+  fr: Lubumbashi
+  en: Lubumbashi
 antennes: []
 ordre: 5
+nomEn: Haut-Katanga

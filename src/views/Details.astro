@@ -3,7 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Fiche from '../components/Fiche.astro';
 import { estCloturee, titreDe } from '../lib/contenu';
-import { t, pick, detailPath, formatDate, type Locale } from '../i18n';
+import { t, pick, detailPath, formatDate, dp, type Locale } from '../i18n';
 
 // Pages de détail des actualités, événements, activités et offres.
 type Props =
@@ -56,7 +56,7 @@ async function lienProjet(ref: { id: string } | null) {
     ]}
     pdf={await (async () => {
       const r = props.entry.data.rapportLie ? await getEntry('rapports', props.entry.data.rapportLie.id) : undefined;
-      return r && r.data.publie && r.data.fichierPdf ? { href: r.data.fichierPdf, title: `${t(lang, 'projects.report')} : ${titreDe(r.data, lang)}` } : null;
+      return r && r.data.publie && r.data.fichierPdf ? { href: r.data.fichierPdf, title: `${t(lang, 'projects.report')}${dp(lang)} ${titreDe(r.data, lang)}` } : null;
     })()}
   />
 )}

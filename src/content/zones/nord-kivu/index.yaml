@@ -1,10 +1,15 @@
-nom: "Nord-Kivu"
+nom: Nord-Kivu
 publie: true
-province: "Nord-Kivu"
+province: Nord-Kivu
 territoire:
-  fr: "Goma (zones de santé Goma, Karisimbi) ; Nyiragongo ; Masisi (Masisi, Katoyi, Kirotshe) ; Rutshuru (Rutshuru, Rwanguba) ; Lubero (Kayna, Alimbongo, Lubero, Musienene) ; Beni (ville et territoire) ; Walikale"
+  fr: Goma (zones de santé Goma, Karisimbi) ; Nyiragongo ; Masisi (Masisi, Katoyi, Kirotshe) ; Rutshuru (Rutshuru, Rwanguba) ; Lubero (Kayna, Alimbongo, Lubero, Musienene) ; Beni (ville et territoire) ; Walikale
+  en: Goma (Goma and Karisimbi health zones); Nyiragongo; Masisi (Masisi, Katoyi, Kirotshe); Rutshuru (Rutshuru, Rwanguba); Lubero (Kayna, Alimbongo, Lubero, Musienene); Beni (city and territory); Walikale
 antennes:
-  - fr: "Goma (siège) : Av. Les Orchidées, N°005, Commune de Goma, ville de Goma"
-  - fr: "Beni : N°007, Avenue de la Réconciliation, Commune de Mulekera"
-  - fr: "Mutwanga : bureau de terrain"
+- fr: 'Goma (siège) : Av. Les Orchidées, N°005, Commune de Goma, ville de Goma'
+  en: 'Goma (head office): No. 005, Avenue Les Orchidées, Goma commune, city of Goma'
+- fr: 'Beni : N°007, Avenue de la Réconciliation, Commune de Mulekera'
+  en: 'Beni: No. 007, Avenue de la Réconciliation, Mulekera commune'
+- fr: 'Mutwanga : bureau de terrain'
+  en: 'Mutwanga: field office'
 ordre: 1
+nomEn: North Kivu

@@ -269,6 +269,7 @@ export default config({
       columns: ['nom'],
       schema: {
         nom: fields.slug({ name: { label: 'Nom', validation: { isRequired: true } } }),
+        nomEn: fields.text({ label: 'Nom en anglais (facultatif, ex. UN Women pour ONU Femmes)' }),
         publie,
         logo: imageAvecAlt('Logo officiel', 'partenaires', 3),
         siteWeb: fields.url({ label: 'Site web (facultatif)' }),

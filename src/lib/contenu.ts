@@ -69,3 +69,13 @@ export async function offresParEtat() {
 export function titreDe(data: { titre: string; titreEn: string }, lang: Locale): string {
   return lang === 'en' && data.titreEn.trim() !== '' ? data.titreEn : data.titre;
 }
+
+/** Nom d'un partenaire dans la langue demandée (repli sur le français). */
+export function nomDe(data: { nom: string; nomEn: string }, lang: Locale): string {
+  return lang === 'en' && data.nomEn.trim() !== '' ? data.nomEn : data.nom;
+}
+
+/** Citation avec les guillemets de la langue. */
+export function citation(texte: string, lang: Locale): string {
+  return lang === 'fr' ? `« ${texte} »` : `“${texte}”`;
+}

@@ -1,9 +1,13 @@
-nom: "Ituri"
+nom: Ituri
 publie: true
-province: "Ituri"
+province: Ituri
 territoire:
-  fr: "Ville de Bunia ; territoires d'Irumu et Mambasa"
+  fr: Ville de Bunia ; territoires d'Irumu et Mambasa
+  en: City of Bunia; Irumu and Mambasa territories
 antennes:
-  - fr: "Bunia : N°169, Avenue Kibali-Ituri, Commune de Mbunya"
-  - fr: "Mambasa : bureau de terrain"
+- fr: 'Bunia : N°169, Avenue Kibali-Ituri, Commune de Mbunya'
+  en: 'Bunia: No. 169, Avenue Kibali-Ituri, Mbunya commune'
+- fr: 'Mambasa : bureau de terrain'
+  en: 'Mambasa: field office'
 ordre: 3
+nomEn: Ituri

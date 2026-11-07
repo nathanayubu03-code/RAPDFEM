@@ -1,13 +1,16 @@
 {
   "sigle": "RAPDFEM",
   "nom": {
-    "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme"
+    "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme",
+    "en": "Network of Associations for the Promotion of Women's Rights"
   },
   "presentationCourte": {
-    "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme. ASBL créée à Goma le 20 février 2015."
+    "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme. ASBL créée à Goma le 20 février 2015.",
+    "en": "Network of Associations for the Promotion of Women's Rights. A non-profit association founded in Goma on 20 February 2015."
   },
   "descriptionSeo": {
-    "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme."
+    "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme.",
+    "en": "RAPDFEM works to strengthen the promotion of women's rights and women's empowerment."
   },
   "logo": {
     "image": "../../assets/reglages/logo/image.png",
@@ -25,26 +28,32 @@
   "bureaux": [
     {
       "nom": {
-        "fr": "Siège, Goma (Nord-Kivu)"
+        "fr": "Siège, Goma (Nord-Kivu)",
+        "en": "Head office, Goma (North Kivu)"
       },
       "adresse": {
-        "fr": "Av. Les Orchidées, N°005, Commune de Goma, ville de Goma"
+        "fr": "Av. Les Orchidées, N°005, Commune de Goma, ville de Goma",
+        "en": "No. 005, Avenue Les Orchidées, Goma commune, city of Goma"
       }
     },
     {
       "nom": {
-        "fr": "Beni"
+        "fr": "Beni",
+        "en": "Beni"
       },
       "adresse": {
-        "fr": "N°007, Avenue de la Réconciliation, Commune de Mulekera ; bureau de terrain à Mutwanga"
+        "fr": "N°007, Avenue de la Réconciliation, Commune de Mulekera ; bureau de terrain à Mutwanga",
+        "en": "No. 007, Avenue de la Réconciliation, Mulekera commune; field office in Mutwanga"
       }
     },
     {
       "nom": {
-        "fr": "Ituri (Bunia)"
+        "fr": "Ituri (Bunia)",
+        "en": "Ituri (Bunia)"
       },
       "adresse": {
-        "fr": "N°169, Avenue Kibali-Ituri, Commune de Mbunya ; bureau de terrain à Mambasa"
+        "fr": "N°169, Avenue Kibali-Ituri, Commune de Mbunya ; bureau de terrain à Mambasa",
+        "en": "No. 169, Avenue Kibali-Ituri, Mbunya commune; field office in Mambasa"
       }
     }
   ],

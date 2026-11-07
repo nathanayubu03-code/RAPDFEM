@@ -5,8 +5,8 @@ import CarteListe from '../components/CarteListe.astro';
 import PdfLink from '../components/PdfLink.astro';
 import { getSettings, telHref } from '../lib/settings';
 import { getPresentation } from '../lib/presentation';
-import { publies, parOrdre, parDateDesc, offresParEtat, titreDe } from '../lib/contenu';
-import { t, pick, pagePath, detailPath, formatDate, type Locale } from '../i18n';
+import { publies, parOrdre, parDateDesc, offresParEtat, titreDe, nomDe, citation } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, formatDate, dp, type Locale } from '../i18n';
 
 // Page d'accueil : un résumé de tout le site. Chaque section n'apparaît que si elle a du contenu publié.
 interface Props { lang: Locale; }
@@ -68,13 +68,13 @@ const siege = settings.bureaux[0];
           <div class="stack">
             <h2>{t(lang, 'home.about')}</h2>
             {pick(p.statut, lang) && <p>{pick(p.statut, lang)}</p>}
-            {pick(p.mission, lang) && <p><b>{t(lang, 'home.mission')} :</b> {pick(p.mission, lang)}</p>}
+            {pick(p.mission, lang) && <p><b>{t(lang, 'home.mission')}{dp(lang)}</b> {pick(p.mission, lang)}</p>}
             <p><a class="lnk" href={pagePath(lang, 'about')}>{t(lang, 'home.about.more')}</a></p>
           </div>
           {pick(p.vision, lang) && (
             <blockquote class="vision">
               <p class="kicker">{t(lang, 'home.vision')}</p>
-              <p class="quote">« {pick(p.vision, lang)} »</p>
+              <p class="quote">{citation(pick(p.vision, lang), lang)}</p>
             </blockquote>
           )}
         </div>
@@ -178,7 +178,7 @@ const siege = settings.bureaux[0];
           <div class="g3">
             {offres.map((e) => (
               <CarteListe href={detailPath(lang, 'offers', e.id)} titre={titreDe(e.data, lang)}
-                surtitre={e.data.dateLimite ? `${t(lang, 'offers.deadline')} : ${formatDate(e.data.dateLimite, lang)}` : null} />
+                surtitre={e.data.dateLimite ? `${t(lang, 'offers.deadline')}${dp(lang)} ${formatDate(e.data.dateLimite, lang)}` : null} />
             ))}
           </div>
         </div>
@@ -206,7 +206,7 @@ const siege = settings.bureaux[0];
             {partenaires.map((e) => (
               <li class="partner">
                 {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang)} sizes="200px" /></div>}
-                <span>{e.data.nom}</span>
+                <span>{nomDe(e.data, lang)}</span>
               </li>
             ))}
           </ul>

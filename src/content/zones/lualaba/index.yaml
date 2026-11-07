@@ -1,7 +1,9 @@
-nom: "Lualaba"
+nom: Lualaba
 publie: true
-province: "Lualaba"
+province: Lualaba
 territoire:
-  fr: "Kolwezi"
+  fr: Kolwezi
+  en: Kolwezi
 antennes: []
 ordre: 6
+nomEn: Lualaba

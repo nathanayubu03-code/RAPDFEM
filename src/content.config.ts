@@ -197,6 +197,7 @@ const partenaires = defineCollection({
   schema: (ctx) =>
     z.object({
       nom: z.string().min(1),
+      nomEn: texte,
       publie,
       logo: imageAvecAlt(ctx, 'Logo'),
       siteWeb: z.url().nullish().transform((v) => v ?? null),

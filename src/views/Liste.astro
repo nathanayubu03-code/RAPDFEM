@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CarteListe from '../components/CarteListe.astro';
 import { publies, parDateDesc, offresParEtat, titreDe } from '../lib/contenu';
-import { t, pick, pagePath, detailPath, formatDate, type Locale } from '../i18n';
+import { t, pick, pagePath, detailPath, formatDate, dp, type Locale } from '../i18n';
 
 // Pages de liste : actualités, événements, activités, offres.
 interface Props { lang: Locale; kind: 'news' | 'events' | 'activities' | 'offers'; }
@@ -38,7 +38,7 @@ if (kind === 'news') {
   const o = await offresParEtat();
   const carte = (e: (typeof o.enCours)[number], close: boolean) => ({
     href: detailPath(lang, 'offers', e.id), titre: titreDe(e.data, lang),
-    surtitre: e.data.dateLimite ? `${t(lang, close ? 'offers.closedOn' : 'offers.deadline')} : ${formatDate(e.data.dateLimite, lang)}` : null,
+    surtitre: e.data.dateLimite ? `${t(lang, close ? 'offers.closedOn' : 'offers.deadline')}${dp(lang)} ${formatDate(e.data.dateLimite, lang)}` : null,
   });
   cartes = o.enCours.map((e) => carte(e, false));
   cloturees = o.cloturees.map((e) => carte(e, true));

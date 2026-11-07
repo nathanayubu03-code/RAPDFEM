@@ -96,3 +96,8 @@ export function formatDate(d: Date, lang: Locale): string {
     day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
   }).format(d);
 }
+
+/** Deux-points selon la langue : « Siège : » en français, « Head office: » en anglais. */
+export function dp(lang: Locale): string {
+  return lang === 'fr' ? '\u00a0:' : ':';
+}
