@@ -1,0 +1,10 @@
+nom: "Nord-Kivu"
+publie: false
+province: "Nord-Kivu"
+territoire:
+  fr: "Goma (zones de santé Goma, Karisimbi) ; Nyiragongo ; Masisi (Masisi, Katoyi, Kirotshe) ; Rutshuru (Rutshuru, Rwanguba) ; Lubero (Kayna, Alimbongo, Lubero, Musienene) ; Beni (ville et territoire) ; Walikale"
+antennes:
+  - fr: "Goma (siège) : Av. Les Orchidées, N°005, Commune de Goma, ville de Goma"
+  - fr: "Beni : N°007, Avenue de la Réconciliation, Commune de Mulekera"
+  - fr: "Mutwanga : bureau de terrain"
+ordre: 1

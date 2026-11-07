@@ -1,0 +1,9 @@
+nom: "Ituri"
+publie: false
+province: "Ituri"
+territoire:
+  fr: "Ville de Bunia ; territoires d'Irumu et Mambasa"
+antennes:
+  - fr: "Bunia : N°169, Avenue Kibali-Ituri, Commune de Mbunya"
+  - fr: "Mambasa : bureau de terrain"
+ordre: 3

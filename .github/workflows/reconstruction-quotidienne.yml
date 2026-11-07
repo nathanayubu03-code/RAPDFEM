@@ -1,0 +1,39 @@
+# Reconstruit et republie le site chaque nuit, pour que les offres dont la date
+# limite est passée basculent seules dans « offres clôturées ».
+# Secrets à créer dans GitHub (Settings, Secrets and variables, Actions) :
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+# Variable à créer au même endroit (onglet Variables) :
+#   PUBLIC_KEYSTATIC_GITHUB_APP_SLUG
+name: Reconstruction quotidienne
+
+on:
+  schedule:
+    - cron: '7 22 * * *' # 00 h 07 à Goma (UTC+2)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reconstruction-quotidienne
+  cancel-in-progress: true
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: ${{ vars.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG }}
+      - run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

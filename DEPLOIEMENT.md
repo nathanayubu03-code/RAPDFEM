@@ -8,7 +8,7 @@ Le principe : le site public est fait de pages statiques hébergées sur Cloudfl
 
 Keystatic enregistre dans la branche par défaut du dépôt GitHub, et Cloudflare publie une branche que vous choisissez. Les deux doivent être la même.
 
-Aujourd'hui la seule branche est `claude/wonderful-allen-7u86jw`. Le plus propre est de la fusionner dans une branche `main`, puis de faire de `main` la branche par défaut : GitHub, dépôt, Settings, General, Default branch.
+La branche `main` existe. Faites-en la branche par défaut : GitHub, dépôt, Settings, General, Default branch, choisir `main`. Les évolutions du site arrivent dans `main` par des pull requests.
 
 ## 2. Créer le site sur Cloudflare
 
@@ -61,6 +61,18 @@ Relancer un déploiement pour que la variable de build soit prise en compte.
 5. Remettre le téléphone d'origine.
 
 Pour ajouter un autre administrateur : l'inviter comme collaborateur du dépôt sur GitHub (Settings, Collaborators). Il pourra ensuite se connecter à `/keystatic`.
+
+## 6. Reconstruction quotidienne (offres clôturées)
+
+Une offre passe dans « offres clôturées » le lendemain de sa date limite. Pour que ça se fasse sans intervention, le fichier `.github/workflows/reconstruction-quotidienne.yml` reconstruit et republie le site chaque nuit à 00 h 07, heure de Goma.
+
+Il a besoin de trois réglages dans GitHub, dépôt, Settings, Secrets and variables, Actions :
+
+- Secret `CLOUDFLARE_API_TOKEN` : un jeton créé dans Cloudflare, My Profile, API Tokens, modèle « Edit Cloudflare Workers ».
+- Secret `CLOUDFLARE_ACCOUNT_ID` : l'identifiant du compte, visible sur la page d'accueil Workers & Pages.
+- Variable (onglet Variables) `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` : le même nom d'application GitHub qu'à l'étape 4.
+
+Pour tester : GitHub, onglet Actions, « Reconstruction quotidienne », Run workflow.
 
 ## Travailler en local
 
