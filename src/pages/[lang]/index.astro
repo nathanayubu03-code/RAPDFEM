@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import UnderConstruction from '../../components/UnderConstruction.astro';
-import { settings } from '../../lib/settings';
+import { getSettings } from '../../lib/settings';
 import { locales, pick, pagePath, type Locale } from '../../i18n';
 
 export function getStaticPaths() {
@@ -9,6 +9,7 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Locale;
+const settings = await getSettings();
 const alternates = { fr: pagePath('fr', 'home'), en: pagePath('en', 'home') };
 ---
 <Base lang={lang} title={settings.sigle} pageKey="home" alternates={alternates}>

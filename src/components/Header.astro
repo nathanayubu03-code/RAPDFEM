@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { settings } from '../lib/settings';
+import { getSettings } from '../lib/settings';
 import {
   t, pagePath, navLabel, mobileNav, desktopNav, navGroup, locales,
   type Locale, type PageKey,
@@ -13,6 +13,7 @@ interface Props {
   alternates?: Record<Locale, string> | undefined;
 }
 const { lang, pageKey, alternates } = Astro.props;
+const settings = await getSettings();
 const group = pageKey ? (navGroup[pageKey] ?? pageKey) : null;
 const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
 ---

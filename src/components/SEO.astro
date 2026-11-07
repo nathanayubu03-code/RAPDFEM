@@ -1,5 +1,6 @@
 ---
-import { settings } from '../lib/settings';
+import { getImage } from 'astro:assets';
+import { getSettings } from '../lib/settings';
 import { pick, locales, defaultLocale, type Locale } from '../i18n';
 
 interface Props {
@@ -13,14 +14,18 @@ interface Props {
 }
 
 const { lang, title, description, alternates, image, noindex = false } = Astro.props;
+const settings = await getSettings();
 const site = Astro.site ?? new URL(Astro.url.origin);
 const siteName = settings.sigle;
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 const desc = description && description.trim() !== '' ? description : pick(settings.descriptionSeo, lang);
 const canonical = new URL(alternates ? alternates[lang] : Astro.url.pathname, site).href;
-const ogImageSrc = image ?? settings.imageOg?.src;
+const defaultOg = settings.imageOg.image
+  ? (await getImage({ src: settings.imageOg.image, width: 1200, format: 'jpg' })).src
+  : undefined;
+const ogImageSrc = image ?? defaultOg;
 const ogImage = ogImageSrc ? new URL(ogImageSrc, site).href : undefined;
-const ogImageAlt = !image && settings.imageOg ? pick(settings.imageOg.alt, lang) : undefined;
+const ogImageAlt = !image && settings.imageOg.image ? pick(settings.imageOg.alt, lang) : undefined;
 const ogLocale = lang === 'fr' ? 'fr_CD' : 'en_US';
 ---
 <title>{fullTitle}</title>

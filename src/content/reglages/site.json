@@ -1,27 +1,56 @@
 {
-  "nom": { "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme" },
   "sigle": "RAPDFEM",
-  "presentationCourte": { "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme. ASBL créée à Goma le 20 février 2015." },
-  "descriptionSeo": { "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme." },
-  "logo": null,
-  "logoFondSombre": null,
-  "favicon": null,
-  "imageOg": null,
+  "nom": {
+    "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme"
+  },
+  "presentationCourte": {
+    "fr": "Réseau d'Associations pour la Promotion des Droits de la Femme. ASBL créée à Goma le 20 février 2015."
+  },
+  "descriptionSeo": {
+    "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme."
+  },
+  "logo": {
+    "alt": {}
+  },
+  "logoFondSombre": {
+    "alt": {}
+  },
+  "imageOg": {
+    "alt": {}
+  },
   "bureaux": [
     {
-      "nom": { "fr": "Siège, Goma (Nord-Kivu)" },
-      "adresse": { "fr": "Av. Les Orchidées, N°005, Commune de Goma, ville de Goma" }
+      "nom": {
+        "fr": "Siège, Goma (Nord-Kivu)"
+      },
+      "adresse": {
+        "fr": "Av. Les Orchidées, N°005, Commune de Goma, ville de Goma"
+      }
     },
     {
-      "nom": { "fr": "Beni" },
-      "adresse": { "fr": "N°007, Avenue de la Réconciliation, Commune de Mulekera ; bureau de terrain à Mutwanga" }
+      "nom": {
+        "fr": "Beni"
+      },
+      "adresse": {
+        "fr": "N°007, Avenue de la Réconciliation, Commune de Mulekera ; bureau de terrain à Mutwanga"
+      }
     },
     {
-      "nom": { "fr": "Ituri (Bunia)" },
-      "adresse": { "fr": "N°169, Avenue Kibali-Ituri, Commune de Mbunya ; bureau de terrain à Mambasa" }
+      "nom": {
+        "fr": "Ituri (Bunia)"
+      },
+      "adresse": {
+        "fr": "N°169, Avenue Kibali-Ituri, Commune de Mbunya ; bureau de terrain à Mambasa"
+      }
     }
   ],
-  "telephones": ["+243 997 786 466", "+243 844 490 186"],
-  "courriels": ["rapdfem.rdc@gmail.com", "coordination@rapdfem.org"],
+  "telephones": [
+    "+243 997 786 466",
+    "+243 844 490 186"
+  ],
+  "courriels": [
+    "rapdfem.rdc@gmail.com",
+    "coordination@rapdfem.org"
+  ],
   "reseauxSociaux": []
 }

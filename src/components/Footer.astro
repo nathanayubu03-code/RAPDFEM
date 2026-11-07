@@ -1,10 +1,11 @@
 ---
 import Logo from './Logo.astro';
-import { settings, telHref } from '../lib/settings';
+import { getSettings, telHref } from '../lib/settings';
 import { t, pick, pagePath, footerNav, type Locale } from '../i18n';
 
 interface Props { lang: Locale; }
 const { lang } = Astro.props;
+const settings = await getSettings();
 const year = new Date().getFullYear();
 const hasContact = settings.courriels.length > 0 || settings.telephones.length > 0;
 ---

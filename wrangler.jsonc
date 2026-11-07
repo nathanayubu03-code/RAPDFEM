@@ -1,0 +1,10 @@
+{
+  // Configuration Cloudflare Workers. Le site public est statique ;
+  // seules les routes /keystatic et /api/keystatic s'exécutent côté serveur.
+  // L'adaptateur Astro complète le point d'entrée et les fichiers statiques au build.
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rapdfem",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true }
+}

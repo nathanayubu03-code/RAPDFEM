@@ -1,29 +1,19 @@
-import raw from '../content/reglages/site.json';
-import type { Localized } from '../i18n';
+import { getEntry, type CollectionEntry } from 'astro:content';
 
-// Réglages du site. Ce fichier sera édité par Keystatic (singleton « Réglages ») à l'étape 3.
+// Réglages du site, édités dans Keystatic (Réglages du site).
 // Aucun champ pour des coordonnées bancaires, volontairement.
 
-export type ImageSetting = { src: string; alt: Localized } | null;
-export type Office = { nom: Localized; adresse: Localized };
-export type SocialLink = { reseau: string; url: string };
+export type SiteSettings = CollectionEntry<'reglages'>['data'];
 
-export type SiteSettings = {
-  nom: Localized;
-  sigle: string;
-  presentationCourte: Localized;
-  descriptionSeo: Localized;
-  logo: ImageSetting;
-  logoFondSombre: ImageSetting;
-  favicon: string | null;
-  imageOg: ImageSetting;
-  bureaux: Office[];
-  telephones: string[];
-  courriels: string[];
-  reseauxSociaux: SocialLink[];
-};
+let cache: SiteSettings | undefined;
 
-export const settings: SiteSettings = raw as SiteSettings;
+export async function getSettings(): Promise<SiteSettings> {
+  if (cache) return cache;
+  const entry = await getEntry('reglages', 'site');
+  if (!entry) throw new Error('Réglages du site introuvables : src/content/reglages/site.json');
+  cache = entry.data;
+  return cache;
+}
 
 /** Numéro au format tel: (chiffres et + uniquement). */
 export function telHref(phone: string): string {
