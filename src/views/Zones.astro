@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { publies, parOrdre } from '../lib/contenu';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const title = t(lang, 'nav.zones');
+const alternates = { fr: pagePath('fr', 'zones'), en: pagePath('en', 'zones') };
+const zones = parOrdre(await publies('zones'), (e) => e.data.nom);
+---
+<Base lang={lang} title={title} pageKey="zones" alternates={alternates}>
+  <PageHeader lang={lang} title={title} />
+  <section class="sec">
+    <div class="wrap">
+      {zones.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : (
+        <div class="g2">
+          {zones.map((z) => (
+            <article class="card">
+              <h2>{lang === 'en' && z.data.nomEn ? z.data.nomEn : z.data.nom}</h2>
+              {pick(z.data.description, lang) && <p class="pre-line">{pick(z.data.description, lang)}</p>}
+              {pick(z.data.territoire, lang) && (
+                <div class="stack-s"><h3>{t(lang, 'zones.areas')}</h3><ul class="bullets">{pick(z.data.territoire, lang).split(/\s*[;\n]\s*/).filter(Boolean).map((x) => <li>{x}</li>)}</ul></div>
+              )}
+              {z.data.antennes.length > 0 && (
+                <div class="stack-s"><h3>{t(lang, 'zones.offices')}</h3><ul class="bullets">{z.data.antennes.map((a) => <li>{pick(a, lang)}</li>)}</ul></div>
+              )}
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

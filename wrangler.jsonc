@@ -6,5 +6,8 @@
   "name": "rapdfem",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
+  // Garde les variables ajoutées à la main dans le tableau de bord Cloudflare
+  // (sinon chaque déploiement les efface). Les clés Keystatic y sont rangées.
+  "keep_vars": true,
   "observability": { "enabled": true }
 }

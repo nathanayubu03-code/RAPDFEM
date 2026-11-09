@@ -1,0 +1,61 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHeader from './PageHeader.astro';
+import Img from './Img.astro';
+import RichText from './RichText.astro';
+import PdfLink from './PdfLink.astro';
+import { contenu } from '../lib/contenu';
+import { t, pagePath, detailPath, navLabel, type Locale, type SectionKey } from '../i18n';
+
+// Gabarit commun des pages de détail : actualité, événement, activité, offre.
+type Img = { src: ImageMetadata; alt: string };
+interface Props {
+  lang: Locale;
+  section: SectionKey;
+  collection: 'actualites' | 'evenements' | 'activites' | 'offres';
+  slug: string;
+  title: string;
+  titreTraduit: boolean;
+  meta?: { label: string; value: string; href?: string }[];
+  image?: Img | null;
+  photos?: Img[];
+  pdf?: { href: string; title: string } | null;
+  badge?: string | null;
+  description?: string | undefined;
+}
+const { lang, section, collection, slug, title, titreTraduit, meta = [], image, photos = [], pdf, badge, description } = Astro.props;
+const c = await contenu(collection, slug, lang);
+const fallback = lang === 'en' && (!titreTraduit || (c?.repli ?? false));
+const og = image ? (await getImage({ src: image.src, width: 1200, format: 'jpg' })).src : undefined;
+const alternates = { fr: detailPath('fr', section, slug), en: detailPath('en', section, slug) };
+---
+<Base lang={lang} title={title} pageKey={section} alternates={alternates} image={og} fallback={fallback} description={description}>
+  <PageHeader lang={lang} title={title} trail={[{ label: t(lang, navLabel[section]), href: pagePath(lang, section) }]}>
+    {badge && <span class="badge">{badge}</span>}
+    {meta.length > 0 && (
+      <dl class="meta">
+        {meta.map((m) => <><dt>{m.label}</dt><dd>{m.href ? <a href={m.href}>{m.value}</a> : m.value}</dd></>)}
+      </dl>
+    )}
+  </PageHeader>
+  <section class="sec">
+    <div class="wrap stack-l">
+      {image && <figure class="fig narrow"><Img src={image.src} alt={image.alt || title} sizes="(min-width: 1024px) 760px, 100vw" eager /></figure>}
+      <RichText collection={collection} slug={slug} lang={lang} />
+      {pdf && <div class="narrow"><PdfLink lang={lang} href={pdf.href} title={pdf.title} /></div>}
+    </div>
+  </section>
+  {photos.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'projects.photos')}</h2>
+        <ul class="plain photos">
+          {photos.map((p) => <li><Img src={p.src} alt={p.alt || title} sizes="(min-width: 768px) 33vw, 50vw" /></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+  <slot />
+</Base>

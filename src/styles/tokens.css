@@ -1,16 +1,20 @@
-/* Jetons repris tels quels de la planche de référence Claude Design (maquette v1). */
+/* Jetons de la maquette Claude Design, couleurs accordées au logo du RAPDFEM :
+   bleu profond (en-tête, boutons, liens) avec une lueur d'or pour les accents. */
 :root {
   --c-text: #1F2328;
   --c-text-2: #4B5563;
   --c-bg: #FFFFFF;
-  --c-surface: #F5F6F7;
+  --c-surface: #F4F6FB;
   --c-border: #D1D5DB;
   --c-border-strong: #6B7280;
-  --c-accent: #1D4ED8;
-  --c-accent-hover: #1E3A8A;
+  --c-accent: #1F4AA8;
+  --c-accent-hover: #163A86;
   --c-on-accent: #FFFFFF;
-  --c-footer: #1F2328;
-  --c-footer-line: #4B5563;
+  --c-footer: #121F45;
+  --c-header: #1A2E66;
+  --c-header-soft: #C9D3EA;
+  --c-footer-line: #2E3E6B;
+  --c-gold: #F5C518; /* décoratif uniquement, jamais pour du texte sur fond clair */
   --c-error: #B42318;
 
   --font: 'Noto Sans', Arial, Helvetica, sans-serif;

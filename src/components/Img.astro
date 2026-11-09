@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Image optimisée : WebP, plusieurs tailles selon l'écran, chargement différé par défaut.
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { src, alt, sizes = '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw', eager = false, class: cls } = Astro.props;
+const widths = [360, 720, 1080, 1440].filter((w) => w <= src.width);
+if (widths.length === 0) widths.push(src.width);
+---
+<Image
+  src={src}
+  alt={alt}
+  widths={widths}
+  sizes={sizes}
+  format="webp"
+  quality={75}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : undefined}
+  class={cls}
+/>

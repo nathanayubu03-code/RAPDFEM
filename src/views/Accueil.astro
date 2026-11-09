@@ -1,0 +1,271 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import CarteListe from '../components/CarteListe.astro';
+import PdfLink from '../components/PdfLink.astro';
+import { getSettings, telHref } from '../lib/settings';
+import { getPresentation } from '../lib/presentation';
+import { publies, parOrdre, parDateDesc, offresParEtat, titreDe, nomDe, citation } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, formatDate, dp, type Locale } from '../i18n';
+
+// Page d'accueil : un résumé de tout le site. Chaque section n'apparaît que si elle a du contenu publié.
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const settings = await getSettings();
+const p = await getPresentation();
+
+const projets = parOrdre(await publies('projets'), (e) => e.data.titre).slice(0, 3);
+const zones = parOrdre(await publies('zones'), (e) => e.data.nom);
+const actus = parDateDesc(await publies('actualites'), (e) => e.data.date).slice(0, 3);
+const evenements = parDateDesc(await publies('evenements'), (e) => e.data.date).slice(0, 3);
+const photos = parDateDesc((await publies('galerie')).filter((g) => g.data.image.image), (g) => g.data.date).slice(0, 6);
+const offres = (await offresParEtat()).enCours.slice(0, 3);
+const rapports = (await publies('rapports')).filter((r) => r.data.fichierPdf).sort((a, b) => b.data.annee - a.data.annee).slice(0, 2);
+const partenaires = parOrdre(await publies('partenaires'), (e) => e.data.nom);
+const alternates = { fr: pagePath('fr', 'home'), en: pagePath('en', 'home') };
+const accroche = pick(p.accroche, lang);
+const img = (x: { image: any; alt: { fr: string; en: string } }) => (x.image ? { src: x.image, alt: pick(x.alt, lang) } : null);
+const siege = settings.bureaux[0];
+// Le logo contient du texte en français : sur l'accueil anglais, on ne l'affiche en grand que s'il existe une version anglaise.
+const logoHero = lang === 'en' ? settings.logoEn.image : settings.logo.image;
+---
+<Base lang={lang} title={settings.sigle} pageKey="home" alternates={alternates} description={accroche || undefined}>
+  <div class="home">
+    {/* 1. Bandeau d'accueil */}
+    <section class="sec hero-sec">
+      <div class="wrap hero">
+        <div class="stack-l">
+          {pick(p.surtitre, lang) && <p class="kicker">{pick(p.surtitre, lang)}</p>}
+          <h1>{pick(settings.nom, lang)}</h1>
+          {accroche && <p class="lead">{accroche}</p>}
+          <div class="row">
+            <a class="btn btn-p btn-full-m" href={pagePath(lang, 'projects')}>{t(lang, 'home.cta.projects')}</a>
+            <a class="btn btn-s btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.cta.contact')}</a>
+          </div>
+        </div>
+        {p.imageAccueil.image ? (
+          <figure class="fig"><Img src={p.imageAccueil.image} alt={pick(p.imageAccueil.alt, lang) || pick(settings.nom, lang)} sizes="(min-width: 1024px) 50vw, 100vw" eager /></figure>
+        ) : logoHero && (
+          <div class="hero-logo" aria-hidden="true"><Img src={logoHero} alt="" sizes="320px" /></div>
+        )}
+      </div>
+    </section>
+
+    {/* 2. Chiffres clés */}
+    {p.chiffres.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <h2>{t(lang, 'home.facts')}</h2>
+          <ul class="plain g3">
+            {p.chiffres.map((c) => <li class="card fact"><b>{c.valeur}</b>{pick(c.libelle, lang)}</li>)}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {/* 3. Qui sommes-nous */}
+    {(pick(p.statut, lang) || pick(p.mission, lang) || pick(p.vision, lang)) && (
+      <section class="sec">
+        <div class="wrap g2 about">
+          <div class="stack">
+            <h2>{t(lang, 'home.about')}</h2>
+            {pick(p.statut, lang) && <p>{pick(p.statut, lang)}</p>}
+            {pick(p.mission, lang) && <p><b>{t(lang, 'home.mission')}{dp(lang)}</b> {pick(p.mission, lang)}</p>}
+            <p><a class="lnk" href={pagePath(lang, 'about')}>{t(lang, 'home.about.more')}</a></p>
+          </div>
+          {pick(p.vision, lang) && (
+            <blockquote class="vision">
+              <p class="kicker">{t(lang, 'home.vision')}</p>
+              <p class="quote">{citation(pick(p.vision, lang), lang)}</p>
+            </blockquote>
+          )}
+        </div>
+      </section>
+    )}
+
+    {/* 4. Axes d'intervention */}
+    {p.axes.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.axes')}</h2><a class="lnk" href={pagePath(lang, 'about')}>{t(lang, 'home.axes.more')}</a></div>
+          <div class="g3">
+            {p.axes.map((a) => (
+              <article class="card axe">
+                <h3>{pick(a.titre, lang)}</h3>
+                {pick(a.texte, lang) && <p>{pick(a.texte, lang)}</p>}
+                {a.points.length > 0 && <ul class="bullets small">{a.points.slice(0, 4).map((x) => <li>{pick(x, lang)}</li>)}</ul>}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 5. Projets */}
+    {projets.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.projects')}</h2><a class="lnk" href={pagePath(lang, 'projects')}>{t(lang, 'home.projects.all')}</a></div>
+          <div class="g3">
+            {projets.map((e) => <CarteListe href={detailPath(lang, 'projects', e.id)} titre={titreDe(e.data, lang)} image={img(e.data.imagePrincipale)} />)}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 6. Zones d'intervention */}
+    {zones.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.zones')}</h2><a class="lnk" href={pagePath(lang, 'zones')}>{t(lang, 'home.zones.all')}</a></div>
+          <ul class="plain g3">
+            {zones.map((z) => (
+              <li class="card zone">
+                <h3>{lang === 'en' && z.data.nomEn ? z.data.nomEn : z.data.nom}</h3>
+                {pick(z.data.territoire, lang) && <p class="small muted">{pick(z.data.territoire, lang).split(/\s*[;\n]\s*/).filter(Boolean).map((x) => x.replace(/\s*\(.*?\)/g, '')).join(', ')}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {/* 7. Actualités */}
+    {actus.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.news')}</h2><a class="lnk" href={pagePath(lang, 'news')}>{t(lang, 'home.news.all')}</a></div>
+          <div class="g3">
+            {actus.map((e) => (
+              <CarteListe href={detailPath(lang, 'news', e.id)} titre={titreDe(e.data, lang)} image={img(e.data.imagePrincipale)}
+                surtitre={formatDate(e.data.date, lang)} texte={pick(e.data.resume, lang) || null} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 8. Événements */}
+    {evenements.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.events')}</h2><a class="lnk" href={pagePath(lang, 'events')}>{t(lang, 'home.events.all')}</a></div>
+          <div class="g3">
+            {evenements.map((e) => (
+              <CarteListe href={detailPath(lang, 'events', e.id)} titre={titreDe(e.data, lang)} image={img(e.data.image)}
+                surtitre={[formatDate(e.data.date, lang), pick(e.data.lieu, lang)].filter(Boolean).join(' · ')} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 9. Galerie */}
+    {photos.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.gallery')}</h2><a class="lnk" href={pagePath(lang, 'gallery')}>{t(lang, 'home.gallery.all')}</a></div>
+          <ul class="plain photos">
+            {photos.map((g) => <li><Img src={g.data.image.image!} alt={pick(g.data.image.alt, lang) || titreDe(g.data, lang)} sizes="(min-width: 768px) 33vw, 50vw" /></li>)}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {/* 10. Offres en cours */}
+    {offres.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.offers')}</h2><a class="lnk" href={pagePath(lang, 'offers')}>{t(lang, 'home.offers.all')}</a></div>
+          <div class="g3">
+            {offres.map((e) => (
+              <CarteListe href={detailPath(lang, 'offers', e.id)} titre={titreDe(e.data, lang)}
+                surtitre={e.data.dateLimite ? `${t(lang, 'offers.deadline')}${dp(lang)} ${formatDate(e.data.dateLimite, lang)}` : null} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 11. Publications */}
+    {rapports.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.reports')}</h2><a class="lnk" href={pagePath(lang, 'reports')}>{t(lang, 'home.reports.all')}</a></div>
+          <div class="g2">
+            {rapports.map((r) => <PdfLink lang={lang} href={r.data.fichierPdf!} title={titreDe(r.data, lang)} detail={String(r.data.annee)} />)}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 12. Partenaires */}
+    {partenaires.length > 0 && (
+      <section class="sec">
+        <div class="wrap stack-l">
+          <div class="sec-head"><h2>{t(lang, 'home.partners')}</h2><a class="lnk" href={pagePath(lang, 'partners')}>{t(lang, 'home.partners.all')}</a></div>
+          {/* Bandeau qui défile : la liste est répétée une fois (cachée aux lecteurs d'écran) pour une boucle continue. */}
+          <div class="defile">
+            <ul class="plain piste">
+              {[false, true].map((copie) => partenaires.map((e) => (
+                <li class="partner" aria-hidden={copie ? 'true' : undefined}>
+                  {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={copie ? '' : pick(e.data.logo.alt, lang) || nomDe(e.data, lang)} sizes="200px" /></div>}
+                  <span>{nomDe(e.data, lang)}</span>
+                </li>
+              )))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {/* 13. Nous joindre */}
+    <section class="sec contact-sec">
+      <div class="wrap g2">
+        <div class="stack">
+          <h2>{t(lang, 'home.contact')}</h2>
+          <p>{t(lang, 'home.work.text')}</p>
+          <ul class="plain stack-s">
+            {settings.courriels.map((m) => <li><a class="lnk" href={`mailto:${m}`}>{m}</a></li>)}
+            {settings.telephones.map((tel) => <li><a class="lnk" href={telHref(tel)}>{tel}</a></li>)}
+          </ul>
+        </div>
+        <div class="stack">
+          {siege && <div class="card"><h3>{pick(siege.nom, lang)}</h3><p>{pick(siege.adresse, lang)}</p></div>}
+          <div class="row">
+            <a class="btn btn-p btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.work.cta')}</a>
+            <a class="btn btn-o btn-full-m" href={pagePath(lang, 'donate')}>{t(lang, 'home.donate')}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  /* Sections alternées blanc / bleu très clair, quel que soit le nombre de sections affichées. */
+  .home > .sec:nth-child(even) { background: var(--c-surface); }
+  .home > .sec.contact-sec { background: var(--c-header); color: #FFFFFF; }
+  .contact-sec :global(a.lnk) { color: #FFFFFF; }
+  .contact-sec :global(a.lnk:hover) { color: var(--c-gold); }
+  .contact-sec .card { background: transparent; border-color: rgba(255, 255, 255, .3); }
+  .contact-sec .btn-p { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-header); }
+  .contact-sec .btn-p:hover { background: #FFFFFF; border-color: #FFFFFF; color: var(--c-header); }
+  .contact-sec :focus-visible { outline-color: var(--c-gold); }
+  .contact-sec .btn-o { background: transparent; border-color: #FFFFFF; color: #FFFFFF; }
+  .contact-sec .btn-o:hover { border-color: var(--c-gold); color: var(--c-gold); }
+
+  .hero-logo { display: none; }
+  @media (min-width: 1024px) {
+    .hero-logo { display: flex; justify-content: center; }
+    .hero-logo :global(img) { width: 320px; height: auto; }
+  }
+
+  .vision { margin: 0; padding: 24px; border-left: 4px solid var(--c-gold); background: var(--c-bg); border-radius: var(--radius); }
+  .vision .quote { margin-top: 8px; color: var(--c-header); }
+  .axe { border-top: 3px solid var(--c-accent); }
+  .zone h3 { color: var(--c-header); }
+  .partner { display: flex; flex-direction: column; justify-content: center; gap: 8px; flex: none; width: 260px; min-height: 76px; padding: 14px 18px; border-left: 3px solid var(--c-gold); border-radius: var(--radius); background: var(--c-bg); box-shadow: 0 6px 16px -14px rgba(26, 46, 102, .5); font-size: 15px; font-weight: 700; }
+  .partner .logo-box { aspect-ratio: auto; height: 56px; padding: 6px; border: 0; }
+  .fact b { color: var(--c-header); }
+</style>

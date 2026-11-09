@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Img from '../components/Img.astro';
+import RichText from '../components/RichText.astro';
+import CarteListe from '../components/CarteListe.astro';
+import { publies, parDateDesc, titreDe, contenu } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, formatDate, type Locale } from '../i18n';
+
+interface Props { lang: Locale; entry: CollectionEntry<'projets'>; }
+const { lang, entry } = Astro.props;
+const d = entry.data;
+const title = titreDe(d, lang);
+const lie = (x: { id: string } | null) => x?.id === entry.id;
+const activites = parDateDesc((await publies('activites')).filter((a) => lie(a.data.projetLie)), (a) => a.data.date);
+const actus = parDateDesc((await publies('actualites')).filter((a) => lie(a.data.projetLie)), (a) => a.data.date);
+const photosGalerie = (await publies('galerie')).filter((g) => lie(g.data.projetLie) && g.data.image.image);
+const photos = [
+  ...d.photos.filter((p) => p.image).map((p) => ({ src: p.image!, alt: pick(p.alt, lang), legende: '' })),
+  ...photosGalerie.map((g) => ({ src: g.data.image.image!, alt: pick(g.data.image.alt, lang), legende: pick(g.data.legende, lang) })),
+];
+const c = await contenu('projets', entry.id, lang);
+const fallback = lang === 'en' && (d.titreEn === '' || (c?.repli ?? false));
+const og = d.imagePrincipale.image ? (await getImage({ src: d.imagePrincipale.image, width: 1200, format: 'jpg' })).src : undefined;
+const alternates = { fr: detailPath('fr', 'projects', entry.id), en: detailPath('en', 'projects', entry.id) };
+---
+<Base lang={lang} title={title} pageKey="projects" alternates={alternates} image={og} fallback={fallback}>
+  <PageHeader lang={lang} title={title} trail={[{ label: t(lang, 'nav.projects'), href: pagePath(lang, 'projects') }]} />
+  <section class="sec">
+    <div class="wrap stack-l">
+      {d.imagePrincipale.image && <figure class="fig narrow"><Img src={d.imagePrincipale.image} alt={pick(d.imagePrincipale.alt, lang) || title} sizes="(min-width: 1024px) 760px, 100vw" eager /></figure>}
+      <RichText collection="projets" slug={entry.id} lang={lang} />
+    </div>
+  </section>
+
+  {photos.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'projects.photos')}</h2>
+        <ul class="plain photos">
+          {photos.map((p) => (
+            <li><figure class="fig"><Img src={p.src} alt={p.alt || title} sizes="(min-width: 768px) 33vw, 50vw" />{p.legende && <figcaption>{p.legende}</figcaption>}</figure></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {activites.length > 0 && (
+    <section class="sec">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'projects.activities')}</h2>
+        <div class="g3">
+          {activites.map((a) => (
+            <CarteListe href={detailPath(lang, 'activities', a.id)} titre={titreDe(a.data, lang)} surtitre={a.data.date ? formatDate(a.data.date, lang) : null} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {actus.length > 0 && (
+    <section class="sec alt">
+      <div class="wrap stack-l">
+        <h2>{t(lang, 'projects.news')}</h2>
+        <div class="g3">
+          {actus.map((a) => (
+            <CarteListe href={detailPath(lang, 'news', a.id)} titre={titreDe(a.data, lang)} surtitre={formatDate(a.data.date, lang)} texte={pick(a.data.resume, lang) || null} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</Base>

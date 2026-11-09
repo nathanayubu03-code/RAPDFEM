@@ -1,0 +1,214 @@
+{
+  "surtitre": {
+    "fr": "ASBL · Goma, RDC",
+    "en": "Non-profit association (ASBL) · Goma, DR Congo"
+  },
+  "accroche": {
+    "fr": "Le RAPDFEM œuvre pour le renforcement de la promotion des droits et l'autonomisation de la femme.",
+    "en": "RAPDFEM works to strengthen the promotion of women's rights and women's empowerment."
+  },
+  "imageAccueil": {
+    "image": "../../assets/presentation/imageAccueil/image.jpg",
+    "alt": {}
+  },
+  "chiffres": [
+    {
+      "valeur": "2015",
+      "libelle": {
+        "fr": "Créé à Goma le 20 février",
+        "en": "Founded in Goma on 20 February"
+      }
+    },
+    {
+      "valeur": "20",
+      "libelle": {
+        "fr": "organisations membres",
+        "en": "member organisations"
+      }
+    },
+    {
+      "valeur": "6",
+      "libelle": {
+        "fr": "provinces d'intervention",
+        "en": "provinces of intervention"
+      }
+    }
+  ],
+  "statut": {
+    "fr": "Association sans but lucratif (ASBL), créée à Goma (RDC) le 20 février 2015 par des représentants d'organisations membres des Alliances travaillant dans la protection de la femme. Le réseau compte 20 organisations membres.",
+    "en": "A non-profit association (ASBL) founded in Goma (DRC) on 20 February 2015 by representatives of member organisations of the Alliances working to protect women. The network brings together 20 member organisations."
+  },
+  "mission": {
+    "fr": "Œuvrer pour le renforcement de la promotion des droits et l'autonomisation de la femme.",
+    "en": "To strengthen the promotion of women's rights and women's empowerment."
+  },
+  "vision": {
+    "fr": "Bâtir un monde où les hommes, les femmes, les garçons et les filles vivent équitablement la réalisation des droits dans la dignité et sécurité.",
+    "en": "To build a world where men, women, boys and girls equally enjoy the realisation of their rights, in dignity and security."
+  },
+  "objectif": {
+    "fr": "Contribuer à l'amélioration des conditions de vie des femmes et filles par la promotion de leurs droits et leur autonomisation.",
+    "en": "To help improve the living conditions of women and girls by promoting their rights and their empowerment."
+  },
+  "axes": [
+    {
+      "titre": {
+        "fr": "Promotion et protection des droits de la femme et de la fille",
+        "en": "Promotion and protection of the rights of women and girls"
+      },
+      "texte": {},
+      "points": [
+        {
+          "fr": "Accès des femmes à la justice",
+          "en": "Women's access to justice"
+        },
+        {
+          "fr": "Analyses, études, enquêtes et recherches sur la situation des droits des femmes",
+          "en": "Analyses, studies, surveys and research on the situation of women's rights"
+        },
+        {
+          "fr": "Sensibilisation des communautés et vulgarisation des lois et instruments juridiques",
+          "en": "Community awareness-raising and dissemination of laws and legal instruments"
+        },
+        {
+          "fr": "Publication de rapports de recherche, études, analyses et enquêtes",
+          "en": "Publication of research reports, studies, analyses and surveys"
+        },
+        {
+          "fr": "Plaidoyer en synergie pour améliorer l'exécution des politiques, lois, stratégies, plans et projets",
+          "en": "Joint advocacy to improve the implementation of policies, laws, strategies, plans and projects"
+        },
+        {
+          "fr": "Suivi des politiques publiques protégeant les droits des femmes et filles",
+          "en": "Monitoring of public policies that protect the rights of women and girls"
+        }
+      ]
+    },
+    {
+      "titre": {
+        "fr": "Autonomisation des femmes et filles",
+        "en": "Empowerment of women and girls"
+      },
+      "texte": {},
+      "points": [
+        {
+          "fr": "Formations : droits des femmes, instruments juridiques, Activités Génératrices de Revenus (AGR), entrepreneuriat féminin, leadership féminin, genre, participation politique, gestion et inclusion financière",
+          "en": "Training: women's rights, legal instruments, income-generating activities (IGAs), women's entrepreneurship, women's leadership, gender, political participation, financial management and inclusion"
+        },
+        {
+          "fr": "Alphabétisation fonctionnelle",
+          "en": "Functional literacy"
+        },
+        {
+          "fr": "Prévention des violences basées sur le genre (VBG)",
+          "en": "Prevention of gender-based violence (GBV)"
+        },
+        {
+          "fr": "Éducation à la santé sexuelle et reproductive (SSR)",
+          "en": "Sexual and reproductive health (SRH) education"
+        },
+        {
+          "fr": "Appui aux AGR, AVEC/VSLA, entrepreneuriat féminin, négociation sociale",
+          "en": "Support for IGAs, VSLAs (AVEC), women's entrepreneurship and social negotiation"
+        },
+        {
+          "fr": "Intégration des femmes et filles dans les chaînes de valeur et filières porteuses",
+          "en": "Integration of women and girls into promising value chains and sectors"
+        }
+      ]
+    },
+    {
+      "titre": {
+        "fr": "Gouvernance locale et inclusive",
+        "en": "Local and inclusive governance"
+      },
+      "texte": {
+        "fr": "Amplifier la voix des femmes dans les instances de décision, influencer les détenteurs de pouvoir pour des décisions inclusives, améliorer les espaces citoyens.",
+        "en": "Amplifying women's voices in decision-making bodies, influencing power holders towards inclusive decisions, and improving civic spaces."
+      },
+      "points": []
+    }
+  ],
+  "approches": [
+    {
+      "fr": "Approche basée sur les droits",
+      "en": "Rights-based approach"
+    },
+    {
+      "fr": "Gouvernance et bonne gouvernance",
+      "en": "Governance and good governance"
+    },
+    {
+      "fr": "Développement négocié",
+      "en": "Negotiated development"
+    },
+    {
+      "fr": "Gouvernance et développement",
+      "en": "Governance and development"
+    },
+    {
+      "fr": "Focalisation accrue sur les filles et femmes",
+      "en": "Increased focus on girls and women"
+    }
+  ],
+  "documentsLegaux": [
+    {
+      "fr": "Régulièrement notarié",
+      "en": "Duly notarised"
+    },
+    {
+      "fr": "Autorisation Division de la justice : n° JUST.112/574/NK/2021",
+      "en": "Authorisation from the Justice Division: No. JUST.112/574/NK/2021"
+    },
+    {
+      "fr": "Autorisation Division du plan : n° 840/DPP/NK/2021",
+      "en": "Authorisation from the Planning Division: No. 840/DPP/NK/2021"
+    },
+    {
+      "fr": "Arrêté provincial : n° 01/139/CAB/GP/2021",
+      "en": "Provincial decree: No. 01/139/CAB/GP/2021"
+    },
+    {
+      "fr": "Autorisation du ministère national de la justice : n° JUST/SG/20/26.046/2021 (accusé de réception F.92/45.875)",
+      "en": "Authorisation from the national Ministry of Justice: No. JUST/SG/20/26.046/2021 (acknowledgement of receipt F.92/45.875)"
+    }
+  ],
+  "politiques": [
+    {
+      "titre": {
+        "fr": "Égalité de genre",
+        "en": "Gender equality"
+      }
+    },
+    {
+      "titre": {
+        "fr": "PSEA (prévention de l'exploitation et des abus sexuels)",
+        "en": "PSEA (prevention of sexual exploitation and abuse)"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Protection de l'environnement",
+        "en": "Environmental protection"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Business for Peace (B4P)",
+        "en": "Business for Peace (B4P)"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Gouvernance inclusive",
+        "en": "Inclusive governance"
+      }
+    },
+    {
+      "titre": {
+        "fr": "Anti-fraude et déclaration de conflit d'intérêts",
+        "en": "Anti-fraud and conflict of interest declaration"
+      }
+    }
+  ]
+}

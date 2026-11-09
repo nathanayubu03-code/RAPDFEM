@@ -1,0 +1,13 @@
+---
+import { render } from 'astro:content';
+import { contenu } from '../lib/contenu';
+import type { Locale } from '../i18n';
+
+// Texte libre écrit dans l'admin. N'affiche rien si l'espace est vide.
+interface Props { collection: Parameters<typeof contenu>[0]; slug: string; lang: Locale; }
+const { collection, slug, lang } = Astro.props;
+const c = await contenu(collection, slug, lang);
+const rendu = c ? await render(c.entry) : null;
+const Content = rendu?.Content;
+---
+{Content && <div class="prose" lang={c?.repli ? 'fr' : undefined}><Content /></div>}
