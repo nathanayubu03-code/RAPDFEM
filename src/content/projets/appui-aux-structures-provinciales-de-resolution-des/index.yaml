@@ -6,6 +6,9 @@ titreEn: >-
   conflicts (security and stabilisation)
 publie: true
 imagePrincipale:
-  alt: {}
+  image: >-
+    ../../../assets/projets/appui-aux-structures-provinciales-de-resolution-des/imagePrincipale/image.jpg
+  alt:
+    fr: Echange et mise en place de jeune fille à risque de Burayi
 photos: []
 ordre: 5
