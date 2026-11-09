@@ -64,15 +64,23 @@ Pour ajouter un autre administrateur : l'inviter comme collaborateur du dépôt 
 
 ## 6. Reconstruction quotidienne (offres clôturées)
 
-Une offre passe dans « offres clôturées » le lendemain de sa date limite. Pour que ça se fasse sans intervention, le fichier `.github/workflows/reconstruction-quotidienne.yml` reconstruit et republie le site chaque nuit à 00 h 07, heure de Goma.
+Une offre passe dans « offres clôturées » le lendemain de sa date limite. Pour que ça se fasse sans intervention, la tâche GitHub `Reconstruction quotidienne` demande chaque nuit à Cloudflare de reconstruire le site (00 h 07, heure de Goma). Réglage unique :
 
-Il a besoin de trois réglages dans GitHub, dépôt, Settings, Secrets and variables, Actions :
+1. Cloudflare, Workers & Pages, rapdfem, Settings, partie Builds, bloc **Deploy Hooks** : créer un hook (nom : `quotidien`, branche : la branche de production). Copier l'adresse obtenue.
+2. GitHub, dépôt, Settings, Secrets and variables, Actions, **New repository secret** : nom `CLOUDFLARE_DEPLOY_HOOK`, valeur : l'adresse copiée.
+3. Pour tester : onglet Actions, « Reconstruction quotidienne », Run workflow. Un nouveau build doit apparaître dans Cloudflare.
 
-- Secret `CLOUDFLARE_API_TOKEN` : un jeton créé dans Cloudflare, My Profile, API Tokens, modèle « Edit Cloudflare Workers ».
-- Secret `CLOUDFLARE_ACCOUNT_ID` : l'identifiant du compte, visible sur la page d'accueil Workers & Pages.
-- Variable (onglet Variables) `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` : le même nom d'application GitHub qu'à l'étape 4.
+Tant que ce secret n'existe pas, la tâche s'arrête proprement, sans erreur.
 
-Pour tester : GitHub, onglet Actions, « Reconstruction quotidienne », Run workflow.
+## 7. Les garde-fous
+
+Trois protections empêchent qu'une erreur de saisie bloque le site :
+
+- **Avant chaque construction**, `scripts/preparer-contenu.mjs` contrôle chaque image et chaque PDF du contenu. Une photo au format iPhone (HEIC), abîmée ou supprimée est mise de côté pour cette publication, et le reste du site est publié normalement. Le journal de build Cloudflare indique quoi corriger dans l'admin.
+- **Après chaque construction**, `scripts/verifier-site.mjs` contrôle toutes les pages : liens internes, version française et anglaise, un seul grand titre, texte alternatif des images, aucune valeur technique affichée (« undefined »…).
+- **À chaque modification**, la tâche GitHub `Contrôle du site` refait tout ça et affiche une coche verte ou une croix rouge dans l'onglet Actions. Une croix rouge ne touche pas le site en ligne.
+
+Si un build Cloudflare échoue malgré tout, **la version précédente du site reste en ligne** : rien ne disparaît. Pour être prévenu par e-mail : Cloudflare, Notifications, Add, « Workers Builds », événement « Build failed ».
 
 ## Travailler en local
 
@@ -85,4 +93,4 @@ L'administration locale est sur http://localhost:4321/keystatic. En local, Keyst
 
 ## Limites de taille
 
-Keystatic ne sait pas refuser un fichier trop lourd au moment du téléversement. Le build vérifie donc toutes les images (3 Mo maximum) et tous les PDF (10 Mo maximum). Si un fichier dépasse, la publication est bloquée et le journal de build Cloudflare nomme le fichier en cause. Le site en ligne reste alors dans son état précédent.
+Keystatic ne sait pas refuser un fichier trop lourd au téléversement. Le build signale donc dans son journal les images de plus de 3 Mo et les PDF de plus de 10 Mo, sans bloquer : les images sont de toute façon réduites. Seul un PDF de plus de 25 Mo bloque, parce que Cloudflare le refuserait.

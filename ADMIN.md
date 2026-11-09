@@ -58,6 +58,7 @@ Quelques boutons restent en anglais, parce que l'outil n'est pas entièrement tr
 - **Français obligatoire, anglais facultatif.** Si l'anglais est vide, la version anglaise du site affiche le texte français avec un petit bandeau.
 - **Texte alternatif obligatoire.** Pour chaque image, écrivez en une phrase ce qu'elle montre, par exemple « Femmes médiatrices réunies au centre de Turunga ». Ce texte est lu aux personnes aveugles. S'il est oublié, la publication passe quand même et le site utilise le titre à la place, mais un vrai texte est préférable.
 - **Images de 3 Mo maximum conseillés, PDF de 10 Mo maximum conseillés.** Une image plus lourde est quand même publiée (le site la réduit), mais l'envoi est plus long. Un PDF de plus de 25 Mo est refusé par l'hébergement. Une photo de téléphone fait souvent 3 à 6 Mo : réduisez-la d'abord, par exemple avec https://squoosh.app ou en l'envoyant par WhatsApp à vous-même.
+- **Formats de photo : JPG, PNG ou WebP.** Les photos d'iPhone au format HEIC ne sont pas lisibles par le site : elles sont mises de côté et n'apparaissent pas. Sur iPhone, choisissez « Le plus compatible » dans Réglages, Appareil photo, Formats ; ou envoyez-vous la photo par WhatsApp, qui la convertit en JPG.
 - **Consentement.** Ne publiez une photo de personnes que si elles ont donné leur accord.
 - **Un champ vide n'affiche rien.** Vous pouvez laisser vide tout ce que vous ne connaissez pas.
 
@@ -151,7 +152,8 @@ Suivez ces étapes dans l'ordre :
 3. **Attendez cinq minutes**, puis rechargez la page du site en appuyant sur Ctrl + F5 (ou en tirant la page vers le bas sur un téléphone).
 4. **Ouvrez toujours l'administration par l'adresse qui finit par `/keystatic`**, sans rien après. N'utilisez pas un ancien favori qui contient `/branch/main` : ce qui est enregistré sur une autre branche n'est jamais publié.
 5. **Si l'administration bloque ou affiche « Internal error »**, ouvrez-la dans une fenêtre de navigation privée (Ctrl + Maj + N). Si ça marche là, videz les données du site dans votre navigateur habituel : icône à gauche de l'adresse, « Paramètres du site », « Supprimer les données ». Puis reconnectez-vous.
-6. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
+6. **Une photo n'apparaît pas alors que le reste est publié ?** Elle a sans doute été mise de côté : format HEIC, fichier abîmé, ou fichier supprimé. Supprimez-la dans l'admin et téléversez-la à nouveau en JPG.
+7. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
 
 ## 14. Bonnes pratiques
 

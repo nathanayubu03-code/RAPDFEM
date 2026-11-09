@@ -4,8 +4,23 @@ import { collection, config, fields, singleton } from '@keystatic/core';
 /* Briques communes                                                    */
 /* ------------------------------------------------------------------ */
 
-const AIDE_IMAGE = 'Image de 3 Mo maximum. Au-delà, la publication est bloquée.';
-const AIDE_PDF = 'PDF de 10 Mo maximum. Au-delà, la publication est bloquée.';
+const AIDE_IMAGE = 'Photo JPG, PNG ou WebP, 3 Mo conseillés. Les photos iPhone au format HEIC ne sont pas lisibles : choisissez « Le plus compatible » dans les réglages Appareil photo, ou envoyez la photo par WhatsApp avant de la téléverser.';
+const AIDE_PDF = 'PDF de 10 Mo conseillés, 25 Mo au maximum.';
+
+/** Nom de fichier sans espaces ni accents : « Photo Été 2025.JPG » devient « photo-ete-2025.jpg ». */
+function nomDeFichierPropre(original: string): string {
+  const point = original.lastIndexOf('.');
+  const base = point > 0 ? original.slice(0, point) : original;
+  const ext = point > 0 ? original.slice(point + 1).toLowerCase() : '';
+  const propre = base
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60) || 'image';
+  return ext ? `${propre}.${ext}` : propre;
+}
 
 // Champ bilingue : français obligatoire (sauf mention contraire), anglais facultatif.
 const bilingue = (label: string, opts: { multiline?: boolean; requis?: boolean } = {}) =>
@@ -65,10 +80,10 @@ const editeur = (dossier: string, label: string, requis: boolean) =>
       image: {
         directory: `src/assets/${dossier}`,
         publicPath: `../../../assets/${dossier}/`,
+        transformFilename: nomDeFichierPropre,
         schema: {
           alt: fields.text({
-            label: 'Texte alternatif (décrivez l’image en une phrase)',
-            validation: { isRequired: true },
+            label: 'Texte alternatif (décrivez l’image en une phrase, conseillé)',
           }),
           title: fields.text({ label: 'Légende (facultatif)' }),
         },

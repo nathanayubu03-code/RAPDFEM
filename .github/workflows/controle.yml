@@ -1,0 +1,34 @@
+# Contrôle automatique du site à chaque modification (code ou contenu enregistré dans l'admin).
+# Une coche verte sur GitHub : le site se construit et toutes les pages sont correctes.
+# Une croix rouge : un problème est décrit dans l'onglet Actions. Le site en ligne n'est pas touché.
+name: Contrôle du site
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: controle-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  controle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Vérification du code (types)
+        run: npx astro check
+      - name: Construction du site (avec contrôle du contenu)
+        run: npm run build
+      - name: Contrôle de toutes les pages (liens, langues, titres, images)
+        run: npm run verifier

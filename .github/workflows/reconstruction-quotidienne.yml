@@ -1,9 +1,10 @@
-# Reconstruit et republie le site chaque nuit, pour que les offres dont la date
-# limite est passée basculent seules dans « offres clôturées ».
-# Secrets à créer dans GitHub (Settings, Secrets and variables, Actions) :
-#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
-# Variable à créer au même endroit (onglet Variables) :
-#   PUBLIC_KEYSTATIC_GITHUB_APP_SLUG
+# Reconstruit le site chaque nuit, pour que les offres dont la date limite est passée
+# basculent seules dans « offres clôturées ».
+#
+# Réglage unique : dans Cloudflare (Workers & Pages, rapdfem, Settings, Builds, Deploy Hooks),
+# créer un deploy hook, copier son adresse, puis l'enregistrer dans GitHub
+# (Settings, Secrets and variables, Actions, New repository secret) sous le nom
+# CLOUDFLARE_DEPLOY_HOOK. Tant que ce secret n'existe pas, la tâche s'arrête sans erreur.
 name: Reconstruction quotidienne
 
 on:
@@ -11,29 +12,24 @@ on:
     - cron: '7 22 * * *' # 00 h 07 à Goma (UTC+2)
   workflow_dispatch: {}
 
-permissions:
-  contents: read
-
-concurrency:
-  group: reconstruction-quotidienne
-  cancel-in-progress: true
+permissions: {}
 
 jobs:
-  publier:
+  relancer:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+      - name: Demander à Cloudflare de reconstruire le site
         env:
-          PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: ${{ vars.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG }}
-      - run: npx wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::notice::Secret CLOUDFLARE_DEPLOY_HOOK absent : reconstruction quotidienne non configurée (voir DEPLOIEMENT.md)."
+            exit 0
+          fi
+          for essai in 1 2 3; do
+            if curl -fsS -X POST "$HOOK" > /dev/null; then echo "Reconstruction demandée."; exit 0; fi
+            echo "Essai $essai échoué, nouvel essai dans 30 s."; sleep 30
+          done
+          echo "::error::Cloudflare n'a pas répondu après 3 essais."
+          exit 1

@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-Vérifications avant chaque livraison :
+Vérifications avant chaque livraison (la construction contrôle le contenu avant, et les pages après) :
 
 ```bash
 npm run build
@@ -32,7 +32,10 @@ npx astro check
 - `src/content/<collection>/<slug>/` : un dossier par élément (index.yaml + contenuFr.mdoc / contenuEn.mdoc).
 - `src/views/` : les pages ; `src/pages/[lang]/` les route en français et en anglais.
 - `src/assets/` : images téléversées, optimisées par Astro (WebP).
-- `src/integrations/limites-fichiers.ts` : bloque le build si une image dépasse 3 Mo ou un PDF 10 Mo.
+- `scripts/preparer-contenu.mjs` : garde-fou d'avant construction (images HEIC, abîmées ou supprimées mises de côté).
+- `scripts/verifier-site.mjs` : garde-fou d'après construction (liens, langues, titres, images) ; `npm run verifier`.
+- `src/integrations/limites-fichiers.ts` : signale les fichiers lourds (bloque seulement un PDF de plus de 25 Mo).
+- `.github/workflows/` : contrôle à chaque modification, reconstruction quotidienne.
 - `src/styles/tokens.css` : couleurs, police, espacements repris de la maquette Claude Design.
 - `src/components/SEO.astro` : title, description, Open Graph, canonique, hreflang.
 - `src/pages/index.astro` : l’adresse racine envoie vers la langue choisie (bouton FR/EN), sinon celle du navigateur, sinon le français.
