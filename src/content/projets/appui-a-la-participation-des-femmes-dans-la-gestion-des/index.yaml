@@ -8,5 +8,11 @@ imagePrincipale:
     ../../../assets/projets/appui-a-la-participation-des-femmes-dans-la-gestion-des/imagePrincipale/image.png
   alt:
     fr: GOPA DEBUT PROJET
-photos: []
+photos:
+  - image: >-
+      ../../../assets/projets/appui-a-la-participation-des-femmes-dans-la-gestion-des/photos/0/image.png
+    alt: {}
+  - image: >-
+      ../../../assets/projets/appui-a-la-participation-des-femmes-dans-la-gestion-des/photos/1/image.png
+    alt: {}
 ordre: 2
