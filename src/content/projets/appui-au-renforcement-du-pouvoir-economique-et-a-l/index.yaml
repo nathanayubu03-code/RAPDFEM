@@ -1,5 +1,11 @@
-titre: Appui au renforcement du pouvoir économique et à l'autonomisation de la femme et de la jeune fille
-titreEn: Support for strengthening the economic power and empowerment of women and young women
-publie: false
+titre: >-
+  Appui au renforcement du pouvoir économique et à l'autonomisation de la femme
+  et de la jeune fille
+titreEn: >-
+  Support for strengthening the economic power and empowerment of women and
+  young women
+publie: true
+imagePrincipale:
+  alt: {}
 photos: []
 ordre: 12
