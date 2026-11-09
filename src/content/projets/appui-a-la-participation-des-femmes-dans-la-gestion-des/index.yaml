@@ -5,7 +5,7 @@ titreEn: Support for women's participation in the management of cross-border flo
 publie: true
 imagePrincipale:
   image: >-
-    ../../../assets/projets/appui-a-la-participation-des-femmes-dans-la-gestion-des/imagePrincipale/image.png
+    ../../../assets/projets/appui-a-la-participation-des-femmes-dans-la-gestion-des/imagePrincipale/image.jpg
   alt:
     fr: GOPA DEBUT PROJET
 photos:
@@ -15,4 +15,4 @@ photos:
   - image: >-
       ../../../assets/projets/appui-a-la-participation-des-femmes-dans-la-gestion-des/photos/1/image.png
     alt: {}
-ordre: 1
+ordre: 0
