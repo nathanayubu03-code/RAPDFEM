@@ -1,0 +1,47 @@
+<script>
+  // Déclenche les animations au défilement et le compteur des chiffres clés.
+  // Sans ce script (ou si l'appareil demande moins d'animations), tout reste simplement visible.
+  const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!calme && 'IntersectionObserver' in window) {
+    const cibles = document.querySelectorAll<HTMLElement>(
+      'main .sec h2, main .card, main .photos > li, main .fig, main .vision, main .doc, main .prose > *, main .defile, main .faq details, main .empty',
+    );
+    const hauteur = window.innerHeight;
+    const obs = new IntersectionObserver(
+      (entrees) => {
+        for (const e of entrees) {
+          if (!e.isIntersecting) continue;
+          const el = e.target as HTMLElement;
+          el.classList.add('vu');
+          el.classList.remove('cache');
+          obs.unobserve(el);
+          const chiffre = el.querySelector<HTMLElement>('.fact b, b[data-compte]') ?? (el.matches('.fact') ? el.querySelector('b') : null);
+          if (chiffre) compter(chiffre);
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+    );
+    cibles.forEach((el) => {
+      // Seuls les éléments encore hors de l'écran sont cachés : rien ne clignote au chargement.
+      if (el.getBoundingClientRect().top < hauteur * 0.92) return;
+      const freres = el.parentElement ? Array.from(el.parentElement.children) : [];
+      el.style.setProperty('--i', String(Math.max(0, freres.indexOf(el))));
+      el.classList.add('cache');
+      obs.observe(el);
+    });
+  }
+
+  /** Fait défiler un petit nombre de 0 à sa valeur (les années comme 2015 ne bougent pas). */
+  function compter(el: HTMLElement) {
+    const cible = Number(el.textContent?.trim());
+    if (!Number.isInteger(cible) || cible <= 0 || cible >= 1000) return;
+    const debut = performance.now();
+    const duree = 1200;
+    const etape = (t: number) => {
+      const p = Math.min(1, (t - debut) / duree);
+      el.textContent = String(Math.round(cible * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(etape);
+    };
+    requestAnimationFrame(etape);
+  }
+</script>

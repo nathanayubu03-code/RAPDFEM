@@ -77,5 +77,6 @@ export function nomDe(data: { nom: string; nomEn: string }, lang: Locale): strin
 
 /** Citation avec les guillemets de la langue. */
 export function citation(texte: string, lang: Locale): string {
-  return lang === 'fr' ? `« ${texte} »` : `“${texte}”`;
+  // Espaces insécables : le guillemet ne se retrouve jamais seul en début ou fin de ligne.
+  return lang === 'fr' ? `«\u00a0${texte}\u00a0»` : `“${texte}”`;
 }

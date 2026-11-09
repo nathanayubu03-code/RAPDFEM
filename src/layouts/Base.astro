@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Animations from '../components/Animations.astro';
 import { t, type Locale, type PageKey } from '../i18n';
 
 interface Props {
@@ -38,5 +39,6 @@ const { lang, title, description, pageKey, alternates, image, noindex, fallback 
       <slot />
     </main>
     <Footer lang={lang} />
+    <Animations />
   </body>
 </html>

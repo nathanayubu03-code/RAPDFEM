@@ -1,6 +1,7 @@
 @import '@fontsource/noto-sans/latin-400.css';
 @import '@fontsource/noto-sans/latin-700.css';
 @import './tokens.css';
+@import './animations.css';
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
