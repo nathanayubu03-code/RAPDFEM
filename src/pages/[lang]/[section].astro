@@ -8,6 +8,7 @@ import Publications from '../../views/Publications.astro';
 import Partenaires from '../../views/Partenaires.astro';
 import FAQ from '../../views/FAQ.astro';
 import Contact from '../../views/Contact.astro';
+import Don from '../../views/Don.astro';
 import { locales, slugs, type Locale, type SectionKey } from '../../i18n';
 
 // Une page de liste par entrée du menu, en français et en anglais.
@@ -31,3 +32,4 @@ const { key } = Astro.props as { key: SectionKey };
 {key === 'partners' && <Partenaires lang={lang} />}
 {key === 'faq' && <FAQ lang={lang} />}
 {key === 'contact' && <Contact lang={lang} />}
+{key === 'donate' && <Don lang={lang} />}

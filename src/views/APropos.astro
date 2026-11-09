@@ -69,7 +69,7 @@ const blocs = [
         <ul class="plain g4">
           {equipe.map((e) => (
             <li class="card">
-              {e.data.photo.image && <div class="portrait"><Img src={e.data.photo.image} alt={pick(e.data.photo.alt, lang)} sizes="(min-width: 1024px) 25vw, 50vw" /></div>}
+              {e.data.photo.image && <div class="portrait"><Img src={e.data.photo.image} alt={pick(e.data.photo.alt, lang) || e.data.nom} sizes="(min-width: 1024px) 25vw, 50vw" /></div>}
               <h3>{e.data.nom}</h3>
               <p class="muted">{pick(e.data.fonction, lang)}</p>
               {pick(e.data.bio, lang) && <p class="small pre-line">{pick(e.data.bio, lang)}</p>}

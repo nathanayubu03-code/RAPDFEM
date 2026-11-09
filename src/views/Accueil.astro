@@ -42,7 +42,7 @@ const siege = settings.bureaux[0];
           </div>
         </div>
         {p.imageAccueil.image ? (
-          <figure class="fig"><Img src={p.imageAccueil.image} alt={pick(p.imageAccueil.alt, lang)} sizes="(min-width: 1024px) 50vw, 100vw" eager /></figure>
+          <figure class="fig"><Img src={p.imageAccueil.image} alt={pick(p.imageAccueil.alt, lang) || pick(settings.nom, lang)} sizes="(min-width: 1024px) 50vw, 100vw" eager /></figure>
         ) : settings.logo.image && (
           <div class="hero-logo" aria-hidden="true"><Img src={settings.logo.image} alt="" sizes="320px" /></div>
         )}
@@ -164,7 +164,7 @@ const siege = settings.bureaux[0];
         <div class="wrap stack-l">
           <div class="sec-head"><h2>{t(lang, 'home.gallery')}</h2><a class="lnk" href={pagePath(lang, 'gallery')}>{t(lang, 'home.gallery.all')}</a></div>
           <ul class="plain photos">
-            {photos.map((g) => <li><Img src={g.data.image.image!} alt={pick(g.data.image.alt, lang)} sizes="(min-width: 768px) 33vw, 50vw" /></li>)}
+            {photos.map((g) => <li><Img src={g.data.image.image!} alt={pick(g.data.image.alt, lang) || titreDe(g.data, lang)} sizes="(min-width: 768px) 33vw, 50vw" /></li>)}
           </ul>
         </div>
       </section>
@@ -205,7 +205,7 @@ const siege = settings.bureaux[0];
           <ul class="plain g3 partners">
             {partenaires.map((e) => (
               <li class="partner">
-                {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang)} sizes="200px" /></div>}
+                {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang) || nomDe(e.data, lang)} sizes="200px" /></div>}
                 <span>{nomDe(e.data, lang)}</span>
               </li>
             ))}
@@ -227,7 +227,10 @@ const siege = settings.bureaux[0];
         </div>
         <div class="stack">
           {siege && <div class="card"><h3>{pick(siege.nom, lang)}</h3><p>{pick(siege.adresse, lang)}</p></div>}
-          <div><a class="btn btn-p btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.work.cta')}</a></div>
+          <div class="row">
+            <a class="btn btn-p btn-full-m" href={pagePath(lang, 'contact')}>{t(lang, 'home.work.cta')}</a>
+            <a class="btn btn-o btn-full-m" href={pagePath(lang, 'donate')}>{t(lang, 'home.donate')}</a>
+          </div>
         </div>
       </div>
     </section>
@@ -244,6 +247,8 @@ const siege = settings.bureaux[0];
   .contact-sec .btn-p { background: var(--c-gold); border-color: var(--c-gold); color: var(--c-header); }
   .contact-sec .btn-p:hover { background: #FFFFFF; border-color: #FFFFFF; color: var(--c-header); }
   .contact-sec :focus-visible { outline-color: var(--c-gold); }
+  .contact-sec .btn-o { background: transparent; border-color: #FFFFFF; color: #FFFFFF; }
+  .contact-sec .btn-o:hover { border-color: var(--c-gold); color: var(--c-gold); }
 
   .hero-logo { display: none; }
   @media (min-width: 1024px) {

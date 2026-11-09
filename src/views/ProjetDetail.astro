@@ -30,7 +30,7 @@ const alternates = { fr: detailPath('fr', 'projects', entry.id), en: detailPath(
   <PageHeader lang={lang} title={title} trail={[{ label: t(lang, 'nav.projects'), href: pagePath(lang, 'projects') }]} />
   <section class="sec">
     <div class="wrap stack-l">
-      {d.imagePrincipale.image && <figure class="fig narrow"><Img src={d.imagePrincipale.image} alt={pick(d.imagePrincipale.alt, lang)} sizes="(min-width: 1024px) 760px, 100vw" eager /></figure>}
+      {d.imagePrincipale.image && <figure class="fig narrow"><Img src={d.imagePrincipale.image} alt={pick(d.imagePrincipale.alt, lang) || title} sizes="(min-width: 1024px) 760px, 100vw" eager /></figure>}
       <RichText collection="projets" slug={entry.id} lang={lang} />
     </div>
   </section>
@@ -41,7 +41,7 @@ const alternates = { fr: detailPath('fr', 'projects', entry.id), en: detailPath(
         <h2>{t(lang, 'projects.photos')}</h2>
         <ul class="plain photos">
           {photos.map((p) => (
-            <li><figure class="fig"><Img src={p.src} alt={p.alt} sizes="(min-width: 768px) 33vw, 50vw" />{p.legende && <figcaption>{p.legende}</figcaption>}</figure></li>
+            <li><figure class="fig"><Img src={p.src} alt={p.alt || title} sizes="(min-width: 768px) 33vw, 50vw" />{p.legende && <figcaption>{p.legende}</figcaption>}</figure></li>
           ))}
         </ul>
       </div>

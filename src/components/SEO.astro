@@ -25,7 +25,7 @@ const defaultOg = settings.imageOg.image
   : undefined;
 const ogImageSrc = image ?? defaultOg;
 const ogImage = ogImageSrc ? new URL(ogImageSrc, site).href : undefined;
-const ogImageAlt = !image && settings.imageOg.image ? pick(settings.imageOg.alt, lang) : undefined;
+const ogImageAlt = !image && settings.imageOg.image ? pick(settings.imageOg.alt, lang) || siteName : undefined;
 const ogLocale = lang === 'fr' ? 'fr_CD' : 'en_US';
 ---
 <title>{fullTitle}</title>

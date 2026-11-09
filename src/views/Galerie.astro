@@ -34,7 +34,7 @@ const photos = await Promise.all(
           {photos.map(({ g, lien }) => (
             <li>
               <figure class="fig">
-                <Img src={g.data.image.image!} alt={pick(g.data.image.alt, lang)} />
+                <Img src={g.data.image.image!} alt={pick(g.data.image.alt, lang) || titreDe(g.data, lang)} />
                 <figcaption class="stack-s">
                   <b>{titreDe(g.data, lang)}</b>
                   {pick(g.data.legende, lang) && <span class="pre-line">{pick(g.data.legende, lang)}</span>}

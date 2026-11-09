@@ -42,7 +42,7 @@ const alternates = { fr: detailPath('fr', section, slug), en: detailPath('en', s
   </PageHeader>
   <section class="sec">
     <div class="wrap stack-l">
-      {image && <figure class="fig narrow"><Img src={image.src} alt={image.alt} sizes="(min-width: 1024px) 760px, 100vw" eager /></figure>}
+      {image && <figure class="fig narrow"><Img src={image.src} alt={image.alt || title} sizes="(min-width: 1024px) 760px, 100vw" eager /></figure>}
       <RichText collection={collection} slug={slug} lang={lang} />
       {pdf && <div class="narrow"><PdfLink lang={lang} href={pdf.href} title={pdf.title} /></div>}
     </div>
@@ -52,7 +52,7 @@ const alternates = { fr: detailPath('fr', section, slug), en: detailPath('en', s
       <div class="wrap stack-l">
         <h2>{t(lang, 'projects.photos')}</h2>
         <ul class="plain photos">
-          {photos.map((p) => <li><Img src={p.src} alt={p.alt} sizes="(min-width: 768px) 33vw, 50vw" /></li>)}
+          {photos.map((p) => <li><Img src={p.src} alt={p.alt || title} sizes="(min-width: 768px) 33vw, 50vw" /></li>)}
         </ul>
       </div>
     </section>

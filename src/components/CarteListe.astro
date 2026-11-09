@@ -14,7 +14,7 @@ interface Props {
 const { href, titre, image, surtitre, texte, badge } = Astro.props;
 ---
 <article class="card">
-  {image && <div class="card-img"><Img src={image.src} alt={image.alt} /></div>}
+  {image && <div class="card-img"><Img src={image.src} alt={image.alt || titre} /></div>}
   {badge && <span class="badge">{badge}</span>}
   {surtitre && <p class="date">{surtitre}</p>}
   <h3><a class="t" href={href}>{titre}</a></h3>

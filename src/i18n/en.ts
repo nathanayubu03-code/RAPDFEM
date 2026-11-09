@@ -25,6 +25,8 @@ const en: Record<UIKey, string> = {
   'nav.partners': 'Partners',
   'nav.faq': 'FAQ',
   'nav.contact': 'Contact',
+  'nav.donate': 'Donate',
+  'nav.zones.short': 'Areas',
 
   'home.cta.projects': 'See our projects',
   'home.cta.contact': 'Contact us',
@@ -93,6 +95,15 @@ const en: Record<UIKey, string> = {
   'offers.closedOn': 'Closed on',
   'offers.noOpen': 'There are no current opportunities.',
   'offers.document': 'Opportunity document',
+
+  'don.intro': 'You can support the work of RAPDFEM by bank transfer, using the details below.',
+  'don.bank': 'Bank',
+  'don.holder': 'Account name',
+  'don.account': 'Account number',
+  'don.swift': 'SWIFT code',
+  'don.currency': 'Currency',
+  'don.question': 'For any question about your donation, write to us:',
+  'home.donate': 'Support RAPDFEM',
 
   'zones.areas': 'Cities, territories and health zones',
   'zones.offices': 'Offices',

@@ -10,7 +10,7 @@ const settings = await getSettings();
 const choisi = dark && settings.logoFondSombre.image ? settings.logoFondSombre : settings.logo;
 ---
 <span class="logo-wrap">
-  {choisi.image && <Image class="logo-img" src={choisi.image} alt={pick(choisi.alt, lang)} height={112} densities={[1, 2]} format="webp" loading="eager" />}
+  {choisi.image && <Image class="logo-img" src={choisi.image} alt={pick(choisi.alt, lang) || `Logo ${settings.sigle}`} height={112} densities={[1, 2]} format="webp" loading="eager" />}
   <span class="logo-txt">{settings.sigle}</span>
 </span>
 <style>

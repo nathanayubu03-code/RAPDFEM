@@ -19,7 +19,7 @@ const partenaires = parOrdre(await publies('partenaires'), (e) => e.data.nom);
         <ul class="plain g3">
           {partenaires.map((e) => (
             <li class="card">
-              {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang)} sizes="320px" /></div>}
+              {e.data.logo.image && <div class="logo-box"><Img src={e.data.logo.image} alt={pick(e.data.logo.alt, lang) || nomDe(e.data, lang)} sizes="320px" /></div>}
               <h2 class="h3">{nomDe(e.data, lang)}</h2>
               {pick(e.data.categorie, lang) && <p class="small muted">{pick(e.data.categorie, lang)}</p>}
               {e.data.siteWeb && <a class="lnk" href={e.data.siteWeb} rel="noopener">{t(lang, 'partners.website')}</a>}

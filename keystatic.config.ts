@@ -127,12 +127,18 @@ const modeGithub = import.meta.env.PROD || import.meta.env.PUBLIC_KEYSTATIC_STOR
 
 export default config({
   storage: modeGithub
-    ? { kind: 'github', repo: 'nathanayubu03-code/RAPDFEM' }
+    ? {
+        kind: 'github',
+        repo: 'nathanayubu03-code/RAPDFEM',
+        // Seule la branche par défaut (celle que Cloudflare publie) est proposée dans l'admin :
+        // impossible d'enregistrer par erreur sur une autre branche jamais mise en ligne.
+        branchPrefix: 'brouillon-admin/',
+      }
     : { kind: 'local' },
   ui: {
     brand: { name: 'RAPDFEM' },
     navigation: {
-      'Identité': ['reglages'],
+      'Identité': ['reglages', 'don'],
       'Le réseau': ['projets', 'activites', 'zones', 'equipe', 'partenaires'],
       'Actualité': ['actualites', 'evenements', 'galerie'],
       'Documents et offres': ['offres', 'rapports', 'faq'],
@@ -330,6 +336,25 @@ export default config({
   },
 
   singletons: {
+    don: singleton({
+      label: 'Faire un don (coordonnées bancaires)',
+      path: 'src/content/don/site',
+      format: { data: 'json' },
+      schema: {
+        texte: bilingue('Texte d’introduction (facultatif, un texte par défaut est affiché sinon)', { multiline: true, requis: false }),
+        comptes: fields.array(
+          fields.object({
+            banque: fields.text({ label: 'Banque', validation: { isRequired: true } }),
+            intitule: fields.text({ label: 'Intitulé du compte' }),
+            numero: fields.text({ label: 'Numéro de compte', validation: { isRequired: true } }),
+            swift: fields.text({ label: 'Code SWIFT (facultatif)' }),
+            devise: fields.text({ label: 'Devise (facultatif, ex. USD)' }),
+          }),
+          { label: 'Comptes bancaires', itemLabel: (p) => p.fields.banque.value || 'Compte' },
+        ),
+      },
+    }),
+
     presentation: singleton({
       label: 'Présentation du réseau (accueil et à propos)',
       path: 'src/content/presentation/site',

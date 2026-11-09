@@ -2,7 +2,7 @@
 import Logo from './Logo.astro';
 import { getSettings } from '../lib/settings';
 import {
-  t, pagePath, navLabel, mobileNav, desktopNav, navGroup, locales,
+  t, pagePath, navLabel, mobileNav, desktopNav, desktopLabel, navGroup, locales,
   type Locale, type PageKey,
 } from '../i18n';
 
@@ -25,9 +25,10 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
     </a>
     <nav class="nav" aria-label={t(lang, 'site.mainNav')}>
       {desktopNav.map((k) => (
-        <a href={pagePath(lang, k)} aria-current={k === group ? 'page' : undefined}>{t(lang, navLabel[k])}</a>
+        <a href={pagePath(lang, k)} aria-current={k === group ? 'page' : undefined}>{t(lang, desktopLabel[k] ?? navLabel[k])}</a>
       ))}
     </nav>
+    <a class="don" href={pagePath(lang, 'donate')} aria-current={pageKey === 'donate' ? 'page' : undefined}>{t(lang, 'nav.donate')}</a>
     <div class="hd-r">
       <nav class="lang" aria-label={t(lang, 'site.langLabel')}>
         {locales.map((l) => (
@@ -43,7 +44,7 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   <nav class="mnav" id="mnav" aria-label={t(lang, 'site.mainNav')}>
     <ul class="plain">
       {mobileNav.map((k) => (
-        <li><a href={pagePath(lang, k)} aria-current={k === pageKey ? 'page' : undefined}>{t(lang, navLabel[k])}</a></li>
+        <li><a class:list={[{ 'm-don': k === 'donate' }]} href={pagePath(lang, k)} aria-current={k === pageKey ? 'page' : undefined}>{t(lang, navLabel[k])}</a></li>
       ))}
     </ul>
   </nav>
@@ -88,6 +89,8 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   .logo:hover { color: var(--c-gold); }
   /* Petits téléphones : le logo seul, pour laisser la place à la langue et au menu. */
   @media (max-width: 419px) { .logo :global(.logo-txt) { display: none; } }
+  /* Ordinateurs (menu complet affiché) : le logo seul, le menu prend la place. */
+  @media (min-width: 1280px) { .logo :global(.logo-txt) { display: none; } }
   .hd-r { display: flex; align-items: center; gap: 8px; }
 
   .lang { display: inline-flex; flex: none; border: 1px solid var(--c-header-soft); border-radius: var(--radius); overflow: hidden; }
@@ -118,6 +121,8 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   .mnav a[aria-current] { color: var(--c-gold); box-shadow: inset 4px 0 0 var(--c-gold); }
 
   .nav { display: none; }
+  .don { display: none; }
+  .mnav a.m-don { color: var(--c-gold); }
 
   /* Menu horizontal : à partir de 1280 px, les 8 entrées tiennent sur une ligne. */
   @media (min-width: 1280px) {
@@ -129,6 +134,13 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
     }
     .nav a:hover { color: var(--c-gold); }
     .nav a[aria-current] { color: var(--c-gold); box-shadow: inset 0 -3px 0 var(--c-gold); }
+    /* Bouton « Faire un don » : or sur bleu, bien visible sans être criard. */
+    .don {
+      display: inline-flex; align-items: center; flex: none; min-height: 40px; padding: 0 14px;
+      border: 2px solid var(--c-gold); border-radius: var(--radius);
+      background: var(--c-gold); color: var(--c-header); font-size: 15px; font-weight: 700; text-decoration: none; white-space: nowrap;
+    }
+    .don:hover, .don[aria-current] { background: transparent; color: var(--c-gold); }
     .burger, :global(.js) .burger { display: none; }
     .mnav, :global(.js) .mnav.open { display: none; }
   }

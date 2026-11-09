@@ -1,0 +1,48 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getSettings } from '../lib/settings';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+// Page « Faire un don » : texte et comptes bancaires édités dans l'admin (Identité, Faire un don).
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const don = (await getEntry('don', 'site'))?.data;
+const settings = await getSettings();
+const title = t(lang, 'nav.donate');
+const alternates = { fr: pagePath('fr', 'donate'), en: pagePath('en', 'donate') };
+const intro = (don && pick(don.texte, lang)) || t(lang, 'don.intro');
+const comptes = don?.comptes ?? [];
+const courriel = settings.courriels[settings.courriels.length - 1] ?? settings.courriels[0];
+---
+<Base lang={lang} title={title} pageKey="donate" alternates={alternates} description={intro}>
+  <PageHeader lang={lang} title={title} lead={intro} />
+  <section class="sec">
+    <div class="wrap stack-l">
+      {comptes.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : (
+        <div class="g2">
+          {comptes.map((c) => (
+            <article class="card compte">
+              <h2 class="h3">{c.banque}</h2>
+              <dl class="meta">
+                {c.intitule && <><dt>{t(lang, 'don.holder')}</dt><dd>{c.intitule}</dd></>}
+                <dt>{t(lang, 'don.account')}</dt><dd class="num">{c.numero}</dd>
+                {c.swift && <><dt>{t(lang, 'don.swift')}</dt><dd class="num">{c.swift}</dd></>}
+                {c.devise && <><dt>{t(lang, 'don.currency')}</dt><dd>{c.devise}</dd></>}
+              </dl>
+            </article>
+          ))}
+        </div>
+      )}
+      {courriel && <p>{t(lang, 'don.question')} <a class="lnk" href={`mailto:${courriel}`}>{courriel}</a></p>}
+    </div>
+  </section>
+</Base>
+<style>
+  .h3 { font-size: 20px; line-height: 1.4; color: var(--c-header); }
+  .compte { border-top: 4px solid var(--c-gold); }
+  .compte .meta { font-size: 16px; gap: 8px 16px; }
+  /* Numéros faciles à lire et à copier en entier d'un clic. */
+  .num { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; letter-spacing: .02em; user-select: all; overflow-wrap: anywhere; }
+</style>

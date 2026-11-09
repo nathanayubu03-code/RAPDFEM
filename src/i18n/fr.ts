@@ -24,6 +24,8 @@ const fr = {
   'nav.partners': 'Partenaires',
   'nav.faq': 'FAQ',
   'nav.contact': 'Contact',
+  'nav.donate': 'Faire un don',
+  'nav.zones.short': 'Zones',
 
   'home.cta.projects': 'Voir nos projets',
   'home.cta.contact': 'Nous contacter',
@@ -92,6 +94,15 @@ const fr = {
   'offers.closedOn': 'Clôturée le',
   'offers.noOpen': 'Aucune offre en cours pour le moment.',
   'offers.document': 'Document de l’offre',
+
+  'don.intro': 'Vous pouvez soutenir les actions du RAPDFEM par virement bancaire, avec les coordonnées ci-dessous.',
+  'don.bank': 'Banque',
+  'don.holder': 'Intitulé du compte',
+  'don.account': 'Numéro de compte',
+  'don.swift': 'Code SWIFT',
+  'don.currency': 'Devise',
+  'don.question': 'Pour toute question sur votre don, écrivez-nous :',
+  'home.donate': 'Soutenir le RAPDFEM',
 
   'zones.areas': 'Villes, territoires et zones de santé',
   'zones.offices': 'Antennes et bureaux',

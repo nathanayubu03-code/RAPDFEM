@@ -41,7 +41,7 @@ Pour retirer l'accès à quelqu'un : même endroit, bouton « Remove » à côt�
 - **Le réseau** : Projets, Activités, Zones d'intervention, Équipe, Partenaires.
 - **Actualité** : Actualités, Événements, Galerie photos.
 - **Documents et offres** : Offres, Rapports et publications, Questions fréquentes.
-- **Identité** : Logo et coordonnées (logo de l'ONG, favicon, adresses, téléphones, courriels, réseaux sociaux).
+- **Identité** : Logo et coordonnées (logo de l'ONG, favicon, adresses, téléphones, courriels, réseaux sociaux), et Faire un don (coordonnées bancaires).
 - **Textes du site** : Présentation du réseau (textes de l'accueil et de la page À propos).
 
 Quelques boutons restent en anglais, parce que l'outil n'est pas entièrement traduit :
@@ -56,8 +56,8 @@ Quelques boutons restent en anglais, parce que l'outil n'est pas entièrement tr
 ## 4. Règles valables partout
 
 - **Français obligatoire, anglais facultatif.** Si l'anglais est vide, la version anglaise du site affiche le texte français avec un petit bandeau.
-- **Texte alternatif obligatoire.** Pour chaque image, écrivez en une phrase ce qu'elle montre, par exemple « Femmes médiatrices réunies au centre de Turunga ». Ce texte est lu aux personnes aveugles. Sans lui, la publication est refusée.
-- **Images de 3 Mo maximum, PDF de 10 Mo maximum.** Au-delà, la publication est bloquée (voir la section 12). Une photo de téléphone fait souvent 3 à 6 Mo : réduisez-la d'abord, par exemple avec https://squoosh.app ou en l'envoyant par WhatsApp à vous-même.
+- **Texte alternatif obligatoire.** Pour chaque image, écrivez en une phrase ce qu'elle montre, par exemple « Femmes médiatrices réunies au centre de Turunga ». Ce texte est lu aux personnes aveugles. S'il est oublié, la publication passe quand même et le site utilise le titre à la place, mais un vrai texte est préférable.
+- **Images de 3 Mo maximum conseillés, PDF de 10 Mo maximum conseillés.** Une image plus lourde est quand même publiée (le site la réduit), mais l'envoi est plus long. Un PDF de plus de 25 Mo est refusé par l'hébergement. Une photo de téléphone fait souvent 3 à 6 Mo : réduisez-la d'abord, par exemple avec https://squoosh.app ou en l'envoyant par WhatsApp à vous-même.
 - **Consentement.** Ne publiez une photo de personnes que si elles ont donné leur accord.
 - **Un champ vide n'affiche rien.** Vous pouvez laisser vide tout ce que vous ne connaissez pas.
 
@@ -90,7 +90,7 @@ Les trois dernières actualités publiées apparaissent sur la page d'accueil.
 Il y a deux façons, selon l'usage :
 
 - **Photos d'un projet, d'une activité ou d'une offre** : ouvrez l'élément, section « Photos », bouton « Ajouter », une photo à la fois.
-- **Galerie photos** : menu **Galerie photos**, puis **Ajouter**. Une entrée correspond à une photo, avec son titre, sa légende et sa date. Vous pouvez la relier à un projet ou à un événement : elle apparaît alors aussi sur la page du projet.
+- **Galerie photos** : menu **Galerie photos**, puis **Ajouter**. Une entrée correspond à une photo, avec son titre, sa légende et sa date. Vous pouvez la relier à un projet ou à un événement : elle apparaît alors aussi sur la page du projet. Les photos publiées s'affichent sur la page **Galerie** du site (dans le menu principal) et les six plus récentes sur l'accueil.
 
 L'outil ne permet pas d'envoyer plusieurs photos d'un seul coup.
 
@@ -126,24 +126,34 @@ Cliquez sur **Sauvegarder**. Les coordonnées changent partout à la fois : en-t
 
 Les textes de l'accueil et de la page À propos (accroche, chiffres clés, mission, vision, axes) se changent dans **Présentation du réseau**.
 
-## 11. Dépublier ou supprimer un contenu
+## 11. Modifier la page « Faire un don »
+
+Menu **Identité**, puis **Faire un don (coordonnées bancaires)**.
+
+- **Texte d'introduction** : facultatif. S'il est vide, le site affiche une phrase standard.
+- **Comptes bancaires** : un bloc par compte, avec la banque, l'intitulé, le numéro, le code SWIFT et la devise. Cliquez sur « Ajouter » pour un deuxième compte (par exemple en francs congolais), ou sur la corbeille pour en retirer un.
+
+Vérifiez chaque chiffre avant de sauvegarder : ces coordonnées sont publiques et servent aux donateurs.
+
+## 12. Dépublier ou supprimer un contenu
 
 - **Dépublier** (le cacher sans le perdre) : ouvrez l'élément, décochez **Publié**, cliquez sur **Sauvegarder**. Il disparaît du site mais reste dans l'administration.
 - **Supprimer** définitivement : ouvrez l'élément, cliquez sur l'icône de corbeille en haut à droite, puis confirmez.
 
 Avant de supprimer un projet, vérifiez qu'aucune actualité, activité ou photo de la galerie n'y est reliée. Sinon, changez d'abord le lien dans ces éléments.
 
-## 12. La publication n'apparaît pas après quelques minutes
+## 13. La publication n'apparaît pas après quelques minutes
 
 Suivez ces étapes dans l'ordre :
 
 1. **La case Publié est-elle cochée ?** Ouvrez l'élément et vérifiez.
 2. **Avez-vous cliqué sur Sauvegarder ?** Si « Unsaved » est affiché en haut, la modification n'est pas enregistrée.
 3. **Attendez cinq minutes**, puis rechargez la page du site en appuyant sur Ctrl + F5 (ou en tirant la page vers le bas sur un téléphone).
-4. **La publication a peut-être été bloquée.** Le site en ligne reste alors dans son état précédent. Les causes habituelles sont une image de plus de 3 Mo, un PDF de plus de 10 Mo, ou une image sans texte alternatif. Vérifiez les fichiers que vous venez d'ajouter, corrigez, puis sauvegardez à nouveau.
-5. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
+4. **Ouvrez toujours l'administration par l'adresse qui finit par `/keystatic`**, sans rien après. N'utilisez pas un ancien favori qui contient `/branch/main` : ce qui est enregistré sur une autre branche n'est jamais publié.
+5. **Si l'administration bloque ou affiche « Internal error »**, ouvrez-la dans une fenêtre de navigation privée (Ctrl + Maj + N). Si ça marche là, videz les données du site dans votre navigateur habituel : icône à gauche de l'adresse, « Paramètres du site », « Supprimer les données ». Puis reconnectez-vous.
+6. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
 
-## 13. Bonnes pratiques
+## 14. Bonnes pratiques
 
 - Écrivez d'abord en brouillon (case **Publié** décochée), relisez, puis publiez.
 - Une personne à la fois sur le même élément. Si deux personnes modifient le même projet au même moment, la deuxième sauvegarde peut être refusée : rechargez la page et recommencez.
