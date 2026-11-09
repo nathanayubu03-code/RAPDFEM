@@ -35,4 +35,4 @@ npx astro check
 - `src/integrations/limites-fichiers.ts` : bloque le build si une image dépasse 3 Mo ou un PDF 10 Mo.
 - `src/styles/tokens.css` : couleurs, police, espacements repris de la maquette Claude Design.
 - `src/components/SEO.astro` : title, description, Open Graph, canonique, hreflang.
-- `public/_redirects` : redirection `/` vers `/fr/` sur Netlify et Cloudflare Pages.
+- `src/pages/index.astro` : l’adresse racine envoie vers la langue choisie (bouton FR/EN), sinon celle du navigateur, sinon le français.

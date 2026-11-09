@@ -412,6 +412,7 @@ export default config({
       format: { data: 'json' },
       schema: {
         logo: imageAvecAlt("Logo de l'ONG (en-tête du site)", 'reglages', 2, 'PNG avec fond transparent conseillé, carré, au moins 400 × 400 pixels. 3 Mo maximum.'),
+        logoEn: imageAvecAlt('Logo en anglais (facultatif, utilisé sur les pages anglaises)', 'reglages', 2, 'Version du logo avec le texte en anglais. Si ce champ est vide, les pages anglaises montrent le logo principal.'),
         logoFondSombre: imageAvecAlt('Logo pour fond sombre (pied de page)', 'reglages', 2),
         favicon: fields.image({
           label: 'Favicon (icône de l’onglet)',

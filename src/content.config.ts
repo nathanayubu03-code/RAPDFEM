@@ -59,6 +59,7 @@ const reglages = defineCollection({
       presentationCourte: bilingueFacultatif,
       descriptionSeo: bilingueFacultatif,
       logo: imageAvecAlt(ctx, 'Logo principal'),
+      logoEn: imageAvecAlt(ctx, 'Logo en anglais'),
       logoFondSombre: imageAvecAlt(ctx, 'Logo pour fond sombre'),
       favicon: fichier,
       imageOg: imageAvecAlt(ctx, 'Image de partage'),

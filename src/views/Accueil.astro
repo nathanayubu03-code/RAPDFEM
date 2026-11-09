@@ -26,6 +26,8 @@ const alternates = { fr: pagePath('fr', 'home'), en: pagePath('en', 'home') };
 const accroche = pick(p.accroche, lang);
 const img = (x: { image: any; alt: { fr: string; en: string } }) => (x.image ? { src: x.image, alt: pick(x.alt, lang) } : null);
 const siege = settings.bureaux[0];
+// Le logo contient du texte en français : sur l'accueil anglais, on ne l'affiche en grand que s'il existe une version anglaise.
+const logoHero = lang === 'en' ? settings.logoEn.image : settings.logo.image;
 ---
 <Base lang={lang} title={settings.sigle} pageKey="home" alternates={alternates} description={accroche || undefined}>
   <div class="home">
@@ -43,8 +45,8 @@ const siege = settings.bureaux[0];
         </div>
         {p.imageAccueil.image ? (
           <figure class="fig"><Img src={p.imageAccueil.image} alt={pick(p.imageAccueil.alt, lang) || pick(settings.nom, lang)} sizes="(min-width: 1024px) 50vw, 100vw" eager /></figure>
-        ) : settings.logo.image && (
-          <div class="hero-logo" aria-hidden="true"><Img src={settings.logo.image} alt="" sizes="320px" /></div>
+        ) : logoHero && (
+          <div class="hero-logo" aria-hidden="true"><Img src={logoHero} alt="" sizes="320px" /></div>
         )}
       </div>
     </section>
