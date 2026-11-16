@@ -32,15 +32,16 @@ export function lienReseau(cle: CleReseau, saisie: string): string | null {
   return null;
 }
 
-/** Réseaux dont le lien est rempli dans l'admin, dans un ordre fixe. */
-export function reseauxRemplis(reseaux: Record<CleReseau, string>) {
-  return (Object.keys(ICONES) as CleReseau[])
-    .map((cle) => ({ cle, nom: NOMS[cle], url: lienReseau(cle, reseaux[cle] ?? ''), trace: ICONES[cle] as string }))
-    .filter((r): r is { cle: CleReseau; nom: string; url: string; trace: string } => r.url !== null);
+export interface Reseau { cle: CleReseau; nom: string; url: string | null; trace: string; }
+
+/** Les six réseaux dans un ordre fixe ; url vaut null quand le lien n'est pas rempli. */
+export function listeReseaux(reseaux: Partial<Record<CleReseau, string>>): Reseau[] {
+  return (Object.keys(ICONES) as CleReseau[]).map((cle) => ({ cle, nom: NOMS[cle], url: lienReseau(cle, reseaux[cle] ?? ''), trace: ICONES[cle] as string }));
 }
 
-/** Réseaux remplis dans l'admin (Identité, Réseaux sociaux). */
-export async function getReseaux() {
-  const entry = await getEntry('reseaux', 'site');
-  return reseauxRemplis((entry?.data ?? {}) as Record<CleReseau, string>);
+/** Réseaux à afficher, selon les liens remplis et la case « Afficher aussi les icônes sans lien » de l'admin. */
+export async function getReseaux(): Promise<Reseau[]> {
+  const data = (await getEntry('reseaux', 'site'))?.data;
+  const liste = listeReseaux((data ?? {}) as Partial<Record<CleReseau, string>>);
+  return data?.afficherSansLien === false ? liste.filter((r) => r.url) : liste;
 }

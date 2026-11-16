@@ -362,6 +362,11 @@ export default config({
         instagram: fields.text({ label: 'Instagram', description: 'Adresse du compte, ou son nom avec @.' }),
         whatsapp: fields.text({ label: 'WhatsApp', description: 'Numéro avec l\'indicatif (par exemple +243 997 786 466), ou lien d\'une chaîne WhatsApp.' }),
         tiktok: fields.text({ label: 'TikTok', description: 'Adresse du compte, ou son nom avec @.' }),
+        afficherSansLien: fields.checkbox({
+          label: 'Afficher aussi les icônes sans lien',
+          description: 'Cochée : les six icônes sont toujours visibles, celles sans lien ne sont pas cliquables. Décochée : seules les icônes avec un lien apparaissent.',
+          defaultValue: true,
+        }),
       },
     }),
 

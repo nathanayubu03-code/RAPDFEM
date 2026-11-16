@@ -11,10 +11,18 @@ const reseaux = await getReseaux();
   <ul class:list={['plain', 'reseaux', cls]} aria-label={t(lang, 'footer.social')}>
     {reseaux.map((r) => (
       <li>
-        <a class={`rs rs-${r.cle}`} href={r.url} target="_blank" rel="noopener noreferrer" title={r.nom}>
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d={r.trace}></path></svg>
-          <span class="visually-hidden">{r.nom}</span>
-        </a>
+        {r.url ? (
+          <a class={`rs rs-${r.cle}`} href={r.url} target="_blank" rel="noopener noreferrer" title={r.nom}>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d={r.trace}></path></svg>
+            <span class="visually-hidden">{r.nom}</span>
+          </a>
+        ) : (
+          /* Lien pas encore rempli dans l'admin : icône visible, mais pas cliquable. */
+          <span class={`rs rs-vide rs-${r.cle}`} title={r.nom}>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d={r.trace}></path></svg>
+            <span class="visually-hidden">{r.nom}</span>
+          </span>
+        )}
       </li>
     ))}
   </ul>
@@ -27,11 +35,12 @@ const reseaux = await getReseaux();
     border: 1px solid currentColor; color: inherit;
     transition: transform .25s cubic-bezier(.22, .61, .36, 1), background-color .25s, color .25s, border-color .25s;
   }
-  .rs:hover { transform: translateY(-3px) rotate(-6deg); color: #FFFFFF; border-color: transparent; }
-  .rs-facebook:hover { background: #1877F2; }
-  .rs-linkedin:hover { background: #0A66C2; }
-  .rs-x:hover { background: #000000; }
-  .rs-instagram:hover { background: radial-gradient(circle at 30% 107%, #FDCF58 0%, #F77737 30%, #D62976 60%, #4F5BD5 100%); }
-  .rs-whatsapp:hover { background: #1F9D55; }
-  .rs-tiktok:hover { background: #000000; }
+  .rs-vide { cursor: default; }
+  a.rs:hover { transform: translateY(-3px) rotate(-6deg); color: #FFFFFF; border-color: transparent; }
+  a.rs-facebook:hover { background: #1877F2; }
+  a.rs-linkedin:hover { background: #0A66C2; }
+  a.rs-x:hover { background: #000000; }
+  a.rs-instagram:hover { background: radial-gradient(circle at 30% 107%, #FDCF58 0%, #F77737 30%, #D62976 60%, #4F5BD5 100%); }
+  a.rs-whatsapp:hover { background: #1F9D55; }
+  a.rs-tiktok:hover { background: #000000; }
 </style>

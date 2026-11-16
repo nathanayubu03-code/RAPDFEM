@@ -134,7 +134,7 @@ Menu **Identité**, puis **Réseaux sociaux (icônes du site)**. Six cases : Fac
 - Pour X, Instagram et TikTok, le nom du compte avec @ suffit, par exemple @rapdfem.
 - Pour WhatsApp, écrivez le numéro avec l'indicatif, par exemple +243 997 786 466.
 
-Cliquez sur **Sauvegarder**. Deux à cinq minutes plus tard, l'icône apparaît au bout du menu (sur ordinateur), en haut de l'écran (sur téléphone), dans le pied de page et sur la page Contact. Une case vide cache l'icône : on ne montre jamais une icône qui ne mène nulle part.
+Cliquez sur **Sauvegarder**. Deux à cinq minutes plus tard, l'icône devient cliquable au bout du menu (sur ordinateur), en haut de l'écran (sur téléphone), dans le pied de page et sur la page Contact. Tant qu'une case est vide, son icône reste visible mais ne réagit pas au clic. Pour n'afficher que les icônes qui ont un lien, décochez « Afficher aussi les icônes sans lien ».
 
 Les textes de l'accueil et de la page À propos (accroche, chiffres clés, mission, vision, axes) se changent dans **Présentation du réseau**.
 

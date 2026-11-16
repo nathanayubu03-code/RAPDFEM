@@ -92,7 +92,10 @@ const presentation = defineCollection({
 
 const reseaux = defineCollection({
   loader: glob({ pattern: 'site.json', base: './src/content/reseaux' }),
-  schema: z.object({ facebook: texte, linkedin: texte, x: texte, instagram: texte, whatsapp: texte, tiktok: texte }),
+  schema: z.object({
+    facebook: texte, linkedin: texte, x: texte, instagram: texte, whatsapp: texte, tiktok: texte,
+    afficherSansLien: z.boolean().nullish().transform((v) => v ?? true),
+  }),
 });
 
 const don = defineCollection({
