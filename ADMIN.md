@@ -121,7 +121,8 @@ Menu **Identité**, puis **Logo et coordonnées**. Le logo est le premier champ 
 - **Logo pour fond sombre** : celui du pied de page, sur fond noir. S'il est vide, le logo principal est utilisé.
 - **Favicon** : la petite icône de l'onglet du navigateur.
 - **Image de partage** : l'image qui s'affiche quand on partage le site sur WhatsApp ou Facebook.
-- **Adresses des bureaux**, **Téléphones**, **Courriels**, **Réseaux sociaux** : ajoutez, modifiez ou supprimez une ligne.
+- **Adresses des bureaux**, **Téléphones**, **Courriels** : ajoutez, modifiez ou supprimez une ligne.
+- **Réseaux sociaux** : six cases, Facebook, LinkedIn, X, Instagram, WhatsApp et TikTok. Collez l'adresse de la page (par exemple copiée depuis la barre d'adresse du navigateur). Pour X, Instagram et TikTok, le nom du compte avec @ suffit. Pour WhatsApp, écrivez le numéro avec l'indicatif, par exemple +243 997 786 466. L'icône apparaît en haut du site, dans le pied de page et sur la page Contact dès que la case est remplie. Une case vide cache l'icône.
 
 Cliquez sur **Sauvegarder**. Les coordonnées changent partout à la fois : en-tête, pied de page, page Contact.
 

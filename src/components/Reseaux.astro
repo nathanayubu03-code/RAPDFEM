@@ -1,0 +1,38 @@
+---
+import { getSettings } from '../lib/settings';
+import { reseauxRemplis } from '../lib/icones';
+import { t, type Locale } from '../i18n';
+
+// Icônes des réseaux sociaux remplis dans l'admin (Logo et coordonnées, Réseaux sociaux).
+interface Props { lang: Locale; class?: string; }
+const { lang, class: cls } = Astro.props;
+const reseaux = reseauxRemplis((await getSettings()).reseaux);
+---
+{reseaux.length > 0 && (
+  <ul class:list={['plain', 'reseaux', cls]} aria-label={t(lang, 'footer.social')}>
+    {reseaux.map((r) => (
+      <li>
+        <a class={`rs rs-${r.cle}`} href={r.url} target="_blank" rel="noopener noreferrer" title={r.nom}>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d={r.trace}></path></svg>
+          <span class="visually-hidden">{r.nom}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+<style>
+  .reseaux { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .rs {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid currentColor; color: inherit;
+    transition: transform .25s cubic-bezier(.22, .61, .36, 1), background-color .25s, color .25s, border-color .25s;
+  }
+  .rs:hover { transform: translateY(-3px) rotate(-6deg); color: #FFFFFF; border-color: transparent; }
+  .rs-facebook:hover { background: #1877F2; }
+  .rs-linkedin:hover { background: #0A66C2; }
+  .rs-x:hover { background: #000000; }
+  .rs-instagram:hover { background: radial-gradient(circle at 30% 107%, #FDCF58 0%, #F77737 30%, #D62976 60%, #4F5BD5 100%); }
+  .rs-whatsapp:hover { background: #1F9D55; }
+  .rs-tiktok:hover { background: #000000; }
+</style>

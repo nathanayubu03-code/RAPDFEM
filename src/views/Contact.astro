@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
+import Reseaux from '../components/Reseaux.astro';
+import { reseauxRemplis } from '../lib/icones';
 import { getSettings, telHref } from '../lib/settings';
 import { t, pick, pagePath, type Locale } from '../i18n';
 
@@ -23,9 +25,8 @@ const alternates = { fr: pagePath('fr', 'contact'), en: pagePath('en', 'contact'
           <div class="stack-s"><h2>{t(lang, 'contact.phone')}</h2>
             <ul class="plain stack-s">{s.telephones.map((p) => <li><a class="lnk" href={telHref(p)}>{p}</a></li>)}</ul></div>
         )}
-        {s.reseauxSociaux.length > 0 && (
-          <div class="stack-s"><h2>{t(lang, 'contact.social')}</h2>
-            <ul class="plain stack-s">{s.reseauxSociaux.map((r) => <li><a class="lnk" href={r.url} rel="noopener">{r.reseau}</a></li>)}</ul></div>
+        {reseauxRemplis(s.reseaux).length > 0 && (
+          <div class="stack-s reseaux-contact"><h2>{t(lang, 'contact.social')}</h2><Reseaux lang={lang} /></div>
         )}
       </div>
       {s.bureaux.length > 0 && (
@@ -37,3 +38,4 @@ const alternates = { fr: pagePath('fr', 'contact'), en: pagePath('en', 'contact'
     </div>
   </section>
 </Base>
+<style>.reseaux-contact :global(.reseaux) { color: var(--c-accent); }</style>

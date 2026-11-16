@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import Reseaux from './Reseaux.astro';
 import { getSettings, telHref } from '../lib/settings';
 import { t, pick, pagePath, footerNav, dp, type Locale } from '../i18n';
 
@@ -39,11 +40,7 @@ const hasContact = settings.courriels.length > 0 || settings.telephones.length >
   </div>
   <div class="ft-bot">
     <p>© {year} {settings.sigle}</p>
-    {settings.reseauxSociaux.length > 0 && (
-      <ul class="plain row" aria-label={t(lang, 'footer.social')}>
-        {settings.reseauxSociaux.map((s) => <li><a href={s.url} rel="noopener">{s.reseau}</a></li>)}
-      </ul>
-    )}
+    <Reseaux lang={lang} />
   </div>
 </footer>
 

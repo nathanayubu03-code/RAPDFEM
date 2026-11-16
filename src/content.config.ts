@@ -66,7 +66,10 @@ const reglages = defineCollection({
       bureaux: z.array(z.object({ nom: bilingue, adresse: bilingue })).default([]),
       telephones: z.array(z.string()).default([]),
       courriels: z.array(z.string()).default([]),
-      reseauxSociaux: z.array(z.object({ reseau: texte, url: texte })).default([]).transform((l) => l.filter((r) => r.reseau && r.url)),
+      reseaux: z.preprocess(
+        (v) => (v && typeof v === 'object' ? v : {}),
+        z.object({ facebook: texte, linkedin: texte, x: texte, instagram: texte, whatsapp: texte, tiktok: texte }),
+      ),
     }),
 });
 

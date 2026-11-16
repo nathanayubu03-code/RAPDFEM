@@ -65,6 +65,13 @@
     "rapdfem.rdc@gmail.com",
     "coordination@rapdfem.org"
   ],
-  "reseauxSociaux": [],
-  "favicon": "/images/reglages/favicon.png"
+  "favicon": "/images/reglages/favicon.png",
+  "reseaux": {
+    "facebook": "",
+    "linkedin": "",
+    "x": "",
+    "instagram": "",
+    "whatsapp": "",
+    "tiktok": ""
+  }
 }

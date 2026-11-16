@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
-import { getSettings } from '../lib/settings';
+import Reseaux from './Reseaux.astro';
+import { getSettings, telHref } from '../lib/settings';
 import {
   t, pagePath, navLabel, mobileNav, desktopNav, desktopLabel, navGroup, locales,
   type Locale, type PageKey,
@@ -19,6 +20,16 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
 ---
 <a class="skip" href="#main">{t(lang, 'site.skip')}</a>
 <header class="hd">
+  {/* Bandeau fin au-dessus du menu : courriel et téléphone à gauche, réseaux sociaux à droite. */}
+  <div class="hd-top">
+    <div class="hd-top-in">
+      <p class="hd-contact">
+        {settings.courriels[0] && <a href={`mailto:${settings.courriels[0]}`}>{settings.courriels[0]}</a>}
+        {settings.telephones[0] && <a href={telHref(settings.telephones[0])}>{settings.telephones[0]}</a>}
+      </p>
+      <Reseaux lang={lang} class="rs-hd" />
+    </div>
+  </div>
   <div class="hd-in">
     <a class="logo" href={pagePath(lang, 'home')} aria-label={`${settings.sigle}, ${t(lang, 'site.home')}`}>
       <Logo lang={lang} />
@@ -97,6 +108,42 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   /* Ordinateurs (menu complet affiché) : le logo seul, le menu prend la place. */
   @media (min-width: 1280px) { .logo :global(.logo-txt) { display: none; } }
   .hd-r { display: flex; align-items: center; gap: 8px; }
+
+  /* Bandeau des réseaux sociaux */
+  .hd-top { background: rgba(0, 0, 0, .22); border-bottom: 1px solid rgba(255, 255, 255, .1); font-size: 13px; }
+  .hd-top-in {
+    display: flex; align-items: center; justify-content: center; gap: 8px 24px; flex-wrap: wrap;
+    max-width: calc(var(--content-max) + 2 * var(--gutter)); margin: 0 auto; padding: 4px var(--gutter);
+  }
+  .hd-top:not(:has(.reseaux)) { display: none; }
+  .hd-contact { display: none; gap: 20px; }
+  .hd-contact a { color: var(--c-header-soft); text-decoration: none; }
+  .hd-contact a:hover { color: var(--c-gold); }
+  .hd-top :global(.rs) { width: 32px; height: 32px; color: #FFFFFF; border-color: rgba(255, 255, 255, .35); }
+  .hd-top :global(.rs svg) { width: 15px; height: 15px; }
+  @media (min-width: 768px) {
+    .hd-top:not(:has(.reseaux)) { display: block; }
+    .hd-top-in { justify-content: space-between; }
+    .hd-contact { display: flex; }
+  }
+
+  /* Logo du menu : il apparaît, rebondit trois fois, se retire, puis recommence. */
+  .logo :global(.logo-img) { transform-origin: 50% 100%; animation: rebond 9s cubic-bezier(.3, .7, .4, 1) infinite; }
+  @keyframes rebond {
+    0% { opacity: 0; transform: scale(.55); }
+    7% { opacity: 1; transform: scale(1.06); }
+    10% { transform: scale(1); }
+    15% { transform: translateY(-12px); }
+    20% { transform: translateY(0) scale(1.04, .94); }
+    25% { transform: translateY(-8px); }
+    30% { transform: translateY(0) scale(1.03, .96); }
+    34% { transform: translateY(-4px); }
+    38% { transform: translateY(0); }
+    84% { opacity: 1; transform: none; }
+    93% { opacity: 0; transform: scale(.55) rotate(-8deg); }
+    100% { opacity: 0; transform: scale(.55); }
+  }
+  @media (prefers-reduced-motion: reduce) { .logo :global(.logo-img) { animation: none; } }
 
   .lang { display: inline-flex; flex: none; border: 1px solid var(--c-header-soft); border-radius: var(--radius); overflow: hidden; }
   .lang a {

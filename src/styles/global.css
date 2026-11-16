@@ -2,6 +2,7 @@
 @import '@fontsource/noto-sans/latin-700.css';
 @import './tokens.css';
 @import './animations.css';
+@import './centrage.css';
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -97,7 +98,6 @@ a:hover { color: var(--c-accent-hover); }
   .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
   .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
   .main-side { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 48px; align-items: start; }
-  .hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
 }
 .between { justify-content: space-between; }
 .sec-head { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between; }

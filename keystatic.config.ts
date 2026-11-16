@@ -460,12 +460,19 @@ export default config({
           label: 'Courriels',
           itemLabel: (p) => p.value || 'Courriel',
         }),
-        reseauxSociaux: fields.array(
-          fields.object({
-            reseau: fields.text({ label: 'Nom du réseau (ex. Facebook)', validation: { isRequired: true } }),
-            url: fields.url({ label: 'Adresse de la page', validation: { isRequired: true } }),
-          }),
-          { label: 'Réseaux sociaux', itemLabel: (p) => p.fields.reseau.value || 'Réseau' },
+        reseaux: fields.object(
+          {
+            facebook: fields.text({ label: 'Facebook', description: 'Adresse de la page, par exemple https://www.facebook.com/rapdfem' }),
+            linkedin: fields.text({ label: 'LinkedIn', description: 'Adresse de la page, par exemple https://www.linkedin.com/company/rapdfem' }),
+            x: fields.text({ label: 'X (ancien Twitter)', description: 'Adresse du compte, ou son nom avec @, par exemple @rapdfem' }),
+            instagram: fields.text({ label: 'Instagram', description: 'Adresse du compte, ou son nom avec @' }),
+            whatsapp: fields.text({ label: 'WhatsApp', description: 'Numéro avec l\'indicatif, par exemple +243 997 786 466, ou lien de chaîne WhatsApp' }),
+            tiktok: fields.text({ label: 'TikTok', description: 'Adresse du compte, ou son nom avec @' }),
+          },
+          {
+            label: 'Réseaux sociaux',
+            description: "Chaque icône apparaît en haut du site, dans le pied de page et sur la page Contact dès que son lien est rempli. Laisser vide pour la cacher.",
+          },
         ),
       },
     }),

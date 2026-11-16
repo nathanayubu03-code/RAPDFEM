@@ -43,6 +43,8 @@ const en: Record<UIKey, string> = {
   'home.partners.all': 'See all partners',
   'home.about': 'Who we are',
   'home.about.more': 'Discover the network',
+  'home.scroll': 'Scroll down to the rest of the page',
+  'site.top': 'Back to the top of the page',
   'home.mission': 'Our mission',
   'home.vision': 'Our vision',
   'home.zones': 'Where we work',
