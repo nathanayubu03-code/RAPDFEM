@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Reseaux from '../components/Reseaux.astro';
-import { reseauxRemplis } from '../lib/icones';
+import { getReseaux } from '../lib/icones';
 import { getSettings, telHref } from '../lib/settings';
 import { t, pick, pagePath, type Locale } from '../i18n';
 
@@ -10,6 +10,7 @@ interface Props { lang: Locale; }
 const { lang } = Astro.props;
 const s = await getSettings();
 const title = t(lang, 'contact.title');
+const aDesReseaux = (await getReseaux()).length > 0;
 const alternates = { fr: pagePath('fr', 'contact'), en: pagePath('en', 'contact') };
 ---
 <Base lang={lang} title={title} pageKey="contact" alternates={alternates}>
@@ -25,7 +26,7 @@ const alternates = { fr: pagePath('fr', 'contact'), en: pagePath('en', 'contact'
           <div class="stack-s"><h2>{t(lang, 'contact.phone')}</h2>
             <ul class="plain stack-s">{s.telephones.map((p) => <li><a class="lnk" href={telHref(p)}>{p}</a></li>)}</ul></div>
         )}
-        {reseauxRemplis(s.reseaux).length > 0 && (
+        {aDesReseaux && (
           <div class="stack-s reseaux-contact"><h2>{t(lang, 'contact.social')}</h2><Reseaux lang={lang} /></div>
         )}
       </div>

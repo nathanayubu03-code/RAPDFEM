@@ -55,6 +55,29 @@ const hasContact = settings.courriels.length > 0 || settings.telephones.length >
   }
   .ft h2 { margin-bottom: 8px; font-size: 16px; color: #FFFFFF; }
   .ft-logo { margin-bottom: 12px; }
+
+  /* Logo du pied de page : anneau or qui tourne, onde qui se répète, logo qui respire. */
+  .ft-logo :global(.logo-wrap) { --h: 44px; position: relative; }
+  .ft-logo :global(.logo-wrap)::before, .ft-logo :global(.logo-wrap)::after {
+    content: ""; position: absolute; left: -6px; top: 50%; width: calc(var(--h) + 12px); height: calc(var(--h) + 12px);
+    margin-top: calc((var(--h) + 12px) / -2); border-radius: 50%; pointer-events: none;
+  }
+  .ft-logo :global(.logo-wrap)::before {
+    background: conic-gradient(from 0deg, var(--c-gold), transparent 35%, rgba(255, 255, 255, .7) 50%, transparent 65%, var(--c-gold));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    animation: ftTourne 8s linear infinite;
+  }
+  .ft-logo :global(.logo-wrap)::after { border: 2px solid var(--c-gold); opacity: 0; animation: ftOnde 4s ease-out infinite; }
+  .ft-logo :global(.logo-img) { animation: ftRespire 4s ease-in-out infinite; }
+  @keyframes ftTourne { to { transform: rotate(1turn); } }
+  @keyframes ftOnde { 0% { opacity: .8; transform: scale(1); } 60%, 100% { opacity: 0; transform: scale(1.7); } }
+  @keyframes ftRespire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @media (min-width: 1024px) { .ft-logo :global(.logo-wrap) { --h: 56px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .ft-logo :global(.logo-wrap)::before, .ft-logo :global(.logo-wrap)::after, .ft-logo :global(.logo-img) { animation: none; }
+    .ft-logo :global(.logo-wrap)::after { display: none; }
+  }
   .ft-col p + p { margin-top: 8px; }
   .ft-links a { display: inline-block; padding: 10px 0; }
   .ft-bot {

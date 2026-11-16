@@ -41,7 +41,7 @@ Pour retirer l'accès à quelqu'un : même endroit, bouton « Remove » à côt�
 - **Le réseau** : Projets, Activités, Zones d'intervention, Équipe, Partenaires.
 - **Actualité** : Actualités, Événements, Galerie photos.
 - **Documents et offres** : Offres, Rapports et publications, Questions fréquentes.
-- **Identité** : Logo et coordonnées (logo de l'ONG, favicon, adresses, téléphones, courriels, réseaux sociaux), et Faire un don (coordonnées bancaires).
+- **Identité** : Logo et coordonnées (logo de l'ONG, favicon, adresses, téléphones, courriels), Réseaux sociaux (liens des icônes), et Faire un don (coordonnées bancaires).
 - **Textes du site** : Présentation du réseau (textes de l'accueil et de la page À propos).
 
 Quelques boutons restent en anglais, parce que l'outil n'est pas entièrement traduit :
@@ -122,9 +122,19 @@ Menu **Identité**, puis **Logo et coordonnées**. Le logo est le premier champ 
 - **Favicon** : la petite icône de l'onglet du navigateur.
 - **Image de partage** : l'image qui s'affiche quand on partage le site sur WhatsApp ou Facebook.
 - **Adresses des bureaux**, **Téléphones**, **Courriels** : ajoutez, modifiez ou supprimez une ligne.
-- **Réseaux sociaux** : six cases, Facebook, LinkedIn, X, Instagram, WhatsApp et TikTok. Collez l'adresse de la page (par exemple copiée depuis la barre d'adresse du navigateur). Pour X, Instagram et TikTok, le nom du compte avec @ suffit. Pour WhatsApp, écrivez le numéro avec l'indicatif, par exemple +243 997 786 466. L'icône apparaît en haut du site, dans le pied de page et sur la page Contact dès que la case est remplie. Une case vide cache l'icône.
+- **Réseaux sociaux** : ils ont leur propre rubrique, voir ci-dessous.
 
 Cliquez sur **Sauvegarder**. Les coordonnées changent partout à la fois : en-tête, pied de page, page Contact.
+
+### Les icônes des réseaux sociaux
+
+Menu **Identité**, puis **Réseaux sociaux (icônes du site)**. Six cases : Facebook, LinkedIn, X, Instagram, WhatsApp et TikTok.
+
+- Collez l'adresse de la page, copiée depuis la barre d'adresse du navigateur.
+- Pour X, Instagram et TikTok, le nom du compte avec @ suffit, par exemple @rapdfem.
+- Pour WhatsApp, écrivez le numéro avec l'indicatif, par exemple +243 997 786 466.
+
+Cliquez sur **Sauvegarder**. Deux à cinq minutes plus tard, l'icône apparaît au bout du menu (sur ordinateur), en haut de l'écran (sur téléphone), dans le pied de page et sur la page Contact. Une case vide cache l'icône : on ne montre jamais une icône qui ne mène nulle part.
 
 Les textes de l'accueil et de la page À propos (accroche, chiffres clés, mission, vision, axes) se changent dans **Présentation du réseau**.
 

@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { getSettings } from '../lib/settings';
+import { type Locale } from '../i18n';
+
+// Écran d'accueil : le logo apparaît et « résonne » environ trois secondes, puis le site s'affiche.
+// Seulement à la première page de la visite (mémorisé pour l'onglet), jamais sans JavaScript
+// ni pour les personnes qui ont demandé moins d'animations.
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const settings = await getSettings();
+const logo = (lang === 'en' && settings.logoEn.image) || settings.logo.image;
+---
+{logo && (
+  <div class="intro-ecran" aria-hidden="true">
+    <div class="intro-logo">
+      <span class="onde"></span><span class="onde o2"></span><span class="onde o3"></span>
+      {/* Même fichier que le logo du menu : déjà téléchargé, aucun poids en plus. */}
+      <Image src={logo} alt="" height={112} densities={[1, 2]} format="webp" loading="eager" />
+    </div>
+    <p class="intro-nom">{settings.sigle}</p>
+  </div>
+)}
+<style>
+  .intro-ecran { display: none; }
+  :global(html.intro) .intro-ecran {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    background: radial-gradient(circle at 50% 45%, #22397A 0%, var(--c-header) 45%, var(--c-footer) 100%);
+    animation: introFin .6s ease-in 2.9s forwards;
+  }
+  .intro-logo { position: relative; display: grid; place-items: center; width: 168px; height: 168px; }
+  .intro-logo img {
+    position: relative; z-index: 1; width: 132px; height: 132px; border-radius: 50%;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, .08), 0 20px 50px -10px rgba(0, 0, 0, .6);
+    animation: introLogo 2.9s cubic-bezier(.22, .61, .36, 1) both;
+  }
+  /* Ondes or qui partent du logo, comme un son qui résonne. */
+  .onde {
+    position: absolute; inset: 18px; border-radius: 50%; border: 2px solid var(--c-gold); opacity: 0;
+    animation: resonne 1.6s ease-out .35s 2;
+  }
+  .o2 { animation-delay: .75s; }
+  .o3 { animation-delay: 1.15s; }
+  .intro-nom {
+    color: #FFFFFF; font-size: 26px; font-weight: 700; letter-spacing: .3em; padding-left: .3em;
+    animation: introNom 1s ease-out .5s both;
+  }
+  @keyframes introLogo {
+    0% { opacity: 0; transform: scale(.4); }
+    25% { opacity: 1; transform: scale(1.08); }
+    35% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    60% { transform: scale(1); }
+    75% { transform: scale(1.04); }
+    85%, 100% { transform: scale(1); }
+  }
+  @keyframes resonne { 0% { opacity: .9; transform: scale(.8); } 100% { opacity: 0; transform: scale(2.1); } }
+  @keyframes introNom { from { opacity: 0; letter-spacing: .6em; } to { opacity: 1; letter-spacing: .3em; } }
+  @keyframes introFin { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+</style>

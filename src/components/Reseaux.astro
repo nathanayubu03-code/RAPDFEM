@@ -1,12 +1,11 @@
 ---
-import { getSettings } from '../lib/settings';
-import { reseauxRemplis } from '../lib/icones';
+import { getReseaux } from '../lib/icones';
 import { t, type Locale } from '../i18n';
 
 // Icônes des réseaux sociaux remplis dans l'admin (Logo et coordonnées, Réseaux sociaux).
 interface Props { lang: Locale; class?: string; }
 const { lang, class: cls } = Astro.props;
-const reseaux = reseauxRemplis((await getSettings()).reseaux);
+const reseaux = await getReseaux();
 ---
 {reseaux.length > 0 && (
   <ul class:list={['plain', 'reseaux', cls]} aria-label={t(lang, 'footer.social')}>

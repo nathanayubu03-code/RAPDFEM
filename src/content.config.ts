@@ -66,10 +66,6 @@ const reglages = defineCollection({
       bureaux: z.array(z.object({ nom: bilingue, adresse: bilingue })).default([]),
       telephones: z.array(z.string()).default([]),
       courriels: z.array(z.string()).default([]),
-      reseaux: z.preprocess(
-        (v) => (v && typeof v === 'object' ? v : {}),
-        z.object({ facebook: texte, linkedin: texte, x: texte, instagram: texte, whatsapp: texte, tiktok: texte }),
-      ),
     }),
 });
 
@@ -92,6 +88,11 @@ const presentation = defineCollection({
       documentsLegaux: z.array(bilingue).default([]),
       politiques: z.array(z.object({ titre: bilingue, fichierPdf: fichier })).default([]),
     }),
+});
+
+const reseaux = defineCollection({
+  loader: glob({ pattern: 'site.json', base: './src/content/reseaux' }),
+  schema: z.object({ facebook: texte, linkedin: texte, x: texte, instagram: texte, whatsapp: texte, tiktok: texte }),
 });
 
 const don = defineCollection({
@@ -268,6 +269,6 @@ const contenus = defineCollection({
 });
 
 export const collections = {
-  reglages, presentation, don, projets, actualites, activites, evenements, galerie,
+  reglages, reseaux, presentation, don, projets, actualites, activites, evenements, galerie,
   offres, rapports, partenaires, equipe, zones, faq, contenus,
 };

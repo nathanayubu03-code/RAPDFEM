@@ -153,7 +153,7 @@ export default config({
   ui: {
     brand: { name: 'RAPDFEM' },
     navigation: {
-      'Identité': ['reglages', 'don'],
+      'Identité': ['reglages', 'reseaux', 'don'],
       'Le réseau': ['projets', 'activites', 'zones', 'equipe', 'partenaires'],
       'Actualité': ['actualites', 'evenements', 'galerie'],
       'Documents et offres': ['offres', 'rapports', 'faq'],
@@ -351,6 +351,20 @@ export default config({
   },
 
   singletons: {
+    reseaux: singleton({
+      label: 'Réseaux sociaux (icônes du site)',
+      path: 'src/content/reseaux/site',
+      format: { data: 'json' },
+      schema: {
+        facebook: fields.text({ label: 'Facebook', description: 'Adresse de la page Facebook, copiée depuis la barre d\'adresse du navigateur.' }),
+        linkedin: fields.text({ label: 'LinkedIn', description: 'Adresse de la page LinkedIn.' }),
+        x: fields.text({ label: 'X (ancien Twitter)', description: 'Adresse du compte, ou son nom avec @.' }),
+        instagram: fields.text({ label: 'Instagram', description: 'Adresse du compte, ou son nom avec @.' }),
+        whatsapp: fields.text({ label: 'WhatsApp', description: 'Numéro avec l\'indicatif (par exemple +243 997 786 466), ou lien d\'une chaîne WhatsApp.' }),
+        tiktok: fields.text({ label: 'TikTok', description: 'Adresse du compte, ou son nom avec @.' }),
+      },
+    }),
+
     don: singleton({
       label: 'Faire un don (coordonnées bancaires)',
       path: 'src/content/don/site',
@@ -460,20 +474,6 @@ export default config({
           label: 'Courriels',
           itemLabel: (p) => p.value || 'Courriel',
         }),
-        reseaux: fields.object(
-          {
-            facebook: fields.text({ label: 'Facebook', description: 'Adresse de la page, par exemple https://www.facebook.com/rapdfem' }),
-            linkedin: fields.text({ label: 'LinkedIn', description: 'Adresse de la page, par exemple https://www.linkedin.com/company/rapdfem' }),
-            x: fields.text({ label: 'X (ancien Twitter)', description: 'Adresse du compte, ou son nom avec @, par exemple @rapdfem' }),
-            instagram: fields.text({ label: 'Instagram', description: 'Adresse du compte, ou son nom avec @' }),
-            whatsapp: fields.text({ label: 'WhatsApp', description: 'Numéro avec l\'indicatif, par exemple +243 997 786 466, ou lien de chaîne WhatsApp' }),
-            tiktok: fields.text({ label: 'TikTok', description: 'Adresse du compte, ou son nom avec @' }),
-          },
-          {
-            label: 'Réseaux sociaux',
-            description: "Chaque icône apparaît en haut du site, dans le pied de page et sur la page Contact dès que son lien est rempli. Laisser vide pour la cacher.",
-          },
-        ),
       },
     }),
   },

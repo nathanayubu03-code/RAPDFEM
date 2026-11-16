@@ -46,6 +46,7 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
           <a href={langHref(l)} lang={l} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
         ))}
       </nav>
+      <Reseaux lang={lang} class="rs-menu" />
       <button class="burger" type="button" aria-expanded="false" aria-controls="mnav">
         <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
         {t(lang, 'site.menu')}
@@ -121,6 +122,7 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   .hd-contact a:hover { color: var(--c-gold); }
   .hd-top :global(.rs) { width: 32px; height: 32px; color: #FFFFFF; border-color: rgba(255, 255, 255, .35); }
   .hd-top :global(.rs svg) { width: 15px; height: 15px; }
+  .hd-r :global(ul.rs-menu) { display: none; }
   @media (min-width: 768px) {
     .hd-top:not(:has(.reseaux)) { display: block; }
     .hd-top-in { justify-content: space-between; }
@@ -178,10 +180,16 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
 
   /* Menu horizontal : à partir de 1280 px, les 8 entrées tiennent sur une ligne. */
   @media (min-width: 1280px) {
-    .hd-in { min-height: 80px; padding: 12px var(--gutter); gap: 20px; }
+    /* Le bandeau du haut disparaît : les icônes passent au bout du menu, à droite. */
+    .hd-top, .hd-top:not(:has(.reseaux)) { display: none; }
+    .hd-in { min-height: 80px; max-width: 1440px; padding: 12px 24px; gap: 14px; }
+    .hd-r { gap: 12px; }
+    .hd-r :global(ul.rs-menu) { display: flex; flex-wrap: nowrap; gap: 4px; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .2); }
+    .hd-r :global(.rs-menu .rs) { width: 30px; height: 30px; color: #FFFFFF; border-color: rgba(255, 255, 255, .35); }
+    .hd-r :global(.rs-menu .rs svg) { width: 14px; height: 14px; }
     .nav { display: flex; align-items: center; flex: 1; justify-content: flex-end; }
     .nav a {
-      display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 10px;
+      display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 8px;
       color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none; white-space: nowrap;
     }
     .nav a:hover { color: var(--c-gold); }
