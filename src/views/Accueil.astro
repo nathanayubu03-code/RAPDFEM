@@ -268,15 +268,15 @@ const logoFond = (lang === 'en' && settings.logoEn.image) || settings.logo.image
   .home > .sec.hero-sec {
     display: flex; align-items: center; min-height: min(78vh, 720px); padding: 64px 0 88px;
     background:
-      radial-gradient(rgba(26, 46, 102, .07) 1px, transparent 1.5px) 0 0 / 22px 22px,
-      linear-gradient(160deg, #FAFBFC 0%, #EEF0F4 45%, #DCE0E8 100%);
+      radial-gradient(var(--hero-dots) 1px, transparent 1.5px) 0 0 / 22px 22px,
+      linear-gradient(160deg, var(--hero-1) 0%, var(--hero-2) 45%, var(--hero-3) 100%);
   }
   .hero { position: relative; z-index: 1; display: flex; justify-content: center; }
   .hero-txt { max-width: 860px; align-items: center; text-align: center; }
-  .hero h1 { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--c-header); }
+  .hero h1 { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--c-title); }
   .hero .sigle {
     font-size: clamp(52px, 11vw, 112px); line-height: 1; letter-spacing: .04em;
-    background: linear-gradient(100deg, var(--c-header) 0%, var(--c-accent) 40%, #C9A10F 50%, var(--c-accent) 60%, var(--c-header) 100%) 0 0 / 250% 100%;
+    background: linear-gradient(100deg, var(--c-title) 0%, var(--c-accent) 40%, #C9A10F 50%, var(--c-accent) 60%, var(--c-title) 100%) 0 0 / 250% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
     animation: reflet 7s ease-in-out infinite;
   }
@@ -294,10 +294,10 @@ const logoFond = (lang === 'en' && settings.logoEn.image) || settings.logo.image
   .descendre {
     position: absolute; z-index: 1; left: 50%; bottom: 20px; translate: -50% 0;
     display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
-    border: 1px solid rgba(26, 46, 102, .3); border-radius: 50%; color: var(--c-header);
+    border: 1px solid var(--c-border-strong); border-radius: 50%; color: var(--c-title);
     animation: invite 2.4s ease-in-out infinite;
   }
-  .descendre:hover { background: var(--c-header); color: #FFFFFF; }
+  .descendre:hover { background: var(--c-title); color: var(--c-bg); }
   @keyframes invite { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
   /* ---------- Qui sommes-nous : photo sous un dégradé bleu ---------- */
@@ -322,8 +322,9 @@ const logoFond = (lang === 'en' && settings.logoEn.image) || settings.logo.image
   .vision .quote { margin-top: 10px; color: #FFFFFF; }
 
   .axe { border-top: 3px solid var(--c-accent); }
-  .zone h3 { color: var(--c-header); }
+  .zone h3 { color: var(--c-title); }
+  .partner .logo-box { background: #FFFFFF; }
   .partner { display: flex; flex-direction: column; justify-content: center; gap: 8px; flex: none; width: 260px; min-height: 76px; padding: 14px 18px; border-left: 3px solid var(--c-gold); border-radius: var(--radius); background: var(--c-bg); box-shadow: 0 6px 16px -14px rgba(26, 46, 102, .5); font-size: 15px; font-weight: 700; }
   .partner .logo-box { aspect-ratio: auto; height: 56px; padding: 6px; border: 0; }
-  .fact b { color: var(--c-header); }
+  .fact b { color: var(--c-title); }
 </style>

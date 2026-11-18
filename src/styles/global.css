@@ -133,7 +133,7 @@ a:hover { color: var(--c-accent-hover); }
 .photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 @media (min-width: 768px) { .photos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
 .photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
-.logo-box { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 2; padding: 12px; border: 1px solid var(--c-border); border-radius: var(--radius); background: var(--c-bg); }
+.logo-box { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 2; padding: 12px; border: 1px solid var(--c-border); border-radius: var(--radius); background: #FFFFFF; } /* fond blanc même en mode sombre : les logos sont faits pour le blanc */
 .logo-box img { max-height: 100%; width: auto; object-fit: contain; }
 .portrait img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius); }
 

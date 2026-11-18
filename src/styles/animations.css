@@ -57,7 +57,7 @@
 
 /* ---------- Survol : cartes, photos, boutons ---------- */
 .card { transition: transform .35s var(--anim-douce), box-shadow .35s var(--anim-douce), border-color .35s; }
-.card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(26, 46, 102, .45); border-color: #B9C4E2; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(26, 46, 102, .45); border-color: var(--c-border-hover); }
 .card-img img, .photos img, .fig img { transition: transform .8s var(--anim-douce); }
 .card-img, .photos li, .fig { overflow: hidden; border-radius: var(--radius); }
 .card:hover .card-img img, .photos li:hover img, .fig:hover img { transform: scale(1.06); }

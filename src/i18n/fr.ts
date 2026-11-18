@@ -43,6 +43,7 @@ const fr = {
   'home.about': 'Qui sommes-nous',
   'home.about.more': 'Découvrir le réseau',
   'home.scroll': 'Descendre vers la suite de la page',
+  'site.theme': 'Mode sombre',
   'site.top': 'Revenir en haut de la page',
   'home.mission': 'Notre mission',
   'home.vision': 'Notre vision',

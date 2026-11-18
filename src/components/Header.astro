@@ -41,6 +41,12 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
     </nav>
     <a class="don" href={pagePath(lang, 'donate')} aria-current={pageKey === 'donate' ? 'page' : undefined}>{t(lang, 'nav.donate')}</a>
     <div class="hd-r">
+      {/* Mode clair / sombre : lune en mode clair, soleil en mode sombre. */}
+      <button class="theme" type="button" aria-pressed="false" title={t(lang, 'site.theme')}>
+        <span class="visually-hidden">{t(lang, 'site.theme')}</span>
+        <svg class="ic-lune" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        <svg class="ic-soleil" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      </button>
       <nav class="lang" aria-label={t(lang, 'site.langLabel')}>
         {locales.map((l) => (
           <a href={langHref(l)} lang={l} hreflang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
@@ -69,6 +75,22 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
       try { localStorage.setItem('rapdfem-langue', a.lang); } catch { /* stockage indisponible : sans effet */ }
     });
   });
+  // Bouton mode clair / sombre : le choix est mémorisé pour les visites suivantes.
+  const theme = document.querySelector<HTMLButtonElement>('.theme');
+  if (theme) {
+    const racine = document.documentElement;
+    const sombre = () => racine.dataset.theme === 'dark' || (!racine.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const maj = () => theme.setAttribute('aria-pressed', String(sombre()));
+    maj();
+    theme.addEventListener('click', () => {
+      const choix = sombre() ? 'light' : 'dark';
+      racine.dataset.theme = choix;
+      try { localStorage.setItem('rapdfem-theme', choix); } catch { /* stockage indisponible : choix valable pour cette page */ }
+      maj();
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', maj);
+  }
+
   const btn = document.querySelector<HTMLButtonElement>('.burger');
   const nav = document.getElementById('mnav');
   if (btn && nav) {
@@ -156,6 +178,17 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
   .lang a:hover { color: var(--c-gold); }
   .lang a[aria-current] { background: var(--c-gold); color: var(--c-header); }
 
+  /* Bouton mode clair / sombre (masqué sans JavaScript, il ne pourrait rien faire). */
+  .theme {
+    display: none; align-items: center; justify-content: center; flex: none; width: 42px; height: 42px;
+    border: 1px solid var(--c-header-soft); border-radius: 50%; background: transparent; color: #FFFFFF; cursor: pointer;
+    transition: color .2s, border-color .2s, transform .4s cubic-bezier(.22, .61, .36, 1);
+  }
+  :global(.js) .theme { display: inline-flex; }
+  .theme:hover { color: var(--c-gold); border-color: var(--c-gold); transform: rotate(20deg); }
+  .theme .ic-soleil, .theme[aria-pressed="true"] .ic-lune { display: none; }
+  .theme[aria-pressed="true"] .ic-soleil { display: block; color: var(--c-gold); }
+
   /* Sans JavaScript, le menu mobile reste visible et le bouton est masqué. */
   .burger {
     display: none; align-items: center; gap: 6px; min-height: var(--tap); padding: 0 12px;
@@ -183,13 +216,14 @@ const langHref = (l: Locale) => alternates?.[l] ?? pagePath(l, 'home');
     /* Le bandeau du haut disparaît : les icônes passent au bout du menu, à droite. */
     .hd-top, .hd-top:not(:has(.reseaux)) { display: none; }
     .hd-in { min-height: 80px; max-width: 1440px; padding: 12px 24px; gap: 14px; }
-    .hd-r { gap: 12px; }
+    .hd-r { gap: 10px; }
+    .theme { width: 36px; height: 36px; }
     .hd-r :global(ul.rs-menu) { display: flex; flex-wrap: nowrap; gap: 4px; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .2); }
     .hd-r :global(.rs-menu .rs) { width: 30px; height: 30px; color: #FFFFFF; border-color: rgba(255, 255, 255, .35); }
     .hd-r :global(.rs-menu .rs svg) { width: 14px; height: 14px; }
     .nav { display: flex; align-items: center; flex: 1; justify-content: flex-end; }
     .nav a {
-      display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 8px;
+      display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 6px;
       color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none; white-space: nowrap;
     }
     .nav a:hover { color: var(--c-gold); }
