@@ -164,7 +164,8 @@ Suivez ces étapes dans l'ordre :
 4. **Ouvrez toujours l'administration par https://www.rapdfem.org/keystatic**, avec le « www » et sans rien après. N'utilisez pas un ancien favori qui contient `/branch/main` : ce qui est enregistré sur une autre branche n'est jamais publié.
 5. **Si l'administration bloque ou affiche « Internal error »**, ouvrez-la dans une fenêtre de navigation privée (Ctrl + Maj + N). Si ça marche là, videz les données du site dans votre navigateur habituel : icône à gauche de l'adresse, « Paramètres du site », « Supprimer les données ». Puis reconnectez-vous.
 6. **Une photo n'apparaît pas alors que le reste est publié ?** Elle a sans doute été mise de côté : format HEIC, fichier abîmé, ou fichier supprimé. Supprimez-la dans l'admin et téléversez-la à nouveau en JPG.
-7. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
+7. **La connexion à l'admin échoue ?** Ouvrez https://www.rapdfem.org/api/keystatic/diagnostic. Cette page vérifie les réglages de connexion, sans afficher aucune clé, et dit quoi corriger. Si tout est « OK », vérifiez que votre compte GitHub est bien invité sur le dépôt RAPDFEM (section 2).
+8. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
 
 ## 14. Bonnes pratiques
 

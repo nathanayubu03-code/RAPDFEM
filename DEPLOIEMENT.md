@@ -53,6 +53,8 @@ Dans Build, Variables and secrets (variable de build, lue pendant la constructio
 
 Relancer un déploiement pour que la variable de build soit prise en compte.
 
+Pour contrôler ces réglages à tout moment : https://www.rapdfem.org/api/keystatic/diagnostic (aucune clé n'y est affichée). Une `KEYSTATIC_SECRET` trop courte ou absente est compensée automatiquement par le site, mais une valeur d'au moins 32 caractères reste conseillée.
+
 ## 5. Vérifier
 
 1. Ouvrir `https://ADRESSE-DU-SITE/keystatic`, cliquer « Log in with GitHub », autoriser.
