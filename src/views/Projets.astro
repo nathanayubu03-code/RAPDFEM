@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CarteListe from '../components/CarteListe.astro';
+import { publies, parOrdre, titreDe } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const projets = parOrdre(await publies('projets'), (e) => e.data.titre);
+const activites = await publies('activites');
+const title = t(lang, 'nav.projects');
+const alternates = { fr: pagePath('fr', 'projects'), en: pagePath('en', 'projects') };
+---
+<Base lang={lang} title={title} pageKey="projects" alternates={alternates}>
+  <PageHeader lang={lang} title={title}>
+    {activites.length > 0 && <p><a class="lnk" href={pagePath(lang, 'activities')}>{t(lang, 'projects.activities.all')}</a></p>}
+  </PageHeader>
+  <section class="sec">
+    <div class="wrap">
+      {projets.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : (
+        <div class="g3">
+          {projets.map((e) => (
+            <CarteListe
+              href={detailPath(lang, 'projects', e.id)}
+              titre={titreDe(e.data, lang)}
+              image={e.data.imagePrincipale.image ? { src: e.data.imagePrincipale.image, alt: pick(e.data.imagePrincipale.alt, lang) } : null}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

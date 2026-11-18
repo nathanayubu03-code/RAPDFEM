@@ -1,7 +1,7 @@
 import { getEntry, type CollectionEntry } from 'astro:content';
 
 // Réglages du site, édités dans Keystatic (Réglages du site).
-// Aucun champ pour des coordonnées bancaires, volontairement.
+// Les coordonnées bancaires sont à part, dans la page « Faire un don » (collection don).
 
 export type SiteSettings = CollectionEntry<'reglages'>['data'];
 

@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CarteListe from '../components/CarteListe.astro';
+import { publies, parDateDesc, offresParEtat, titreDe } from '../lib/contenu';
+import { t, pick, pagePath, detailPath, formatDate, dp, type Locale } from '../i18n';
+
+// Pages de liste : actualités, événements, activités, offres.
+interface Props { lang: Locale; kind: 'news' | 'events' | 'activities' | 'offers'; }
+const { lang, kind } = Astro.props;
+const title = t(lang, kind === 'offers' ? 'nav.offers' : kind === 'news' ? 'nav.news' : kind === 'events' ? 'nav.events' : 'nav.activities');
+const alternates = { fr: pagePath('fr', kind), en: pagePath('en', kind) };
+const img = (x: { image: any; alt: { fr: string; en: string } }) => (x.image ? { src: x.image, alt: pick(x.alt, lang) } : null);
+
+type Carte = { href: string; titre: string; image?: ReturnType<typeof img>; surtitre?: string | null; texte?: string | null; badge?: string | null };
+let cartes: Carte[] = [];
+let cloturees: Carte[] = [];
+
+if (kind === 'news') {
+  cartes = parDateDesc(await publies('actualites'), (e) => e.data.date).map((e) => ({
+    href: detailPath(lang, 'news', e.id), titre: titreDe(e.data, lang), image: img(e.data.imagePrincipale),
+    surtitre: formatDate(e.data.date, lang), texte: pick(e.data.resume, lang) || null,
+  }));
+} else if (kind === 'events') {
+  cartes = parDateDesc(await publies('evenements'), (e) => e.data.date).map((e) => ({
+    href: detailPath(lang, 'events', e.id), titre: titreDe(e.data, lang), image: img(e.data.image),
+    surtitre: [formatDate(e.data.date, lang), pick(e.data.lieu, lang)].filter(Boolean).join(' · '),
+  }));
+} else if (kind === 'activities') {
+  cartes = parDateDesc(await publies('activites'), (e) => e.data.date).map((e) => {
+    const premiere = e.data.photos.find((p) => p.image);
+    return {
+      href: detailPath(lang, 'activities', e.id), titre: titreDe(e.data, lang), image: premiere ? img(premiere) : null,
+      surtitre: [e.data.date ? formatDate(e.data.date, lang) : '', pick(e.data.domaine, lang)].filter(Boolean).join(' · ') || null,
+    };
+  });
+} else {
+  const o = await offresParEtat();
+  const carte = (e: (typeof o.enCours)[number], close: boolean) => ({
+    href: detailPath(lang, 'offers', e.id), titre: titreDe(e.data, lang),
+    surtitre: e.data.dateLimite ? `${t(lang, close ? 'offers.closedOn' : 'offers.deadline')}${dp(lang)} ${formatDate(e.data.dateLimite, lang)}` : null,
+  });
+  cartes = o.enCours.map((e) => carte(e, false));
+  cloturees = o.cloturees.map((e) => carte(e, true));
+}
+---
+<Base lang={lang} title={title} pageKey={kind} alternates={alternates}>
+  <PageHeader lang={lang} title={title} />
+  {kind === 'offers' ? (
+    <>
+      <section class="sec">
+        <div class="wrap stack-l">
+          <h2>{t(lang, 'offers.open')}</h2>
+          {cartes.length === 0 ? <p class="empty">{t(lang, 'offers.noOpen')}</p> : <div class="g3">{cartes.map((c) => <CarteListe {...c} />)}</div>}
+        </div>
+      </section>
+      {cloturees.length > 0 && (
+        <section class="sec alt">
+          <div class="wrap stack-l">
+            <h2>{t(lang, 'offers.closed')}</h2>
+            <div class="g3">{cloturees.map((c) => <CarteListe {...c} />)}</div>
+          </div>
+        </section>
+      )}
+    </>
+  ) : (
+    <section class="sec">
+      <div class="wrap">
+        {cartes.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : <div class="g3">{cartes.map((c) => <CarteListe {...c} />)}</div>}
+      </div>
+    </section>
+  )}
+</Base>

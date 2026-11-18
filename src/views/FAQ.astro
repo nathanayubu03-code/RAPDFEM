@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { publies, parOrdre } from '../lib/contenu';
+import { t, pick, pagePath, type Locale } from '../i18n';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const title = t(lang, 'nav.faq');
+const alternates = { fr: pagePath('fr', 'faq'), en: pagePath('en', 'faq') };
+const items = parOrdre(await publies('faq'), (e) => e.data.question);
+const q = (e: (typeof items)[number]) => (lang === 'en' && e.data.questionEn ? e.data.questionEn : e.data.question);
+const categories = [...new Set(items.map((e) => pick(e.data.categorie, lang)))];
+---
+<Base lang={lang} title={title} pageKey="faq" alternates={alternates}>
+  <PageHeader lang={lang} title={title} trail={[{ label: t(lang, 'nav.about'), href: pagePath(lang, 'about') }]} />
+  <section class="sec">
+    <div class="wrap stack-l narrow">
+      {items.length === 0 ? <p class="empty">{t(lang, 'site.empty')}</p> : categories.map((c) => (
+        <div class="stack faq">
+          {c && <h2>{c}</h2>}
+          <div>
+            {items.filter((e) => pick(e.data.categorie, lang) === c).map((e) => (
+              <details><summary>{q(e)}</summary><div><p>{pick(e.data.reponse, lang)}</p></div></details>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

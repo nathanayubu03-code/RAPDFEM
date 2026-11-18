@@ -1,0 +1,16 @@
+---
+import { t, type Locale } from '../i18n';
+import { poids } from '../lib/fichiers';
+
+interface Props { lang: Locale; href: string; title: string; detail?: string | undefined; }
+const { lang, href, title, detail } = Astro.props;
+const taille = poids(href, lang);
+---
+<div class="doc">
+  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6"></path></svg>
+  <div class="stack-s">
+    <p><b>{title}</b></p>
+    {detail && <p class="small muted">{detail}</p>}
+    <p><a class="lnk" href={href} download>{t(lang, 'reports.download')}</a>{taille && <span class="small muted"> (PDF, {taille})</span>}</p>
+  </div>
+</div>

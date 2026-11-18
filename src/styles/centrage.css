@@ -1,0 +1,75 @@
+/* =====================================================================
+   Mise en page centrée : titres, textes, boutons et blocs sont centrés,
+   pour éviter un texte calé à gauche avec un grand vide à droite.
+   Les longs textes (articles, projets) sont justifiés dans une colonne
+   centrée : plus lisibles qu'un texte centré ligne par ligne.
+   ===================================================================== */
+
+main { text-align: center; }
+
+/* Colonnes étroites : centrées dans la page. */
+.narrow, .wrap.narrow > *, .prose { margin-inline: auto; }
+.wrap.narrow > * { width: 100%; }
+
+/* Rangées de boutons, fil d'Ariane, étiquettes. */
+main .row { justify-content: center; }
+main .crumb ol, .crumb ol { justify-content: center; }
+main .badge { align-self: center; }
+
+/* En-têtes de section : titre puis lien « Voir tout », l'un sous l'autre. */
+main .sec-head { flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.sec h2::after { margin-inline: auto; transform-origin: center; }
+
+/* Surtitre : un trait or de chaque côté. */
+main .kicker::after {
+  content: ""; display: inline-block; width: 24px; height: 3px; margin-left: 10px; vertical-align: middle;
+  background: var(--c-gold); transform-origin: right; animation: trait .8s var(--anim-douce) .2s both;
+}
+
+/* Grilles : une rangée incomplète est centrée au lieu de laisser un vide à droite. */
+main .g2, main .g3, main .g4 { display: flex; flex-wrap: wrap; justify-content: center; }
+main :is(.g2, .g3, .g4) > * { flex: 0 1 100%; min-width: 0; }
+@media (min-width: 768px) {
+  main :is(.g2, .g3, .g4) > * { flex-basis: calc((100% - 24px) / 2); }
+}
+@media (min-width: 1024px) {
+  main .g2 > * { flex-basis: calc((100% - 32px) / 2); }
+  main .g3 > * { flex-basis: calc((100% - 48px) / 3); }
+  main .g4 > * { flex-basis: calc((100% - 72px) / 4); }
+}
+
+/* Cartes et documents : contenu centré. */
+main .card { align-items: center; }
+main .card > * { max-width: 100%; }
+main .card-img { align-self: stretch; }
+main .card > .card-img { max-width: none; }
+main .doc { justify-content: center; }
+
+/* Listes à puces et tableaux de détails : bloc centré, lignes alignées entre elles. */
+main .bullets, main .meta, .prose ul, .prose ol { width: fit-content; max-width: 100%; margin-inline: auto; text-align: left; }
+main .meta { margin-block: 0; }
+main .wrap.narrow > :is(.bullets, .meta) { width: fit-content; }
+
+/* Longs textes écrits dans l'admin : colonne centrée, paragraphes justifiés. */
+.prose p { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.prose :is(h2, h3, h4, figure, blockquote) { text-align: center; }
+.prose img { margin-inline: auto; }
+.prose blockquote { padding: 12px 16px; border-left: 0; border-top: 3px solid var(--c-gold); }
+
+/* Questions fréquentes. */
+main .faq summary { justify-content: center; }
+
+/* Petits écrans : la justification crée des trous, on garde le centrage simple. */
+@media (max-width: 767px) {
+  .prose p { text-align: center; hyphens: manual; }
+}
+
+/* Pied de page centré aussi. */
+.ft-in, .ft-bot { text-align: center; }
+.ft .ft-bot { justify-content: center; flex-direction: column; align-items: center; }
+.ft .logo-wrap, .ft-logo { justify-content: center; }
+.ft-logo { display: flex; }
+
+@media (prefers-reduced-motion: reduce) {
+  main .kicker::after { animation: none; }
+}

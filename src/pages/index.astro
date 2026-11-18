@@ -1,5 +1,37 @@
 ---
-// La racine renvoie vers la version française.
-// En statique, Astro produit une page de redirection ; public/_redirects fait une vraie 301 sur Netlify et Cloudflare Pages.
-return Astro.redirect('/fr/', 301);
+// Page d'entrée (adresse sans /fr/ ni /en/).
+// Va vers la langue choisie auparavant avec le bouton FR/EN, sinon vers la langue du navigateur,
+// sinon vers le français. Sans JavaScript : redirection vers le français.
+const site = Astro.site?.href ?? '/';
 ---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAPDFEM</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={new URL('/fr/', site).href} />
+    <link rel="alternate" hreflang="fr" href={new URL('/fr/', site).href} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', site).href} />
+    <script is:inline>
+      (function () {
+        var l = null;
+        try { l = localStorage.getItem('rapdfem-langue'); } catch (e) {}
+        if (l !== 'fr' && l !== 'en') {
+          var langs = navigator.languages || [navigator.language || 'fr'];
+          l = 'fr';
+          for (var i = 0; i < langs.length; i++) {
+            var c = String(langs[i]).slice(0, 2).toLowerCase();
+            if (c === 'fr' || c === 'en') { l = c; break; }
+          }
+        }
+        location.replace('/' + l + '/');
+      })();
+    </script>
+    <noscript><meta http-equiv="refresh" content="0;url=/fr/" /></noscript>
+  </head>
+  <body>
+    <p><a href="/fr/" hreflang="fr" lang="fr">Français</a> · <a href="/en/" hreflang="en" lang="en">English</a></p>
+  </body>
+</html>

@@ -1,10 +1,17 @@
 ---
-import Base from '../../layouts/Base.astro';
-import UnderConstruction from '../../components/UnderConstruction.astro';
-import { locales, slugs, t, navLabel, pagePath, type Locale, type SectionKey } from '../../i18n';
+import APropos from '../../views/APropos.astro';
+import Projets from '../../views/Projets.astro';
+import Liste from '../../views/Liste.astro';
+import Galerie from '../../views/Galerie.astro';
+import Zones from '../../views/Zones.astro';
+import Publications from '../../views/Publications.astro';
+import Partenaires from '../../views/Partenaires.astro';
+import FAQ from '../../views/FAQ.astro';
+import Contact from '../../views/Contact.astro';
+import Don from '../../views/Don.astro';
+import { locales, slugs, type Locale, type SectionKey } from '../../i18n';
 
-// Étape 1 : une page « En construction » par entrée du menu.
-// Chaque page sera remplacée par sa vraie version à l'étape 4.
+// Une page de liste par entrée du menu, en français et en anglais.
 export function getStaticPaths() {
   return locales.flatMap((lang) =>
     (Object.keys(slugs[lang]) as SectionKey[]).map((key) => ({
@@ -13,12 +20,16 @@ export function getStaticPaths() {
     })),
   );
 }
-
 const lang = Astro.params.lang as Locale;
 const { key } = Astro.props as { key: SectionKey };
-const title = t(lang, navLabel[key]);
-const alternates = { fr: pagePath('fr', key), en: pagePath('en', key) };
 ---
-<Base lang={lang} title={title} pageKey={key} alternates={alternates}>
-  <UnderConstruction lang={lang} title={title} />
-</Base>
+{key === 'about' && <APropos lang={lang} />}
+{key === 'projects' && <Projets lang={lang} />}
+{(key === 'news' || key === 'events' || key === 'activities' || key === 'offers') && <Liste lang={lang} kind={key} />}
+{key === 'gallery' && <Galerie lang={lang} />}
+{key === 'zones' && <Zones lang={lang} />}
+{key === 'reports' && <Publications lang={lang} />}
+{key === 'partners' && <Partenaires lang={lang} />}
+{key === 'faq' && <FAQ lang={lang} />}
+{key === 'contact' && <Contact lang={lang} />}
+{key === 'donate' && <Don lang={lang} />}

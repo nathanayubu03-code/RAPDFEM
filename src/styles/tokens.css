@@ -1,17 +1,26 @@
-/* Jetons repris tels quels de la planche de référence Claude Design (maquette v1). */
+/* Jetons de la maquette Claude Design, couleurs accordées au logo du RAPDFEM :
+   bleu profond (en-tête, boutons, liens) avec une lueur d'or pour les accents. */
 :root {
   --c-text: #1F2328;
   --c-text-2: #4B5563;
   --c-bg: #FFFFFF;
-  --c-surface: #F5F6F7;
+  --c-surface: #F4F6FB;
   --c-border: #D1D5DB;
   --c-border-strong: #6B7280;
-  --c-accent: #1D4ED8;
-  --c-accent-hover: #1E3A8A;
+  --c-accent: #1F4AA8;
+  --c-accent-hover: #163A86;
   --c-on-accent: #FFFFFF;
-  --c-footer: #1F2328;
-  --c-footer-line: #4B5563;
+  --c-footer: #121F45;
+  --c-header: #1A2E66;
+  --c-header-soft: #C9D3EA;
+  --c-footer-line: #2E3E6B;
+  --c-title: #1A2E66; /* titres bleus sur fond clair */
+  --c-border-hover: #B9C4E2;
+  --hero-1: #FAFBFC; --hero-2: #EEF0F4; --hero-3: #DCE0E8; --hero-dots: rgba(26, 46, 102, .07);
+  --c-gold: #F5C518; /* décoratif uniquement, jamais pour du texte sur fond clair */
   --c-error: #B42318;
+
+  color-scheme: light;
 
   --font: 'Noto Sans', Arial, Helvetica, sans-serif;
 
@@ -32,4 +41,44 @@
 }
 @media (min-width: 1024px) {
   :root { --gutter: 80px; --section-y: 64px; }
+}
+
+/* Mode sombre : choisi avec le bouton du menu, ou celui de l'appareil si le visiteur n'a rien choisi. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-text: #E6E9F0;
+  --c-text-2: #A9B3C9;
+  --c-bg: #0E1630;
+  --c-surface: #15203F;
+  --c-border: #2B3A66;
+  --c-border-strong: #8892AE;
+  --c-border-hover: #4A5D96;
+  --c-accent: #8DB0FF;
+  --c-accent-hover: #B5CBFF;
+  --c-on-accent: #0E1630;
+  --c-title: #C9D7FF;
+  --c-header: #14234F;
+  --c-footer: #0A1024;
+  --c-footer-line: #24315A;
+  --hero-1: #0E1630; --hero-2: #14203F; --hero-3: #1B2A52; --hero-dots: rgba(255, 255, 255, .05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --c-text: #E6E9F0;
+    --c-text-2: #A9B3C9;
+    --c-bg: #0E1630;
+    --c-surface: #15203F;
+    --c-border: #2B3A66;
+    --c-border-strong: #8892AE;
+    --c-border-hover: #4A5D96;
+    --c-accent: #8DB0FF;
+    --c-accent-hover: #B5CBFF;
+    --c-on-accent: #0E1630;
+    --c-title: #C9D7FF;
+    --c-header: #14234F;
+    --c-footer: #0A1024;
+    --c-footer-line: #24315A;
+    --hero-1: #0E1630; --hero-2: #14203F; --hero-3: #1B2A52; --hero-dots: rgba(255, 255, 255, .05);
+  }
 }
