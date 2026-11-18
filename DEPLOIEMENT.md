@@ -14,6 +14,7 @@ La branche `main` existe. Faites-en la branche par défaut : GitHub, dépôt, Se
 
 1. Cloudflare, Workers & Pages, Create, Import a repository.
 2. Choisir le dépôt `nathanayubu03-code/RAPDFEM` et la branche de production.
+6. Onglet Domaines, « Ajouter un domaine » : `www` puis la case vide, pour brancher `www.rapdfem.org` et `rapdfem.org`.
 3. Build command : `npm run build`. Deploy command : `npx wrangler deploy`.
 4. Dans Build variables, ajouter `NODE_VERSION` = `22.23.4` (Astro 7 refuse les versions plus anciennes).
 5. Lancer le premier déploiement. Cloudflare donne une adresse en `.workers.dev`. Notez-la.
@@ -28,7 +29,7 @@ GitHub, photo de profil, Settings, Developer settings, GitHub Apps, New GitHub A
 
 - GitHub App name : par exemple `rapdfem-admin`. Ce nom est le « slug » de l'étape 4.
 - Homepage URL : l'adresse du site.
-- Callback URL : `https://ADRESSE-DU-SITE/api/keystatic/github/oauth/callback`. Ajoutez une ligne par adresse utilisée (l'adresse `.workers.dev` et le nom de domaine définitif).
+- Callback URL (« Rediriger l'URI ») : `https://www.rapdfem.org/api/keystatic/github/oauth/callback`. La connexion à l'admin ne marche que sur l'adresse inscrite ici : c'est pourquoi l'admin s'ouvre par https://www.rapdfem.org/keystatic, avec le « www ».
 - Cocher « Request user authorization (OAuth) during installation ».
 - Webhook : décocher « Active ».
 - Repository permissions : Contents en Read and write, Metadata en Read-only, Pull requests en Read and write.

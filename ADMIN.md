@@ -2,7 +2,7 @@
 
 Ce guide explique comment modifier le site sans toucher au code. Il est écrit pour une personne qui n'a jamais fait de site web.
 
-L'administration se trouve à l'adresse du site suivie de `/keystatic`, par exemple `https://www.rapdfem.org/keystatic`.
+L'administration se trouve à l'adresse **https://www.rapdfem.org/keystatic**, avec le « www ». Sans le « www », ou par l'ancienne adresse en `workers.dev`, la page s'affiche mais la connexion échoue.
 
 ## 1. Le principe en deux phrases
 
@@ -19,12 +19,12 @@ L'administration utilise des comptes GitHub. GitHub est le service qui garde une
 1. Créez un compte gratuit sur https://github.com/signup avec votre adresse e-mail et un mot de passe de votre choix.
 2. Envoyez votre nom d'utilisateur GitHub à la personne qui gère le site.
 3. Vous recevez un e-mail « invitation to collaborate on RAPDFEM ». Cliquez sur « Accept invitation ».
-4. Ouvrez l'adresse du site suivie de `/keystatic`.
+4. Ouvrez https://www.rapdfem.org/keystatic.
 5. Cliquez sur « Log in with GitHub », puis sur « Authorize ». Cette autorisation n'est demandée qu'une fois.
 
 ### Les fois suivantes
 
-Ouvrez l'adresse `/keystatic`. Si vous êtes déjà connecté à GitHub dans ce navigateur, l'administration s'ouvre directement. Sinon, GitHub vous demande votre e-mail et votre mot de passe.
+Ouvrez https://www.rapdfem.org/keystatic. Si vous êtes déjà connecté à GitHub dans ce navigateur, l'administration s'ouvre directement. Sinon, GitHub vous demande votre e-mail et votre mot de passe.
 
 ### Donner l'accès à une nouvelle personne (pour la personne qui gère le site)
 
@@ -161,7 +161,7 @@ Suivez ces étapes dans l'ordre :
 1. **La case Publié est-elle cochée ?** Ouvrez l'élément et vérifiez.
 2. **Avez-vous cliqué sur Sauvegarder ?** Si « Unsaved » est affiché en haut, la modification n'est pas enregistrée.
 3. **Attendez cinq minutes**, puis rechargez la page du site en appuyant sur Ctrl + F5 (ou en tirant la page vers le bas sur un téléphone).
-4. **Ouvrez toujours l'administration par l'adresse qui finit par `/keystatic`**, sans rien après. N'utilisez pas un ancien favori qui contient `/branch/main` : ce qui est enregistré sur une autre branche n'est jamais publié.
+4. **Ouvrez toujours l'administration par https://www.rapdfem.org/keystatic**, avec le « www » et sans rien après. N'utilisez pas un ancien favori qui contient `/branch/main` : ce qui est enregistré sur une autre branche n'est jamais publié.
 5. **Si l'administration bloque ou affiche « Internal error »**, ouvrez-la dans une fenêtre de navigation privée (Ctrl + Maj + N). Si ça marche là, videz les données du site dans votre navigateur habituel : icône à gauche de l'adresse, « Paramètres du site », « Supprimer les données ». Puis reconnectez-vous.
 6. **Une photo n'apparaît pas alors que le reste est publié ?** Elle a sans doute été mise de côté : format HEIC, fichier abîmé, ou fichier supprimé. Supprimez-la dans l'admin et téléversez-la à nouveau en JPG.
 7. **Si rien ne marche**, la personne qui gère le site peut lire le message d'erreur exact. Sur Cloudflare : Workers & Pages, rapdfem, Deployments, puis le dernier déploiement en rouge. Le message nomme le fichier en cause.
