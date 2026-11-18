@@ -9,10 +9,13 @@ interface Props {
   sizes?: string;
   eager?: boolean;
   class?: string;
+  /** Photo affichée en pleine largeur : version 1920 px en plus, et compression plus fine. */
+  large?: boolean;
 }
-const { src, alt, sizes = '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw', eager = false, class: cls } = Astro.props;
-const widths = [360, 720, 1080, 1440].filter((w) => w <= src.width);
-if (widths.length === 0) widths.push(src.width);
+const { src, alt, sizes = '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw', eager = false, class: cls, large = false } = Astro.props;
+const widths = (large ? [360, 720, 1080, 1440, 1920] : [360, 720, 1080, 1440]).filter((w) => w <= src.width);
+// Toujours proposer aussi la taille d'origine si elle dépasse la plus grande version : rien n'est perdu sur une petite photo.
+if (widths.length === 0 || (src.width > widths[widths.length - 1] && src.width < (large ? 1920 : 1440))) widths.push(src.width);
 ---
 <Image
   src={src}
@@ -20,7 +23,7 @@ if (widths.length === 0) widths.push(src.width);
   widths={widths}
   sizes={sizes}
   format="webp"
-  quality={75}
+  quality={large ? 82 : 75}
   loading={eager ? 'eager' : 'lazy'}
   fetchpriority={eager ? 'high' : undefined}
   class={cls}

@@ -74,7 +74,7 @@ const logoFond = (lang === 'en' && settings.logoEn.image) || settings.logo.image
     {/* 3. Qui sommes-nous : fond bleu dégradé posé sur la photo d'accueil. */}
     {(pick(p.statut, lang) || pick(p.mission, lang) || pick(p.vision, lang)) && (
       <section class="sec about-sec" id={p.chiffres.length > 0 ? undefined : 'suite'}>
-        {p.imageAccueil.image && <div class="about-photo" aria-hidden="true"><Img src={p.imageAccueil.image} alt="" sizes="100vw" /></div>}
+        {p.imageAccueil.image && <div class="about-photo" aria-hidden="true"><Img src={p.imageAccueil.image} alt="" sizes="100vw" large /></div>}
         <div class="wrap stack-l about">
           <div class="stack">
             <h2>{t(lang, 'home.about')}</h2>
