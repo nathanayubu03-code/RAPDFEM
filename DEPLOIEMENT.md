@@ -14,10 +14,10 @@ La branche `main` existe. Faites-en la branche par défaut : GitHub, dépôt, Se
 
 1. Cloudflare, Workers & Pages, Create, Import a repository.
 2. Choisir le dépôt `nathanayubu03-code/RAPDFEM` et la branche de production.
-6. Onglet Domaines, « Ajouter un domaine » : `www` puis la case vide, pour brancher `www.rapdfem.org` et `rapdfem.org`.
 3. Build command : `npm run build`. Deploy command : `npx wrangler deploy`.
 4. Dans Build variables, ajouter `NODE_VERSION` = `22.23.4` (Astro 7 refuse les versions plus anciennes).
 5. Lancer le premier déploiement. Cloudflare donne une adresse en `.workers.dev`. Notez-la.
+6. Onglet Domaines, « Ajouter un domaine » : `www` puis la case vide, pour brancher `www.rapdfem.org` et `rapdfem.org`.
 
 Le stockage KV nommé `SESSION` est créé automatiquement au premier déploiement.
 
