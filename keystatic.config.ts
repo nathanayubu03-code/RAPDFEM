@@ -4,7 +4,7 @@ import { collection, config, fields, singleton } from '@keystatic/core';
 /* Briques communes                                                    */
 /* ------------------------------------------------------------------ */
 
-const AIDE_IMAGE = 'Photo JPG, PNG ou WebP, 3 Mo conseillés. Les photos iPhone au format HEIC ne sont pas lisibles : choisissez « Le plus compatible » dans les réglages Appareil photo, ou envoyez la photo par WhatsApp avant de la téléverser.';
+const AIDE_IMAGE = 'Photo JPG, PNG ou WebP, au moins 2 000 pixels de large, 1 à 3 Mo conseillés. Évitez les captures d\'écran et les photos reçues par WhatsApp : souvent trop petites, elles paraissent floues. Les photos iPhone au format HEIC ne sont pas lisibles : choisissez « Le plus compatible » dans Réglages, Appareil photo, Formats.';
 const AIDE_PDF = 'PDF de 10 Mo conseillés, 25 Mo au maximum.';
 
 /** Nom de fichier sans espaces ni accents : « Photo Été 2025.JPG » devient « photo-ete-2025.jpg ». */
